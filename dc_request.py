@@ -15,7 +15,13 @@ while True:
     }
         
     # HTTP Post Request: requests대신 s 객체를 사용한다.
-    req = s.post('https://m.dcinside.com/board/baseball_new9',headers=headers)
+    
+    # 아래는 갤러리 목록이다.
+    # leagueoflegends3
+    # jusik
+    # baseball_new9
+    # aoegame
+    req = s.post('https://m.dcinside.com/board/leagueoflegends3',headers=headers)
 
     ## HTML 소스 가져오기
     html = req.text
@@ -62,7 +68,7 @@ while True:
 
     ## 위에서 가져온 인덱스만큼 기존 게시글 목록에 추가함
     f1 = open('test1.txt', mode='a', encoding='utf-8')
-    for i in range(index-1, 0,-1):
+    for i in range(index-1, -1,-1):
         print(allData[i])
         f1.write(allData[i])
     f1.close()
@@ -75,4 +81,4 @@ while True:
         break
 
     ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    time.sleep(60)
+    time.sleep(6)
