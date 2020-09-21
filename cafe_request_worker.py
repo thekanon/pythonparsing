@@ -20,7 +20,7 @@ while True:
     # Lp0T 자유게시판
     # W17m 직장인 게시판
     # USlJ 중계 게시판
-    req = s.get('https://m.cafe.daum.net/subdued20club/Lp0T',headers=headers)
+    req = s.get('https://m.cafe.daum.net/subdued20club/USlJ',headers=headers)
 
     ## HTML 소스 가져오기
     html = req.text
@@ -78,4 +78,4 @@ while True:
         break
 
     # ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    time.sleep(60)
+    time.sleep(6)

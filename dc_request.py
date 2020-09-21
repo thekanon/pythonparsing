@@ -81,4 +81,4 @@ while True:
         break
 
     ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    time.sleep(6)
+    time.sleep(10)
