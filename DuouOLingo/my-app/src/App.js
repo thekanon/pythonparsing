@@ -1,18 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-function TitleList(props,props2) {
+function TitleList(props) {
     const numbers = props.numbers;
-    const numbers2 = props.numbers2;
-    debugger
-    const listItems = numbers.map((number) =>
-        <li>{number}</li>  
-    );  return (<ul>{listItems}</ul>);
-}
-function DiscriptionList(props) {
-    const numbers = props.numbers;
-    const listItems = numbers.map((number) =>    <li>{number}</li>  );  return (
-      <ul>{listItems}</ul>  );
+    
+    const listItems = numbers.map((number,index) =>{
+        return <div key={index}><li id={"newsLi"+index}>{number[0]}</li><li id={"newsLi"+(index+1)}>{number[1]}</li><br /></div>
+    });
+    return (<ul id="ulId">{listItems}</ul>);
 }
   
 class App extends React.Component {
@@ -53,11 +48,12 @@ class App extends React.Component {
                 <main>
                     <div className="BBC-List">
                         <h1>Please write in Korean.</h1>
+                        <TitleList numbers={news} />
+
                         <ul >
                             <li>title</li>
                             <li>discription</li>
                         </ul>
-                            <TitleList numbers={news} />
                         <ul>
                             <li>title3</li>
                             <li>discription3</li>
