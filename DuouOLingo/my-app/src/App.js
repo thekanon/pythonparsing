@@ -9,13 +9,25 @@ function NewsDataList(props) {
         console.log(e.target.parentElement.getElementsByTagName("li")[1].textContent);
         props.onClick(e)
     }
+    function resetClick(e) {
+        console.log(props)
+        var idx = parseInt(e.target.parentElement.getAttribute("index"))
+        numbers[idx][2] =""
+        numbers[idx][3] =""
+        props.onReset(e)
+    }
     const listItems = numbers.map((number,index) =>{
-        return <div key={index}>
+        return <div key={index} index={index}>
             <li id={"newsLi"+index+"_0"}>{number[0]}</li>
             <li id={"newsLi"+index+"_1"}>{number[1]}</li>
             <li id={"newsLi"+index+"_1"}>{number[2]}</li>
             <li id={"newsLi"+index+"_1"}>{number[3]}</li>
-            <button id={"newsBtn"+index} onClick={handleClick}>번역</button><br /></div>
+            <div>{
+                ()=> {
+                    return <button>aaa</button>;
+                }
+            }</div>
+            <button id={"newsBtn"+index} onClick={handleClick}>번역</button><button id={"resetBtn"+index} onClick={resetClick}>원본보기</button><br /></div>
     });
     return (<ul id="ulId">{listItems}</ul>);
 }
@@ -31,19 +43,40 @@ class App extends React.Component {
     }      
     callTranslate = async (e) => {
         // const response = await (await fetch('http://localhost:3000/viewNews')).json()
-        var hardData = "1."+e.target.parentElement.getElementsByTagName("li")[0].textContent+"1."+e.target.parentElement.getElementsByTagName("li")[1].textContent
-        const response = await fetch('http://localhost:3000/translate/',{
+        var idx = parseInt(e.target.parentElement.getAttribute("index"))
+        var hardData = "\n"+e.target.parentElement.getElementsByTagName("li")[0].textContent+"\n"+e.target.parentElement.getElementsByTagName("li")[1].textContent
+        const response = await (await fetch('http://localhost:3000/translate/',{
             method : "POST",
             body:JSON.stringify({data:hardData}),
             headers:{
                 'Content-Type': 'application/json'
             }            
-        })
-        // this.setState({ translateList: response.message.result.translatedText });
+        })).json()
+        var newTranslateList = this.state.newsList;
+        newTranslateList[idx][2] = this.shake_it_String(response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][3] = this.shake_it_String(response.message.result.translatedText.split("\n")[1])
+        newTranslateList[idx][4] = (response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][5] = (response.message.result.translatedText.split("\n")[1])
+        this.setState({ translateList: newTranslateList });
         // this.setState({ translateList: response.message.result.translatedText});
-        // console.log(response.message.result.translatedText)
         console.log(response)
+        // console.log(response)
     }    
+    shake_it_String(str){
+        //Fisher–Yates shuffle 알고리즘
+        var arr = str.split(" ");
+        var newArr = [];
+        console.log(arr);
+        for(var i=arr.length-1;i>=0;i--){
+            var ranIdx = parseInt(Math.random()*i)
+            var tmp;
+            tmp = arr[ranIdx]
+            arr[ranIdx] = arr[i];
+            arr[i] = tmp;
+        }
+        console.log(arr);
+        return arr;
+    }
     componentDidMount() {
         this.callAPI()
     }
@@ -52,19 +85,21 @@ class App extends React.Component {
         // 1const response = await fetch('http://localhost:3000/translate')
         if(response.length == 0){
             var hardData = [
-                ["House Lawmakers Condemn Big Tech’s ‘Monopoly Power’ and Urge Their Breakups","In a report led by Democrats, lawmakers said Apple, Amazon, Google and Facebook needed to be checked and recommended they be restructured and that antitrust laws be reformed.","",""],
-                ["12 Accusations in the Damning House Report on Amazon, Apple, Facebook and Google","Lawmakers said they found multiple problems with each of the four giant tech companies.","",""],
-                ["Facebook Amps Up Its Crackdown on QAnon","The company said an earlier effort to curb the conspiracy movement’s growth didn’t properly address its increasing popularity.","",""],
-                ["WeChat Unites and Divides in America","The app, which unites families but also spreads Chinese propaganda, faces a ban in the United States.","",""],
-                ["Trump Moves to Tighten Visa Access for High-Skilled Foreign Workers","Four weeks before the election, the Trump administration has announced stricter rules for the H-1B visa program, which U.S. companies have long valued.","",""],
-                ["No, the Coronavirus Is Not Like the Flu","Experts have said repeatedly that the coronavirus poses a far more serious threat than influenza viruses.","",""],
-                ["Seeking a Partner for the End of the World","Anticipating ugly months to come, Americans are dating with an intention that some experts say that they haven’t seen before.","",""],
-                ["Big Tech Was Their Enemy, Until Partisanship Fractured the Battle Plans","A House report on how to limit the reach of Apple, Amazon, Google and Facebook has been delayed as Democrats and Republicans split on remedies.","",""]
+                ["House Lawmakers Condemn Big Tech’s ‘Monopoly Power’ and Urge Their Breakups","In a report led by Democrats, lawmakers said Apple, Amazon, Google and Facebook needed to be checked and recommended they be restructured and that antitrust laws be reformed.","","","",""],
+                ["12 Accusations in the Damning House Report on Amazon, Apple, Facebook and Google","Lawmakers said they found multiple problems with each of the four giant tech companies.","","","",""],
+                ["Facebook Amps Up Its Crackdown on QAnon","The company said an earlier effort to curb the conspiracy movement’s growth didn’t properly address its increasing popularity.","","","",""],
+                ["WeChat Unites and Divides in America","The app, which unites families but also spreads Chinese propaganda, faces a ban in the United States.","","","",""],
+                ["Trump Moves to Tighten Visa Access for High-Skilled Foreign Workers","Four weeks before the election, the Trump administration has announced stricter rules for the H-1B visa program, which U.S. companies have long valued.","","","",""],
+                ["No, the Coronavirus Is Not Like the Flu","Experts have said repeatedly that the coronavirus poses a far more serious threat than influenza viruses.","","","",""],
+                ["Seeking a Partner for the End of the World","Anticipating ugly months to come, Americans are dating with an intention that some experts say that they haven’t seen before.","","","",""],
+                ["Big Tech Was Their Enemy, Until Partisanship Fractured the Battle Plans","A House report on how to limit the reach of Apple, Amazon, Google and Facebook has been delayed as Democrats and Republicans split on remedies.","","","",""]
             ]
             this.setState({ newsList: hardData });
         }
         else{
             for(var i=0;i<response.length;i++){
+                response[i].push("")
+                response[i].push("")
                 response[i].push("")
                 response[i].push("")
             }

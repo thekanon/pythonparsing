@@ -24,6 +24,12 @@
 .BBC-List li:nth-child(2){
   font-variant-caps: petite-caps;
 }
+.BBC-List li:nth-child(3){
+  font-weight: bold;
+}
+.BBC-List li:nth-child(4){
+  font-variant-caps: petite-caps;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
