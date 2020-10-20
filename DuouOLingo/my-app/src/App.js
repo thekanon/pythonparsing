@@ -9,30 +9,28 @@ function NewsDataList(props) {
         props.onClick(e)
     }
     function resetClick(e) {
-        console.log(props)
         props.onReset(e)
     }
-    function callInputButton(e){
-        props.onInput(e);
+    function callInputButton(e,index){
+        props.onInput(e,index);
     }
-    function viewAnswer(arr){
-        console.log(arr)
-        // var str = "";
+    function viewAnswer(arr,buttonArr){
+        var str = "";
 
-        // for(var i=0;i<arr.length;i++){
-        //     str += numbers
-        // }
-        return arr
+        for(var i=0;i<arr.length;i++){
+            str += buttonArr[arr[i]]+" ";
+        }
+        return str
     }
     const listItems = numbers.map((number,index) =>{
         var buttonList1 =""
         var buttonList2 =""
         if(number[2].length > 0 && number[6][0]) {
             buttonList1 = number[2].map((number,index) =>{
-                return <button id={"shuffleBtn1_"+index} index={index} key={"shuffleBtn1_"+index} onClick={callInputButton}>{number}</button>
+                return <button id={"shuffleBtn1_"+index} index={index} key={"shuffleBtn1_"+index} onClick={(e) => callInputButton(e,index)}>{number}</button>
             });    
             buttonList2 = number[3].map((number,index) =>{
-                return <button id={"shuffleBtn2_"+index} index={index} key={"shuffleBtn2_"+index} onClick={callInputButton}>{number}</button>
+                return <button id={"shuffleBtn2_"+index} index={index} key={"shuffleBtn2_"+index} onClick={(e) => callInputButton(e,index)}>{number}</button>
             });
         }
         return <div key={index} index={index}>
@@ -43,7 +41,7 @@ function NewsDataList(props) {
             <li id={"newsLi"+index+"_2"}>{number[6][1] ? number[4]: ""}</li>
             <li id={"newsLi"+index+"_3"}>{number[6][1] ? number[5]: ""}</li>
             <button id={"newsBtn"+index} onClick={handleClick}>해석하기</button><button id={"resetBtn"+index} onClick={resetClick}>원본보기</button><br />
-            <text>{viewAnswer(number[7])}</text>
+            <text>{viewAnswer(number[7],number[2])}</text>
             </div>
     });
     return (<ul id="ulId">{listItems}</ul>);
@@ -65,7 +63,8 @@ class App extends React.Component {
             newsList[6][0] : (true / false) show/hide translate shuffle title, description
             newsList[6][1] : (true / false) show/hide translate title, description
 
-            newsList[7] : user Input
+            newsList[7] : user Title Input
+            newsList[8] : user Description Input
         */
         this.state = {
             newsList: [],
@@ -93,11 +92,14 @@ class App extends React.Component {
         console.log(response)
         // console.log(response)
     }
-    callInputButton = async (e) => {
-        console.log(e)
+    callInputButton = async (e,index) => {
         var idx = parseInt(e.target.parentElement.parentElement.getAttribute("index"))
         var newTranslateList = this.state.newsList;
-        newTranslateList[idx][7].push(e.target.textContent);
+
+        if(newTranslateList[idx][7].indexOf(index) != -1)
+            newTranslateList[idx][7].splice(newTranslateList[idx][7].indexOf(index), 1);
+        else
+            newTranslateList[idx][7].push(index);
         this.setState({ newsList: newTranslateList });
     }
     callOrgData = async (e) => {
