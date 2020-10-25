@@ -12,6 +12,32 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.question {
+    width: 60%;
+    margin: auto;
+}
+.question-data {
+    text-align: initial;
+}
+.question-input {
+    border-bottom-style: dotted;
+    width: fit-content;
+}
+button {
+    font-size: 15px;
+    height: 35px;
+    border-radius: 12px;
+}
+button {
+    transition-duration: 0.4s;
+}
+button:hover {
+    visibility: hidden;
+}
+.question-output {
+    border-bottom-style: dotted;
+    width: fit-content;
+}
 .BBC-List li {
   list-style: none;
 }

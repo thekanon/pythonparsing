@@ -189,6 +189,45 @@ class App extends React.Component {
                 <header>
                 </header>
                 <main>
+                    <div className="question">
+                        <div>
+                            <h1>한국어로 번역하세요.</h1>
+                        </div>
+                        <div className="question-data">
+                            <div>
+                                <span>School meals: Cabinet minister defends refusal to extend holiday scheme</span><br></br>
+                                <span>Giving money to councils is the "right way" to support families in need, a cabinet minister says.</span>
+                            </div>
+                            <div>
+                                <div className="question-input">
+                                    <button>School</button>
+                                    <button>meals:</button>
+                                    <button>Cabinet</button>
+                                    <button>minister</button>
+                                    <button>defends</button>
+                                    <button>refusal</button>
+                                    <button>to</button>
+                                    <button>extend</button>
+                                    <button>holiday</button>
+                                    <button>scheme</button>
+                                </div>
+                                <div className="question-output">
+                                    <button>School</button>
+                                    <button>meals:</button>
+                                    <button>Cabinet</button>
+                                    <button>minister</button>
+                                    <button>defends</button>
+                                    <button>refusal</button>
+                                    <button>to</button>
+                                    <button>extend</button>
+                                    <button>holiday</button>
+                                    <button>scheme</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>                        
+
                     <div className="BBC-List">
                         <h1>Please write in Korean.</h1>
                         <NewsDataList numbers={this.state.newsList} onInput={this.callInputButton} onClick={this.callTranData} onReset={this.callOrgData} translateList={this.state.translateList} />
