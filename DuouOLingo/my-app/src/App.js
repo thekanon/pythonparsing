@@ -47,6 +47,75 @@ function NewsDataList(props) {
     });
     return (<ul id="ulId">{listItems}</ul>);
 }
+function Question(props) {
+    const numbers = props.numbers;
+    const index = props.selectIndex
+    return <div>
+                <span id={"newsLi"+"_0"}>{numbers=="" ? "" : numbers[index][0]}</span><br></br>
+                <span id={"newsLi"+"_1"}>{numbers=="" ? "" : numbers[index][1]}</span>
+            </div>
+}
+function ButtonList(props){
+    const numbers = props.numbers;
+    const index = props.selectIndex
+    const className = props.className
+
+    // if(className =="question-input")
+    //     props.onInput(e,index,0);
+    // else 
+    //     props.onInput(e,index,1);
+    function callInputButtonIdx(e,cIdx,rIdx){
+         props.onInput(index,cIdx,rIdx)
+    }
+    var buttonList1 =""
+    var buttonList2 =""
+    if(numbers!="" && numbers[index][2].length > 0) {
+        buttonList1 = numbers[index][2].map((number,idx) =>{
+            if(props.numbers[index][7].indexOf(idx) == -1)
+                return <button id={"shuffleBtn1_"+idx} index={idx} key={"shuffleBtn1_"+idx} onClick={(e) => callInputButtonIdx(e,idx,0)}>{number}</button>
+            else
+                return ""
+        });    
+        buttonList2 = numbers[index][3].map((number,idx) =>{
+            if(props.numbers[index][8].indexOf(idx) == -1)
+                return <button id={"shuffleBtn2_"+idx} index={idx} key={"shuffleBtn2_"+idx} onClick={(e) => callInputButtonIdx(e,idx,1)}>{number}</button>
+            else
+                return ""
+        });
+
+        console.log(numbers[index])
+    }   
+
+    return <div className={className}>
+                <div>{buttonList1}</div>
+                <div>{buttonList2}</div>
+            </div>
+}
+function Answer(props) {
+    const numbers = props.numbers;
+    const index = props.selectIndex
+
+    function callInputButtonIdx(e,cIdx,rIdx){
+
+    }
+
+    function viewAnswer(arr,buttonArr){
+        var str = "";
+
+        str = arr.map((element) =>{
+            return <button onClick={(e) => callInputButtonIdx(e,index,0)}>{buttonArr[element]}</button>
+        });
+        console.log(str);
+        return <div>{str}</div>
+    }
+
+
+    return <div>
+                <div>{numbers=="" ? "" : viewAnswer(numbers[index][7],numbers[index][2])}</div>
+                <div>{numbers=="" ? "" : viewAnswer(numbers[index][8],numbers[index][3])}</div>
+            </div>
+
+}
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -70,7 +139,8 @@ class App extends React.Component {
         this.state = {
             newsList: [],
             title: '',
-            discription: ''
+            discription: '',
+            selectIndex: 0
         }
     }      
     callTranslate = async (e) => {
@@ -93,6 +163,33 @@ class App extends React.Component {
         console.log(response)
         // console.log(response)
     }
+    callTranslateIdx = async (idx) => {
+        // const response = await (await fetch('http://localhost:3000/viewNews')).json()
+        var hardData = "\n"+this.state.newsList[idx][0]+"\n"+this.state.newsList[idx][1]
+        const response = await (await fetch('http://localhost:3000/translate/',{
+            method : "POST",
+            body:JSON.stringify({data:hardData}),
+            headers:{
+                'Content-Type': 'application/json'
+            }            
+        })).json()
+        var newTranslateList = this.state.newsList;
+        newTranslateList[idx][2] = this.shake_it_String(response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][3] = this.shake_it_String(response.message.result.translatedText.split("\n")[1])
+        newTranslateList[idx][4] = (response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][5] = (response.message.result.translatedText.split("\n")[1])
+        this.setState({ newsList: newTranslateList });
+        console.log(response)
+        // console.log(response)
+    }
+    callInputButtonIdx = async (idx,index,rIdx) => {
+        var newTranslateList = this.state.newsList;
+        if(newTranslateList[idx][7+rIdx].indexOf(index) != -1)
+            newTranslateList[idx][7+rIdx].splice(newTranslateList[idx][7+rIdx].indexOf(index), 1);
+        else
+            newTranslateList[idx][7+rIdx].push(index);
+        this.setState({ newsList: newTranslateList });
+    }
     callInputButton = async (e,index,rIdx) => {
         var idx = parseInt(e.target.parentElement.parentElement.getAttribute("index"))
         var newTranslateList = this.state.newsList;
@@ -105,6 +202,12 @@ class App extends React.Component {
             newTranslateList[idx][7+rIdx].push(index);
         this.setState({ newsList: newTranslateList });
     }
+    callOutputButton = async (e) => {
+        numbers[index][7+rIdx].splice(cIdx,1);
+        
+        this.setState({ newsList: numbers });
+    }
+
     callOrgData = async (e) => {
         var idx = parseInt(e.target.parentElement.getAttribute("index"))
         var newTranslateList = this.state.newsList;
@@ -114,11 +217,10 @@ class App extends React.Component {
         newTranslateList[idx][6][1] = newTranslateList[idx][6][1] ? false :true
         this.setState({ newsList: newTranslateList });
     }
-    callTranData = async (e) => {
-        var idx = parseInt(e.target.parentElement.getAttribute("index"))
+    callTranDataIdx = async (idx) => {
         var newTranslateList = this.state.newsList;
         if(newTranslateList[idx][2] === ""){
-            this.callTranslate(e)
+            this.callTranslateIdx(idx)
         }
         newTranslateList[idx][6][0] = newTranslateList[idx][6][0] ? false :true
         newTranslateList[idx][7] = []
@@ -169,6 +271,7 @@ class App extends React.Component {
             }
             this.setState({ newsList: response });
         }
+        this.callTranslateIdx(this.state.selectIndex)
         console.log(response)    
     }
     update() {
@@ -194,35 +297,27 @@ class App extends React.Component {
                             <h1>한국어로 번역하세요.</h1>
                         </div>
                         <div className="question-data">
+                            <Question 
+                                selectIndex={this.state.selectIndex}
+                                numbers={this.state.newsList} 
+                            >
+                            </Question>
                             <div>
-                                <span>School meals: Cabinet minister defends refusal to extend holiday scheme</span><br></br>
-                                <span>Giving money to councils is the "right way" to support families in need, a cabinet minister says.</span>
+                                <Answer 
+                                    numbers={this.state.newsList}
+                                    selectIndex={this.state.selectIndex}
+                                />
+                                <ButtonList
+                                    numbers={this.state.newsList}
+                                    selectIndex={this.state.selectIndex}
+                                    onInput={this.callInputButtonIdx} 
+                                    className="question-output"
+                                />
                             </div>
-                            <div>
-                                <div className="question-input">
-                                    <button>School</button>
-                                    <button>meals:</button>
-                                    <button>Cabinet</button>
-                                    <button>minister</button>
-                                    <button>defends</button>
-                                    <button>refusal</button>
-                                    <button>to</button>
-                                    <button>extend</button>
-                                    <button>holiday</button>
-                                    <button>scheme</button>
-                                </div>
-                                <div className="question-output">
-                                    <button>School</button>
-                                    <button>meals:</button>
-                                    <button>Cabinet</button>
-                                    <button>minister</button>
-                                    <button>defends</button>
-                                    <button>refusal</button>
-                                    <button>to</button>
-                                    <button>extend</button>
-                                    <button>holiday</button>
-                                    <button>scheme</button>
-                                </div>
+                            <div className="bottom">
+                                <button>미제출(해석보기)</button>
+                                <button>제출</button>
+                                
 
                             </div>
                         </div>
@@ -230,7 +325,12 @@ class App extends React.Component {
 
                     <div className="BBC-List">
                         <h1>Please write in Korean.</h1>
-                        <NewsDataList numbers={this.state.newsList} onInput={this.callInputButton} onClick={this.callTranData} onReset={this.callOrgData} translateList={this.state.translateList} />
+                        <NewsDataList 
+                            numbers={this.state.newsList} 
+                            onInput={this.callInputButton} 
+                            onClick={this.callTranData} 
+                            onReset={this.callOrgData} 
+                            translateList={this.state.translateList} />
 
                         <ul >
                             <li>title</li>

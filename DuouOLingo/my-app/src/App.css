@@ -13,30 +13,44 @@
   }
 }
 .question {
-    width: 60%;
+    width: 90%;
     margin: auto;
 }
 .question-data {
     text-align: initial;
 }
+.question-output button {
+  margin: 5px;
+  border: 1px solid;
+}
+.question-input button{
+  border-bottom:dotted
+}
 .question-input {
-    border-bottom-style: dotted;
     width: fit-content;
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+.question-output {
+  border: 1px solid;
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
 }
 button {
     font-size: 15px;
     height: 35px;
     border-radius: 12px;
-}
-button {
-    transition-duration: 0.4s;
-}
+    transition: color 2s;
+    background: white;
+    outline:0px;
+    margin: 2px;
+  }
 button:hover {
-    visibility: hidden;
+  background: gray;
 }
-.question-output {
-    border-bottom-style: dotted;
-    width: fit-content;
+.bottom {
+  display: grid;
 }
 .BBC-List li {
   list-style: none;
