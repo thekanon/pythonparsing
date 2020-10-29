@@ -1,5 +1,52 @@
 import React from 'react';
 import './App.css';
+function NewsDataList(props) {
+    const numbers = props.numbers;
+    function handleClick(e) {
+        console.log(props)
+        console.log(e.target.parentElement.getElementsByTagName("li")[0].textContent);
+        console.log(e.target.parentElement.getElementsByTagName("li")[1].textContent);
+        props.onClick(e)
+    }
+    function resetClick(e) {
+        props.onReset(e)
+    }
+    function callInputButton(e,index,rIdx){
+        props.onInput(e,index,rIdx);
+    }
+    function viewAnswer(arr,buttonArr){
+        var str = "";
+
+        for(var i=0;i<arr.length;i++){
+            str += buttonArr[arr[i]]+" ";
+        }
+        return str
+    }
+    const listItems = numbers.map((number,index) =>{
+        var buttonList1 =""
+        var buttonList2 =""
+        if(number[2].length > 0 && number[6][0]) {
+            buttonList1 = number[2].map((number,index) =>{
+                return <button id={"shuffleBtn1_"+index} index={index} key={"shuffleBtn1_"+index} onClick={(e) => callInputButton(e,index,0)}>{number}</button>
+            });    
+            buttonList2 = number[3].map((number,index) =>{
+                return <button id={"shuffleBtn2_"+index} index={index} key={"shuffleBtn2_"+index} onClick={(e) => callInputButton(e,index,1)}>{number}</button>
+            });
+        }
+        return <div key={index} index={index}>
+            <li id={"newsLi"+index+"_0"}>{number[0]}</li>
+            <li id={"newsLi"+index+"_1"}>{number[1]}</li>
+            <div>{buttonList1}</div>
+            <div>{buttonList2}</div>
+            <li id={"newsLi"+index+"_2"}>{number[6][1] ? number[4]: ""}</li>
+            <li id={"newsLi"+index+"_3"}>{number[6][1] ? number[5]: ""}</li>
+            <button id={"newsBtn"+index} onClick={handleClick}>해석하기</button><button id={"resetBtn"+index} onClick={resetClick}>원본보기</button><br />
+            <div><text>{viewAnswer(number[7],number[2])}</text></div>
+            <div><text>{viewAnswer(number[8],number[3])}</text></div>
+            </div>
+    });
+    return (<ul id="ulId">{listItems}</ul>);
+}
 function Question(props) {
     const numbers = props.numbers;
     const index = props.selectIndex
@@ -25,24 +72,22 @@ function ButtonList(props){
     if(numbers!="" && numbers[index][2].length > 0) {
         buttonList1 = numbers[index][2].map((number,idx) =>{
             if(props.numbers[index][7].indexOf(idx) == -1)
-                return <button id={"shuffleBtn1_"+idx} index={idx} key={"shuffleBtn1_"+idx} onClick={(e) => callInputButtonIdx(e,idx,0)}>{number}</button>
+                return <button id={"shuffleBtn1_"+idx} index={idx} key={"shuffleBtn1_"+idx} draggable="true" onClick={(e) => callInputButtonIdx(e,idx,0)}>{number}</button>
             else
                 return ""
         });    
         buttonList2 = numbers[index][3].map((number,idx) =>{
             if(props.numbers[index][8].indexOf(idx) == -1)
-                return <button id={"shuffleBtn2_"+idx} index={idx} key={"shuffleBtn2_"+idx} onClick={(e) => callInputButtonIdx(e,idx,1)}>{number}</button>
+                return <button id={"shuffleBtn2_"+idx} index={idx} key={"shuffleBtn2_"+idx} draggable="true" onClick={(e) => callInputButtonIdx(e,idx,1)}>{number}</button>
             else
                 return ""
         });
 
         console.log(numbers[index])
     }   
-    let line = (buttonList1 =="" && buttonList2 == "") ? <hr></hr> : "";
-    
+
     return <div className={className}>
-                <div>{buttonList1}</div>
-                <div>{line}</div>
+                <div>{buttonList1}</div><hr></hr>
                 <div>{buttonList2}</div>
             </div>
 }
@@ -54,17 +99,12 @@ function Answer(props) {
         props.onOutput(index,cIdx,rIdx)
     }
 
-    function ondragover(e){
-        console.log(e.dataTransfer);
-    }
-
-
     function viewAnswer(arr,buttonArr,rIdx){
         var str = "";
         
 
         str = arr.map((element,index) =>{
-            return <button onClick={(e) => callOutputButtonIdx(e,index,rIdx)} onDragOver={(e) => ondragover(e)} draggable="true" key={index}>{buttonArr[element]}</button>
+            return <button onClick={(e) => callOutputButtonIdx(e,index,rIdx)}>{buttonArr[element]}</button>
         });
         console.log(str);
         return <div>{str}</div>
@@ -108,6 +148,26 @@ class App extends React.Component {
             selectIndex: 0
         }
     }      
+    callTranslate = async (e) => {
+        // const response = await (await fetch('http://localhost:3000/viewNews')).json()
+        var idx = parseInt(e.target.parentElement.getAttribute("index"))
+        var hardData = "\n"+e.target.parentElement.getElementsByTagName("li")[0].textContent+"\n"+e.target.parentElement.getElementsByTagName("li")[1].textContent
+        const response = await (await fetch('http://localhost:3000/translate/',{
+            method : "POST",
+            body:JSON.stringify({data:hardData}),
+            headers:{
+                'Content-Type': 'application/json'
+            }            
+        })).json()
+        var newTranslateList = this.state.newsList;
+        newTranslateList[idx][2] = this.shake_it_String(response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][3] = this.shake_it_String(response.message.result.translatedText.split("\n")[1])
+        newTranslateList[idx][4] = (response.message.result.translatedText.split("\n")[0])
+        newTranslateList[idx][5] = (response.message.result.translatedText.split("\n")[1])
+        this.setState({ newsList: newTranslateList });
+        console.log(response)
+        // console.log(response)
+    }
     callTranslateIdx = async (idx) => {
         // const response = await (await fetch('http://localhost:3000/viewNews')).json()
         var hardData = "\n"+this.state.newsList[idx][0]+"\n"+this.state.newsList[idx][1]
@@ -135,11 +195,33 @@ class App extends React.Component {
             newTranslateList[idx][7+rIdx].push(index);
         this.setState({ newsList: newTranslateList });
     }
+    callInputButton = async (e,index,rIdx) => {
+        var idx = parseInt(e.target.parentElement.parentElement.getAttribute("index"))
+        var newTranslateList = this.state.newsList;
+
+        console.log(e)
+
+        if(newTranslateList[idx][7+rIdx].indexOf(index) != -1)
+            newTranslateList[idx][7+rIdx].splice(newTranslateList[idx][7+rIdx].indexOf(index), 1);
+        else
+            newTranslateList[idx][7+rIdx].push(index);
+        this.setState({ newsList: newTranslateList });
+    }
     callOutputButtonIdx = async (index,cIdx,rIdx) => {
         const numbers = this.state.newsList
         numbers[index][7+rIdx].splice(cIdx,1);
         console.log(numbers[index][7+rIdx])
         this.setState({ newsList: numbers });
+    }
+
+    callOrgData = async (e) => {
+        var idx = parseInt(e.target.parentElement.getAttribute("index"))
+        var newTranslateList = this.state.newsList;
+        if(newTranslateList[idx][2] === ""){
+            this.callTranslate(e)
+        }
+        newTranslateList[idx][6][1] = newTranslateList[idx][6][1] ? false :true
+        this.setState({ newsList: newTranslateList });
     }
     callTranDataIdx = async (idx) => {
         var newTranslateList = this.state.newsList;
@@ -204,6 +286,12 @@ class App extends React.Component {
         this.callTranslateIdx(this.state.selectIndex)
         console.log(response)    
     }
+    update() {
+        this.setState({
+            newStuff: true
+        });
+    }
+    
     render() {
         var news = [];
         const newsList = this.state.newsList
@@ -232,9 +320,9 @@ class App extends React.Component {
                             />
                         </div>                        
                     </div>                        
-                    {/* <div draggable="true" ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged')">
+                    <div draggable="true" ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged')">
                     This text <strong>may</strong> be dragged.
-                    </div> */}
+                    </div>
                     {/* <div className="BBC-List">
                         <h1>Please write in Korean.</h1>
                         <NewsDataList 

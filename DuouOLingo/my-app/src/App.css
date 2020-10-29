@@ -1,7 +1,6 @@
 .App {
   text-align: center;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,12 +11,20 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.question {
-    width: 90%;
-    margin: auto;
+body {
+  background: black;
+}
+.mainContainer {
+  width: 90%;
+  margin: auto
 }
 .question-data {
-    text-align: initial;
+  padding: 7px;
+  text-align: initial;
+  margin-top: 20px;
+  font-style: italic;
+  background-color: #6dff4a;
+  border-radius: 10px;
 }
 .question-output button {
   margin: 5px;
@@ -38,20 +45,26 @@
   text-align: center;
 }
 button {
-    font-size: 15px;
-    height: 35px;
-    border-radius: 12px;
-    transition: color 2s;
-    background: white;
-    outline:0px;
-    margin: 2px;
-  }
+  font-size: 15px;
+  height: 35px;
+  border-radius: 12px;
+  transition: color 2s;
+  background: #3c3a3a;
+  outline: 0px;
+  margin: 2px;
+  color: #f3f3f3;
+  border: none;
+}
 button:hover {
   background: gray;
 }
 .bottom {
   display: grid;
 }
+#newsLi_0 {
+  font-weight:bold;
+}
+
 .BBC-List li {
   list-style: none;
 }
@@ -76,7 +89,24 @@ button:hover {
 .BBC-List li:nth-child(6){
   font-variant-caps: petite-caps;
 }
-  
+.answer-data {
+  text-align: left;
+  margin-top: 15px;
+  border-radius: 10px;
+  background: #181818;
+  padding: 5px;
+}
+.answer-input {
+  padding-bottom: 15px;
+}
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  color: white;
+  background: #80808030;
+}  
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
