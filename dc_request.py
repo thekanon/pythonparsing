@@ -21,7 +21,8 @@ while True:
     # jusik
     # baseball_new9
     # aoegame
-    req = s.post('https://m.dcinside.com/board/leagueoflegends3',headers=headers)
+    # hiphop
+    req = s.post('https://m.dcinside.com/board/hiphop',headers=headers)
 
     ## HTML 소스 가져오기
     html = req.text
