@@ -99,6 +99,12 @@ button:hover {
 .answer-input {
   padding-bottom: 15px;
 }
+.answer-button {
+  display: flex;
+}
+.answer-button button {
+  width:50%
+}
 footer {
   width: 100%;
   position: absolute;

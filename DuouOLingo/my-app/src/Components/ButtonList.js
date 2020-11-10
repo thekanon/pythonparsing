@@ -22,7 +22,6 @@ function ButtonList(props) {
             else
                 return ""
         });
-
         console.log(numbers[index])
     }
     let line = (buttonList1 == "" && buttonList2 == "") ? <hr></hr> : "";

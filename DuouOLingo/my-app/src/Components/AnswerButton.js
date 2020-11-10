@@ -1,62 +1,57 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'
 
 export default function AnswerButton(props) {
     const ref = useRef(null);
+    const [borderFlag, setborderFlag] = useState(false);
     const [{ isDragging }, drag] = useDrag({
-        item: { type: "AnswerButton" },
+        item: { type: "AnswerButton", ref, props },
         collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
+            isDragging: !!monitor.isDragging()
         }),
     })
 
-    const [{ isOver, canDrop }, drop] = useDrop({
+    const [{ isOver}, drop] = useDrop({
         accept: "AnswerButton",
-        drop: (item, monitor) => onDrop(item, monitor),
+        drop: (item, monitor) => onDrop(item, monitor,props),
         hover: (item, monitor) => onhover(item, monitor,props),
         collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-            canDrop: !!monitor.canDrop()
+            isOver: !!monitor.isOver()
         })
     })
     function onhover(item, monitor,props) {
-        // event.dataTransfer.setData("index", index);
-        // event.dataTransfer.setData("rIdx", rIdx);
-        // currentRow = rIdx;
-        console.log(monitor.targetId)
+        if(item.props.index == props.index)
+            return
+        setborderFlag(true);
     }
     function onDrop(item, monitor) {
         // console.log(currentRow)
         // if (event.target.className == "droptarget" && rIdx == currentRow) {
         //     event.target.style.border = "3px dotted red";
         // }
-        let number = 2000;
+        const index = props.index
+        const dragIndex = item.props.index
+        props.moveButton(dragIndex,index,props.rIdx)
     }
-    function ondragleave(event) {
-        if (event.target.className == "droptarget") {
-            event.target.style.border = "";
-        }
-    }
-    function ondrop(event, index, rIdx) {
-        event.preventDefault();
-        var data = parseInt(event.dataTransfer.getData("index"))
-        if (rIdx == event.dataTransfer.getData("rIdx"))
-            props.callDrop(index, rIdx, data)
-        event.target.style.border = "";
-    }
-
-    function onDragEnd(event, index, rIdx) {
-        console.log(event)
+    function onClick(){
+        props.onClick(props.index,props.rIdx)
     }
     drag(drop(ref));
+    let borderStyle = ""
+    if(borderFlag && isOver){
+         borderStyle = "3px dotted red"
+    }
+    const style={
+        "opacity": isDragging ? 0.5 : 1,
+        "fontSize": 15,
+        "fontWeight": 'bold',
+        "cursor": 'move',
+        "border" : borderStyle
+    }
     return (<button
         ref={ref}
-        style={{
-            opacity: isDragging ? 0.5 : 1,
-            fontSize: 15,
-            fontWeight: 'bold',
-            cursor: 'move',
-        }}
+        style={style}
+        onClick={()=>onClick()}
     >
         {props.children}
     </button>
