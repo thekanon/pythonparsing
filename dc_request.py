@@ -1,7 +1,10 @@
 ## parser.py
 import requests
+import datetime
 import time
+import pdb
 from bs4 import BeautifulSoup
+
 
 count = 0
 while True:
@@ -38,8 +41,8 @@ while True:
 
     ## 파일 오픈 후 test.txt에 현재 웹사이트에서 파싱한 데이터를 모두 넣는다.
     f = open('test.txt', mode='w', encoding='utf-8')
-
-    for link in bs.find_all(['span','ul'], ['detail-txt','ginfo']):
+    fStr = ""
+    for link in bs.find_all(['span','ul'], ['subjectin','ginfo']):
         if(link.name=="span") :
             # f.write(link.get_text()+" "*4)
             fStr = link.get_text()+" "*4
@@ -66,20 +69,25 @@ while True:
         if(line.find(f1Equrls) != -1):
             break
 
-
     ## 위에서 가져온 인덱스만큼 기존 게시글 목록에 추가함
+    d = datetime.datetime.today()
+    dStr = d.strftime("%m/%d %H:%M:%S")
     f1 = open('test1.txt', mode='a', encoding='utf-8')
+    writeFlag = False
+
     for i in range(index-1, -1,-1):
+        if(i==index-1) :
+            f1.write("==="+dStr+"\n")
         print(allData[i])
         f1.write(allData[i])
+
     f1.close()
     f.close()
-
-    print(count," parsing Complete!")
+    print("==="+dStr+"\n")
 
     ## 과도한 트래픽 방지 및 에러를 막기위해 1000분 후 종료
     if(count == 3000) :
         break
 
     ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    time.sleep(10)
+    time.sleep(5)

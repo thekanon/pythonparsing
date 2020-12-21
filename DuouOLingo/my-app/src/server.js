@@ -70,7 +70,7 @@ function convertWebToString(data) {
     //가져온 데이터가 Object 형태인데, 왜인지 모르겠지만 eval로 다시 초기화 하지 않으면 버퍼로 데이터를 가지고 있음
     let myJsonString = (data.toString());
     myJsonString = eval(myJsonString);
-    // console.log(myJsonString)
+    console.log(myJsonString)
     return myJsonString
     // //eval로 초기화 시 array형태의 데이터 얻을 수 있음.
     // console.log(myJsonString)
