@@ -33,7 +33,7 @@ class App extends React.Component {
     callTranslateIdx = async (idx) => {
         // const response = await (await fetch('http://1eed00.hopto.org:3000/viewNews')).json()
         var hardData = "\n" + this.state.newsList[idx][0] + "\n" + this.state.newsList[idx][1]
-        const response = await (await fetch('http://1eed0o.hopto.org:3000/translate/', {
+        const response = await (await fetch('http://1eed00d00.ddns.net:3000/translate/', {
             method: "POST",
             body: JSON.stringify({ data: hardData }),
             headers: {
@@ -148,7 +148,7 @@ class App extends React.Component {
         this.setState({changeFlag:false})
     }
     callAPI = async () => {
-        let response = await (await fetch('http://1eed0o.hopto.org:3000/viewNews')).json()
+        let response = await (await fetch('http://1eed00d00.ddns.net:3000/viewNews')).json()
         // Test logic
         // let response = []
         if (response.length === 0) {
