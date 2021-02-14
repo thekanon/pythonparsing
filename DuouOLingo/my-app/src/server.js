@@ -45,6 +45,46 @@ app.get('/viewNews', function (req, res) {
         return
     }
 })
+app.get('/pocSelect', function (req, res) {
+    try{
+        const spawn = require("child_process").spawn 
+        const process = spawn('python',[path.join(__dirname, 'api\\python\\pocSelect.py')] )
+        process.stdout.on('data', function(data) { 
+            // res = convertWebToString(data)
+            // console.log(data.toString())
+            res.send(convertWebToString(data))
+            res.end()
+        }) 
+        return
+        // process.stdout.pipe(res)
+    } catch(error) {
+        console.error(error)
+        // res.send(process) //??
+        res.status(500).send({error: error.message})
+        res.end()
+        return
+    }
+})
+app.get('/pocTest', function (req, res) {
+    try{
+        const spawn = require("child_process").spawn 
+        const process = spawn('python',[path.join(__dirname, 'api\\python\\pocTest.py')] )
+        process.stdout.on('data', function(data) { 
+            // res = convertWebToString(data)
+            // console.log(data.toString())
+            res.send(convertWebToString(data))
+            res.end()
+        }) 
+        return
+        // process.stdout.pipe(res)
+    } catch(error) {
+        console.error(error)
+        // res.send(process) //??
+        res.status(500).send({error: error.message})
+        res.end()
+        return
+    }
+})
 app.post('/translate', function (req, res, next) {
     const api_url = 'https://openapi.naver.com/v1/papago/n2mt'
     const request = require('request')
