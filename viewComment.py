@@ -1,5 +1,5 @@
 import time
-f = open('test3.txt', mode='rt', encoding='utf-8')
+f = open('house.txt', mode='rt', encoding='utf-8')
 while True:
     while True:
         comment = f.readline()
@@ -7,4 +7,4 @@ while True:
             break
         print(comment)
     print("===")
-    time.sleep(5)
+    time.sleep(9)

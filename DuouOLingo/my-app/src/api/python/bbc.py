@@ -15,7 +15,7 @@ headers = {
     'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
 }
     
-req = s.get('http://feeds.bbci.co.uk/news/rss.xml',headers=headers)
+req = s.get('http://feeds.bbci.co.uk/news/science_and_environment/rss.xml',headers=headers)
 
 
 ## HTML 소스 가져오기

@@ -7,11 +7,15 @@ from bs4 import BeautifulSoup
 
 
 count = 0
+resCount = 0
 while True:
     count = count + 1
     # Session 생성
     s = requests.Session()
 
+    resCount= resCount+1
+
+    url = 'https://m.dcinside.com/board/baseball_new10?page='+str(645-resCount)
     # 헤더 설정
     headers = {
         'User-Agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36'
@@ -25,7 +29,8 @@ while True:
     # baseball_new9
     # aoegame
     # hiphop
-    req = s.post('https://m.dcinside.com/board/hiphop',headers=headers)
+    # req = s.post('https://m.dcinside.com/board/baseball_new10',headers=headers)
+    req = s.post(url,headers=headers)
 
     ## HTML 소스 가져오기
     html = req.text
@@ -90,4 +95,4 @@ while True:
         break
 
     ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    time.sleep(5)
+    time.sleep(3)
