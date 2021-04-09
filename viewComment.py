@@ -7,4 +7,4 @@ while True:
             break
         print(comment)
     print("===")
-    time.sleep(9)
+    time.sleep(8)
