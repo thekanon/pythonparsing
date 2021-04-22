@@ -1,7 +1,9 @@
-## parser.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import requests
 import time
 import pdb
+import io
 from bs4 import BeautifulSoup
 
 count = 0
@@ -37,7 +39,7 @@ while True:
     classToIgnore = ['notice',["cmt_on","notice"]]
     # print(bs)
     # ## 파일 오픈 후 cafe_woker.txt에 현재 웹사이트에서 파싱한 데이터를 모두 넣는다.
-    f = open('cafe_woker_bak.txt', mode='w', encoding='utf-8')
+    f = io.open('cafe_woker_bak.txt', mode='w', encoding='utf-8')
     for span in bs.find_all('span','article_info'):
         if(span.find(text="공지") ) : 
             continue
@@ -47,14 +49,14 @@ while True:
             f.write(fStr+"\n")
     f.close()
     ## 현재 마지막으로 가져온 게시글과 새로가져온 게시글 목록 비교를 위해 cafe_woker.txt를 배열로 가져옴
-    f1 = open('cafe_woker.txt', mode='r', encoding='utf-8')
+    f1 = io.open('cafe_woker.txt', mode='r', encoding='utf-8')
     f1AllData = f1.readlines()
     f1Equrls = f1AllData[len(f1AllData)-1]
     f1.close()
 
 
     ## 새로 가져온 게시글 목록에서 기존 게시글 목록에 추가할 데이터만 추림(마지막으로 가져온 게시글과 비교하여 같을때까지 index를 증가시킴)
-    f = open('cafe_woker_bak.txt', mode='r', encoding='utf-8')
+    f = io.open('cafe_woker_bak.txt', mode='r', encoding='utf-8')
     allData = f.readlines()
     index = -1
     for line in allData : 
@@ -64,7 +66,7 @@ while True:
 
 
     ## 위에서 가져온 인덱스만큼 기존 게시글 목록에 추가함
-    f1 = open('cafe_woker.txt', mode='a', encoding='utf-8')
+    f1 = io.open('cafe_woker.txt', mode='a', encoding='utf-8')
     for i in range(index-1, -1,-1):
         print(allData[i])
         f1.write(allData[i])
