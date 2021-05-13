@@ -5,6 +5,7 @@ import datetime
 import time
 import pdb
 import os
+import io
 from bs4 import BeautifulSoup
 
 
@@ -17,7 +18,7 @@ while True:
 
     resCount= resCount+1
 
-    url = 'https://m.dcinside.com/board/baseball_new10?page='+str(6571-resCount)
+    url = 'https://m.dcinside.com/board/moneygame?page='+str(2810-resCount)
     # 헤더 설정
     headers = {
         'User-Agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36'
@@ -90,7 +91,7 @@ while True:
 
     f1.close()
     f.close()
-    print(6571-resCount)
+    print(2810-resCount)
     print("==="+dStr+"\n")
 
     ## 과도한 트래픽 방지 및 에러를 막기위해 1000분 후 종료
@@ -98,5 +99,4 @@ while True:
         break
 
     ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-    # time.sleep(11)
-    os.system("pause")
+    time.sleep(3)
