@@ -18,7 +18,8 @@ while True:
 
     resCount= resCount+1
 
-    url = 'https://m.dcinside.com/board/moneygame?page='+str(2810-resCount)
+    # url = 'https://m.dcinside.com/board/moneygame?page='+str(2810-resCount)
+    url = 'https://m.dcinside.com/board/moneygame?page=1'
     # 헤더 설정
     headers = {
         'User-Agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36'
