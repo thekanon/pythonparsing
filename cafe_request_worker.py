@@ -76,7 +76,7 @@ while True:
     print(count," parsing Complete!")
 
     ## 과도한 트래픽 방지 및 에러를 막기위해 1000분 후 종료
-    if(count == 1000) :
+    if(count == 10000) :
         break
 
     # ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
