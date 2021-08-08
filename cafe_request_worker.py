@@ -45,7 +45,6 @@ while True:
             continue
         else :
             fStr = span.find(class_="txt_detail").get_text()
-            print(fStr)
             f.write(fStr+"\n")
     f.close()
     ## 현재 마지막으로 가져온 게시글과 새로가져온 게시글 목록 비교를 위해 cafe_woker.txt를 배열로 가져옴
@@ -73,7 +72,6 @@ while True:
     f1.close()
     f.close()
 
-    print(count," parsing Complete!")
 
     ## 과도한 트래픽 방지 및 에러를 막기위해 1000분 후 종료
     if(count == 10000) :
