@@ -41,7 +41,7 @@ while True:
     # ## 파일 오픈 후 cafe_woker.txt에 현재 웹사이트에서 파싱한 데이터를 모두 넣는다.
     f = io.open('cafe_woker_bak.txt', mode='w', encoding='utf-8')
     for span in bs.find_all('span','article_info'):
-        if(span.find(text="공지") ) : 
+        if(span.find(text="공지") or span.find(text="필독")) : 
             continue
         else :
             fStr = span.find(class_="txt_detail").get_text()
@@ -69,6 +69,7 @@ while True:
     for i in range(index-1, -1,-1):
         print(allData[i])
         f1.write(allData[i])
+    print("===")
     f1.close()
     f.close()
 

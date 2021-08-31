@@ -19,7 +19,7 @@ while True:
     resCount= resCount+1
 
     # url = 'https://m.dcinside.com/board/moneygame?page='+str(2810-resCount)
-    url = 'https://m.dcinside.com/board/leagueoflegends4?page=1'
+    url = 'https://m.dcinside.com/board/sktt?page=1'
     # 헤더 설정
     headers = {
         'User-Agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36'
@@ -85,14 +85,12 @@ while True:
     writeFlag = False
 
     for i in range(index-1, -1,-1):
-        if(i==index-1) :
-            f1.write("==="+dStr+"")
         print(allData[i])
         f1.write(allData[i])
+    print("==="+dStr+"\n")
 
     f1.close()
     f.close()
-    print("==="+dStr+"\n")
 
     ## 과도한 트래픽 방지 및 에러를 막기위해 1000분 후 종료
     if(count == 3000) :
