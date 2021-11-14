@@ -6,5 +6,5 @@ while True:
         if comment.find("===") != -1 :
             break
         print(comment)
-    print("===")
-    time.sleep(8)
+    print("============")
+    time.sleep(5)
