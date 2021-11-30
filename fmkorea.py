@@ -58,14 +58,14 @@ def dcweb() :
         timeArray =  driver.find_elements_by_css_selector('.time')
         for i in range(len(titleArray)):
             fStr =titleArray[i].text
-            fStr += ("\t"+timeArray[i+7].text)
+            fStr += ("\t"+timeArray[i+8].text)
             fStr += "\n"
             f.write(fStr)
         f.close()
         ## 현재 마지막으로 가져온 게시글과 새로가져온 게시글 목록 비교를 위해 cafe_woker.txt를 배열로 가져옴
         f1 = io.open('fmkorea_woker.txt', mode='r', encoding='utf-8')
         f1AllData = f1.readlines()
-        f1Equrls = f1AllData[len(f1AllData)-1]
+        f1Equrls = f1AllData[len(f1AllData)-1][:-9]
         f1.close()
 
 
@@ -99,8 +99,8 @@ def dcweb() :
             break
 
         ## 과도한 트래픽 방지를 위해 60초에 한번만 게시글을 가져옴.
-        time.sleep(10)
-        time.sleep(random.randint(3,10))
+        # time.sleep(10)
+        time.sleep(random.randint(3,8))
 
 
 if __name__ == '__main__': 

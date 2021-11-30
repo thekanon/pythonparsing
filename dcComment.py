@@ -1,10 +1,10 @@
 import time
 import datetime
-f = open('house.txt', mode='rt', encoding='utf-8')
+f = open('house2.txt', mode='rt', encoding='utf-8')
 while True:
     comment=""
     i=0
-    currentLine = '===11/20 00:48:57==='
+    currentLine = '===11/20 00:48:56==='
     hours = 10
     min = int(currentLine.split(":")[1])
     sec = int(currentLine.split(":")[2][:2])

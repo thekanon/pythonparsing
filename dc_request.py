@@ -20,7 +20,7 @@ def dcweb() :
         resCount= resCount+1
 
         # url = 'https://m.dcinside.com/board/moneygame?page='+str(2810-resCount)
-        url = 'https://m.dcinside.com/board/hiphop_new1?page=1'
+        url = 'https://m.dcinside.com/board/hiphop_new1?page=2'
         # 헤더 설정
         headers = {
             'User-Agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36'
@@ -87,7 +87,7 @@ def dcweb() :
 
         for i in range(index-1, -1,-1):
             if(i==index-1) :
-                f1.write("==="+dStr+"")
+                f1.write("==="+dStr+"===\n")
             print(allData[i])
             f1.write(allData[i])
 
