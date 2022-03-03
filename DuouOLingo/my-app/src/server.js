@@ -5,8 +5,7 @@ const app = express()
 
 //Python 파일 경로
 const path = require('path')
-const pyPath = path.join(__dirname, 'api\\python\\bbc.py')
-
+const bbc = require("./api/news/bbc")
 
 // 클라이언트 정보 추가
 const client_id = 'n3RO1LZqp6aV3zGYnzha'
@@ -15,75 +14,26 @@ const client_secret = 'rGLmrR9FZL'
 // const client_secret = 'qZX0BRaY3Y'
 
 //크로스도메인 이슈 해결
+
 const cors = require('cors');
 app.use(cors());
 
 // 내장 미들웨어 연결
 app.use(express.json());
 
-app.listen(3000, function () {
-    console.log(pyPath)
+app.listen(3001, function () {
+    console.log("server start")
 })
-//파이썬 데이터를 가져온다. 
-app.get('/viewNews', function (req, res) {
-    try{
-        const spawn = require("child_process").spawn 
-        const process = spawn('python',[pyPath] )
-        process.stdout.on('data', function(data) { 
-            // res = convertWebToString(data)
-            // console.log(data.toString())
-            res.send(convertWebToString(data))
-            res.end()
-        }) 
-        return
-        // process.stdout.pipe(res)
-    } catch(error) {
-        console.error(error)
-        // res.send(process) //??
-        res.status(500).send({error: error.message})
-        res.end()
-        return
-    }
+//뉴스 데이터를 가져온다.
+app.get('/viewNews', async function (req, res) {
+    const result = await bbcGet()
+    console.log("viewNews")
+    res.json(result.textEng)
 })
-app.get('/pocSelect', function (req, res) {
-    try{
-        const spawn = require("child_process").spawn 
-        const process = spawn('python',[path.join(__dirname, 'api\\python\\pocSelect.py')] )
-        process.stdout.on('data', function(data) { 
-            // res = convertWebToString(data)
-            // console.log(data.toString())
-            res.send(convertWebToString(data))
-            res.end()
-        }) 
-        return
-        // process.stdout.pipe(res)
-    } catch(error) {
-        console.error(error)
-        // res.send(process) //??
-        res.status(500).send({error: error.message})
-        res.end()
-        return
-    }
-})
-app.get('/pocTest', function (req, res) {
-    try{
-        const spawn = require("child_process").spawn 
-        const process = spawn('python',[path.join(__dirname, 'api\\python\\pocTest.py')] )
-        process.stdout.on('data', function(data) { 
-            // res = convertWebToString(data)
-            // console.log(data.toString())
-            res.send(convertWebToString(data))
-            res.end()
-        }) 
-        return
-        // process.stdout.pipe(res)
-    } catch(error) {
-        console.error(error)
-        // res.send(process) //??
-        res.status(500).send({error: error.message})
-        res.end()
-        return
-    }
+app.get('/tranIdx', async function (req, res) {
+    const result = await bbcGet()
+    // console.log(result.textKor[req.body.data])
+    res.json(result.textKor[req.query.idx])
 })
 app.post('/translate', function (req, res, next) {
     const api_url = 'https://openapi.naver.com/v1/papago/n2mt'
@@ -98,7 +48,6 @@ app.post('/translate', function (req, res, next) {
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.writeHead(200, {'Content-Type': 'text/json; charset=UTF-8'})
-        console.log(body)
         res.end(body)
       } else {
         res.status(response.statusCode).end()
@@ -115,4 +64,8 @@ function convertWebToString(data) {
     // //eval로 초기화 시 array형태의 데이터 얻을 수 있음.
     // console.log(myJsonString)
     // 
+}
+async function bbcGet(){
+    const result = await bbc.get()
+    return result
 }

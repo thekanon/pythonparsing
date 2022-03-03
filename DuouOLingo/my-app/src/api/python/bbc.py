@@ -40,4 +40,4 @@ modelData = [{"chkYn":"1","순번":"1", "상태":"R", "증번":"00001", "성명"
             {"chkYn":"2","순번":"4", "상태":"R", "증번":"00002", "성명":"gyeong da-im", "주민번호":"930904", "입사일자":"180902", "정년":"70", "평균임금":"5,000,0000", "직위":"주임(진)", "한마디":"Do not accustom yourself to use big words for little matters."},
             {"chkYn":"1","순번":"5", "상태":"U", "증번":"00003", "성명":"Lee duim", "주민번호":"940516", "입사일자":"180901", "정년":"70", "평균임금":"5,000,000", "직위":"주임(진)", "한마디":"A day without laughter is a day wasted."},
             {"chkYn":"1","순번":"6", "상태":"R", "증번":"00004"  , "성명":"kim duim", "주민번호":"940516", "입사일자":"180902", "정년":"75", "평균임금":"5,000,0000", "직위":"주임", "한마디":"Patterning your life around other's opinions is nothing more than slavery."}]
-print(fStr)
+print(modelData)

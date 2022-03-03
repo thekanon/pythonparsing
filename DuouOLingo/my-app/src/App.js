@@ -32,26 +32,21 @@ class App extends React.Component {
     }
     callTranslateIdx = async (idx) => {
         // const response = await (await fetch('http://1eed00.hopto.org:3000/viewNews')).json()
-        var hardData = "\n" + this.state.newsList[idx][0] + "\n" + this.state.newsList[idx][1]
-        const response = await (await fetch('http://118.36.152.77:3000/translate/', {
-            method: "POST",
-            body: JSON.stringify({ data: hardData }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })).json()
-
+        // var hardData = "\n" + this.state.newsList[idx][0] + "\n" + this.state.newsList[idx][1]
+        var hardData = idx
+        console.log(hardData)
+        const response = await (await fetch('http://222.112.129.129:3001/tranIdx?idx='+idx)).json()
         //Test
         // let response = {};
         // response.message = {}
         // response.message.result = {}
         // response.message.result.translatedText = "레나는 여러 차례 순차 예선전을 앞두고 중요한 코딩 대회를 준비하고 있다.\n처음에, 그녀의 행운의 균형은 0이다. 그녀는 '행운을 살린다'고 믿으며, 자신의 이론을 확인하고 싶어한다. 각 경기는 L[i]와 T[i]의 두 정수로 설명된다."
-
+        console.log(response)
         var newTranslateList = this.state.newsList;
-        newTranslateList[idx][2] = this.shake_it_String(response.message.result.translatedText.split("\n")[0])
-        newTranslateList[idx][3] = this.shake_it_String(response.message.result.translatedText.split("\n")[1])
-        newTranslateList[idx][4] = (response.message.result.translatedText.split("\n")[0])
-        newTranslateList[idx][5] = (response.message.result.translatedText.split("\n")[1])
+        newTranslateList[idx][2] = this.shake_it_String(response[0])
+        newTranslateList[idx][3] = this.shake_it_String(response[1])
+        newTranslateList[idx][4] = (response[0])
+        newTranslateList[idx][5] = (response[1])
         this.setState({ newsList: newTranslateList });
         this.setAutoHeight()
         console.log(response)
@@ -119,7 +114,6 @@ class App extends React.Component {
     shake_it_String(str){
         //Fisher–Yates shuffle 알고리즘
         var arr = str.split(" ");
-        console.log(arr);
         for(var i=arr.length-1;i>=0;i--){
             var ranIdx = parseInt(Math.random()*i)
             var tmp;
@@ -127,7 +121,6 @@ class App extends React.Component {
             arr[ranIdx] = arr[i];
             arr[i] = tmp;
         }
-        console.log(arr);
         return arr;
     }
     componentDidMount() {
@@ -148,7 +141,7 @@ class App extends React.Component {
         this.setState({changeFlag:false})
     }
     callAPI = async () => {
-        let response = await (await fetch('http://118.36.152.77:3000/viewNews')).json()
+        let response = await (await fetch('http://222.112.129.129:3001/viewNews')).json()
         // Test logic
         // let response = []
         if (response.length === 0) {
