@@ -1,4 +1,41 @@
 import React from 'react';
+
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
+import {
+  getMessaging,
+  getToken,
+  onMessage
+} from 'firebase/messaging'; 
+import { getPerformance } from 'firebase/performance';
+
+import { getFirebaseConfig } from './firebase/fBase';
+
 import './App.css';
 import Question from "./Components/Question.js";
 import ButtonList from "./Components/ButtonList.js";
@@ -125,6 +162,8 @@ class App extends React.Component {
     }
     componentDidMount() {
         this.callAPI()
+        initializeApp(getFirebaseConfig());
+
     }
     componentDidUpdate(prevProps) {
         if(this.state.changeFlag){
@@ -139,6 +178,13 @@ class App extends React.Component {
         }
         this.setState({footerStyle:footer})
         this.setState({changeFlag:false})
+    }
+    onGoggleClick = async(event) => { 
+        console.log(event)
+        var provider = new GoogleAuthProvider();
+        await signInWithPopup(getAuth(), provider).then(function(result) {
+            console.log(result)
+        });
     }
     callAPI = async () => {
         let response = await (await fetch('http://222.112.129.129:3001/viewNews')).json()
@@ -202,6 +248,7 @@ class App extends React.Component {
         return (
             <div className="App" >
                 <header>
+                    <button onClick={(e)=> this.onGoggleClick(e)}>aa</button>
                 </header>
                 <main>
                     <div className="mainContainer">

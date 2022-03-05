@@ -8,10 +8,10 @@ const path = require('path')
 const bbc = require("./api/news/bbc")
 
 // 클라이언트 정보 추가
-const client_id = 'n3RO1LZqp6aV3zGYnzha'
-const client_secret = 'rGLmrR9FZL'
-// const client_id = 'd2BuiwA0wIr6CU4jZJ3J'
-// const client_secret = 'qZX0BRaY3Y'
+// const client_id = 'n3RO1LZqp6aV3zGYnzha'
+// const client_secret = 'rGLmrR9FZL'
+const client_id = 'd2BuiwA0wIr6CU4jZJ3J'
+const client_secret = 'qZX0BRaY3Y'
 
 //크로스도메인 이슈 해결
 
