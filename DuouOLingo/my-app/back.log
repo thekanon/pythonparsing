@@ -1,0 +1,2060 @@
+
+> my-app@0.1.0 back /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app
+> nodemon ./src/server.js
+
+[33m[nodemon] 2.0.15[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+TypeError: Cannot read property 'data' of undefined
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:53:25
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:341:12)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:275:10)
+    at cors (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:188:7)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:224:17
+(node:1215752) UnhandledPromiseRejectionWarning: FetchError: invalid json response body at http://192.168.0.2:3001/translate/ reason: Unexpected token < in JSON at position 0
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cross-fetch/node_modules/node-fetch/lib/index.js:273:32
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async insertNews (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:61:26)
+    at async Object.get (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:20:9)
+    at async bbcGet (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:150:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:41:18
+(node:1215752) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1215752) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+TypeError: Cannot read property 'data' of undefined
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:53:25
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:341:12)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:275:10)
+    at cors (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:188:7)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:224:17
+(node:1215752) UnhandledPromiseRejectionWarning: FetchError: invalid json response body at http://192.168.0.2:3001/translate/ reason: Unexpected token < in JSON at position 0
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cross-fetch/node_modules/node-fetch/lib/index.js:273:32
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async insertNews (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:61:26)
+    at async Object.get (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:20:9)
+    at async bbcGet (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:150:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:41:18
+(node:1215752) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 4)
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+TypeError: Cannot read property 'data' of undefined
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:53:25
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:341:12)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/index.js:275:10)
+    at cors (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:188:7)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cors/lib/index.js:224:17
+(node:1216386) UnhandledPromiseRejectionWarning: FetchError: invalid json response body at http://192.168.0.2:3001/translate/ reason: Unexpected token < in JSON at position 0
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/cross-fetch/node_modules/node-fetch/lib/index.js:273:32
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async insertNews (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:61:26)
+    at async Object.get (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:20:9)
+    at async bbcGet (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:150:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:41:18
+(node:1216386) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1216386) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+Ukraine war: Belarusian dissidents fight against Russia in Ukraine
+Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.\n' +
+        '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Holocaust survivor killed by Russian shelling in Kharkiv
+Boris Romantschenko was killed in Kharkiv 77 years after surviving the Buchenwald concentration camp.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 하르키브에서 러시아의 포격으로 사망한 홀로코스트 생존자\n' +
+        '보리스 로만츠첸코는 부헨발트 강제수용소에서 살아남은 지 77년 만에 하르키프에서 살해됐다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Malmö: Two women killed after 'violence' at Swedish school
+An 18-year-old student is arrested on suspicion of murder after "deadly violence" in the city of Malmö.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '말뫼: 스웨덴 학교 폭력 후 여성 2명 사망\n말뫼시에서 18세 학생이 "죽은 폭력" 후 살인 혐의로 체포되었습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+China plane crash: Rescuers search for survivors as families await news
+Rescuers continue to search for survivors of the China Eastern flight, which was carrying 132 people.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '중국 여객기 추락: 구조대원들 생존자 수색, 가족 소식 기다린다\n' +
+        '구조대원들은 132명을 태운 중국동부항공기의 생존자를 계속 찾고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Sudan: BBC investigation shows abuse of female demonstrators
+The BBC has identified a number of female protesters who have been physically and sexually assaulted by security forces in Sudan.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '수단: BBC 조사, 여성 시위자 학대 발견\n' +
+        'BBC는 수단에서 보안군에 의해 신체적, 성폭력을 당한 많은 여성 시위자들을 확인했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Yvan Colonna: Corsican nationalist dies after jihadist jail attack
+Yvan Colonna's strangling by a fellow inmate had sparked violent protests on the French island.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: 'Yvan Colonna: 코르시카 민족주의자, 지하드 감옥 공격 후 사망\n' +
+        'Yvan Colonna가 동료 수감자에게 목을 졸라 살해당한 것은 프랑스 섬에서 폭력 시위를 촉발시켰다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Gareth Ward: Australia state MP charged with sexual abuse
+Gareth Ward - a former minister - says he denies assaulting a teenage boy in 2013 and a man in 2015.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '가레스 워드: 성학대로 기소된 호주 주 하원의원\n' +
+        '전 장관인 가레스 워드는 2013년 10대 소년과 2015년 한 남성을 폭행한 사실을 부인한다고 말했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Biden: Russia 'exploring' US cyber-attacks
+President Joe Biden says US companies should "immediately" prepare defences.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "바이든: 러시아, 미국의 사이버 공격 '탐색'\n" +
+        '조 바이든 대통령은 미국 기업들이 "즉시" 방어 태세를 갖추어야 한다고 말했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Lake Keowee: Police refuse to charge South Carolina man over boat shooting
+Nathan Drew Morgan was fatally shot by his rescuer after being pulled from a lake in South Carolina.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: 'Keowee 호수: 경찰은 보트 총격으로 사우스캐롤라이나 남성을 기소하기를 거부합니다.\n' +
+        '네이선 드류 모건은 사우스 캐롤라이나의 호수에서 끌려온 후 구조자가 쏜 총에 치명상을 입었다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Climate change: 'Madness' to turn to fossil fuels because of Ukraine war
+UN Secretary General says climate goals are in danger if countries turn to coal because of Ukraine.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "기후변화 우크라이나 전쟁 때문에 화석연료에 의지하는 '광기'\n" +
+        '유엔 사무총장은 우크라이나 때문에 국가들이 석탄에 의존하게 되면 기후 목표가 위험해질 것이라고 말했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ed Sheeran and Camila Cabello join Ukraine concert line-up
+Camila Cabello, Ed Sheeran, Gregory Porter and Snow Patrol will all take part in the fundraiser.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '에드 시런과 카밀라 카벨로가 우크라이나 콘서트 라인업에 합류하다\n' +
+        '카밀라 카벨로, 에드 시런, 그레고리 포터, 스노우 패트롤이 모두 기금 모금 행사에 참여할 것이다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Myanmar Rohingya violence is genocide, US says
+A US official said the move would make it harder for the military to commit further abuses.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '미얀마 로힝야 폭력은 대량 학살이라고 미국은 말한다.\n' +
+        '한 미국 관리는 이번 조치로 인해 군이 더 이상의 학대를 저지르기가 어려워질 것이라고 말했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Evangelicalism & Brazil: The religious movement that spread through a national team
+Evangelicalism within Brazil's national football team has been on the rise, mirroring a wider trend across the country.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '복음주의 및 브라질: 국가 대표팀을 통해 퍼진 종교 운동\n' +
+        '브라질 축구 국가대표팀 내의 복음주의가 증가하여 브라질 전역에 걸쳐 광범위한 추세를 반영하고 있습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Asakaa: How drill music found a new home in Ghana
+Asakaa, or Ghana drill, is the latest hot sound from Africa, following the global success of Afrobeats.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '아사카: 드릴 음악이 가나에서 새로운 집을 찾은 방법\n' +
+        '아사카, 즉 가나 훈련은 아프로베츠의 세계적인 성공에 이은 아프리카에서 온 최신 핫 사운드입니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine: Impossible choices for surrogate mothers and parents
+Hundreds of Ukrainian women are pregnant with other people's children - creating a web of complex problems.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나: 대리모와 부모에게는 불가능한 선택\n' +
+        '수백 명의 우크라이나 여성들이 다른 사람들의 아이를 임신하고 있어 복잡한 문제들의 거미줄을 치고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Mariupol: Four reasons the city matters so much to Russia
+The most bombarded city in Ukraine’s war with Russia is key to Moscow’s military campaign.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '마리우폴: 러시아에게 도시가 중요한 네 가지 이유\n' +
+        '우크라이나와 러시아 전쟁에서 가장 많은 폭격을 받은 도시는 모스크바 군사작전의 핵심이다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Omicron vs Zero-Covid: How long can China hold on?
+China's worst outbreak in two years has got some questioning how long it can hang on to its strategy.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: 'Omicron vs Zero-Covid: 중국은 얼마나 버틸 수 있을까?\n' +
+        '중국의 2년 만의 최악의 사태는 중국이 얼마나 오랫동안 전략을 고수할 수 있을지에 대해 의문을 제기하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+The hunt for Nigerians who can change into cats
+One man is challenging Nigerians' belief in magic after a wave of killings that has gripped the country.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '고양이로 변신할 수 있는 나이지리아인 사냥\n' +
+        '한 남자가 나이지리아를 사로잡은 일련의 살인 사건 이후 마술에 대한 나이지리아인들의 믿음에 도전하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+War in Ukraine: Kyiv shopping centre hit by Russian missile
+A nearby camera captured the moment the shopping centre in Kyiv was struck by a missile.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 키이우 러시아 미사일에 맞은 쇼핑 센터\n인근 카메라는 키이우의 쇼핑 센터가 비산물에 맞은 순간을 포착했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Russian soldiers fire on Kherson protesters
+Protesters in Kherson scattered as explosions are heard and shots were fired by Russian soldiers.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 러시아 군인들이 헤르손 시위대에 발포하다\n' +
+        '폭발음이 들리고 러시아 군인들이 총격을 가하자 케르손의 시위대는 뿔뿔이 흩어졌다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Texas is battling over 170 wildfires
+Over the past week, wildfires have burned over 100,000 acres across the US state.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '텍사스는 170개 이상의 산불과 싸우고 있다.\n지난 한 주 동안, 산불이 미국 주 전역에 걸쳐 10만 에이커를 태웠다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine conflict: The wounded children of Putin's war
+Survivors from the bombardment of Mariupol are bearing the physical and mental scars of the conflict.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 분쟁: 푸틴 전쟁의 부상당한 아이들은\n마리우폴 폭격 생존자들은 분쟁의 신체적, 정신적 상처를 입고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+War in Ukraine: Protesters in Kherson appear to make Russian truck reverse
+Footage shows civilians protesting against Russian occupation in Kherson on Sunday.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 케르손 시위대가 러시아 트럭을 후진시키는 것처럼 보인다.\n' +
+        '화면에는 일요일 러시아 케르손 점령에 항의하는 민간인들의 모습이 담겨있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+(node:1219313) UnhandledPromiseRejectionWarning: MongoNotConnectedError: MongoClient must be connected to perform this operation
+    at getTopology (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/utils.js:369:11)
+    at Collection.find (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:242:69)
+    at Collection.findOne (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:233:21)
+    at getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:57:27)
+    at run (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:121:21)
+    at Object.<anonymous> (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:126:1)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+(node:1219313) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1219313) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+(node:1219374) UnhandledPromiseRejectionWarning: MongoNotConnectedError: MongoClient must be connected to perform this operation
+    at getTopology (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/utils.js:369:11)
+    at Collection.find (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:242:69)
+    at Collection.findOne (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:233:21)
+    at getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:57:33)
+    at run (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:121:21)
+    at Object.<anonymous> (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:126:1)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+(node:1219374) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1219374) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+(node:1219478) UnhandledPromiseRejectionWarning: TypeError: newsCn.findOne(...).json is not a function
+    at getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:57:55)
+    at run (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:123:21)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+(node:1219478) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1219478) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+{
+  _id: new ObjectId("623974b1279d09ce35b5fda0"),
+  title: '20220322',
+  textEng: [
+    [
+      'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+      'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+    ],
+    [
+      'Ukraine war: Holocaust survivor killed by Russian shelling in Kharkiv',
+      'Boris Romantschenko was killed in Kharkiv 77 years after surviving the Buchenwald concentration camp.'
+    ],
+    [
+      "Malmö: Two women killed after 'violence' at Swedish school",
+      'An 18-year-old student is arrested on suspicion of murder after "deadly violence" in the city of Malmö.'
+    ],
+    [
+      'China plane crash: Rescuers search for survivors as families await news',
+      'Rescuers continue to search for survivors of the China Eastern flight, which was carrying 132 people.'
+    ],
+    [
+      'Sudan: BBC investigation shows abuse of female demonstrators',
+      'The BBC has identified a number of female protesters who have been physically and sexually assaulted by security forces in Sudan.'
+    ],
+    [
+      'Yvan Colonna: Corsican nationalist dies after jihadist jail attack',
+      "Yvan Colonna's strangling by a fellow inmate had sparked violent protests on the French island."
+    ],
+    [
+      'Gareth Ward: Australia state MP charged with sexual abuse',
+      'Gareth Ward - a former minister - says he denies assaulting a teenage boy in 2013 and a man in 2015.'
+    ],
+    [
+      "Biden: Russia 'exploring' US cyber-attacks",
+      'President Joe Biden says US companies should "immediately" prepare defences.'
+    ],
+    [
+      'Lake Keowee: Police refuse to charge South Carolina man over boat shooting',
+      'Nathan Drew Morgan was fatally shot by his rescuer after being pulled from a lake in South Carolina.'
+    ],
+    [
+      "Climate change: 'Madness' to turn to fossil fuels because of Ukraine war",
+      'UN Secretary General says climate goals are in danger if countries turn to coal because of Ukraine.'
+    ],
+    [
+      'Ed Sheeran and Camila Cabello join Ukraine concert line-up',
+      'Camila Cabello, Ed Sheeran, Gregory Porter and Snow Patrol will all take part in the fundraiser.'
+    ],
+    [
+      'Myanmar Rohingya violence is genocide, US says',
+      'A US official said the move would make it harder for the military to commit further abuses.'
+    ],
+    [
+      'Evangelicalism & Brazil: The religious movement that spread through a national team',
+      "Evangelicalism within Brazil's national football team has been on the rise, mirroring a wider trend across the country."
+    ],
+    [
+      'Asakaa: How drill music found a new home in Ghana',
+      'Asakaa, or Ghana drill, is the latest hot sound from Africa, following the global success of Afrobeats.'
+    ],
+    [
+      'Ukraine: Impossible choices for surrogate mothers and parents',
+      "Hundreds of Ukrainian women are pregnant with other people's children - creating a web of complex problems."
+    ],
+    [
+      'Mariupol: Four reasons the city matters so much to Russia',
+      'The most bombarded city in Ukraine’s war with Russia is key to Moscow’s military campaign.'
+    ],
+    [
+      'Omicron vs Zero-Covid: How long can China hold on?',
+      "China's worst outbreak in two years has got some questioning how long it can hang on to its strategy."
+    ],
+    [
+      'The hunt for Nigerians who can change into cats',
+      "One man is challenging Nigerians' belief in magic after a wave of killings that has gripped the country."
+    ],
+    [
+      'War in Ukraine: Kyiv shopping centre hit by Russian missile',
+      'A nearby camera captured the moment the shopping centre in Kyiv was struck by a missile.'
+    ],
+    [
+      'Ukraine war: Russian soldiers fire on Kherson protesters',
+      'Protesters in Kherson scattered as explosions are heard and shots were fired by Russian soldiers.'
+    ],
+    [
+      'Texas is battling over 170 wildfires',
+      'Over the past week, wildfires have burned over 100,000 acres across the US state.'
+    ],
+    [
+      "Ukraine conflict: The wounded children of Putin's war",
+      'Survivors from the bombardment of Mariupol are bearing the physical and mental scars of the conflict.'
+    ],
+    [
+      'War in Ukraine: Protesters in Kherson appear to make Russian truck reverse',
+      'Footage shows civilians protesting against Russian occupation in Kherson on Sunday.'
+    ]
+  ],
+  textKor: [
+    [
+      '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+      '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+    ],
+    [
+      '우크라이나 전쟁: 하르키브에서 러시아의 포격으로 사망한 홀로코스트 생존자',
+      '보리스 로만츠첸코는 부헨발트 강제수용소에서 살아남은 지 77년 만에 하르키프에서 살해됐다.'
+    ],
+    [
+      '말뫼: 스웨덴 학교 폭력 후 여성 2명 사망',
+      '말뫼시에서 18세 학생이 "죽은 폭력" 후 살인 혐의로 체포되었습니다.'
+    ],
+    [
+      '중국 여객기 추락: 구조대원들 생존자 수색, 가족 소식 기다린다',
+      '구조대원들은 132명을 태운 중국동부항공기의 생존자를 계속 찾고 있다.'
+    ],
+    [
+      '수단: BBC 조사, 여성 시위자 학대 발견',
+      'BBC는 수단에서 보안군에 의해 신체적, 성폭력을 당한 많은 여성 시위자들을 확인했습니다.'
+    ],
+    [
+      'Yvan Colonna: 코르시카 민족주의자, 지하드 감옥 공격 후 사망',
+      'Yvan Colonna가 동료 수감자에게 목을 졸라 살해당한 것은 프랑스 섬에서 폭력 시위를 촉발시켰다.'
+    ],
+    [
+      '가레스 워드: 성학대로 기소된 호주 주 하원의원',
+      '전 장관인 가레스 워드는 2013년 10대 소년과 2015년 한 남성을 폭행한 사실을 부인한다고 말했다.'
+    ],
+    [
+      "바이든: 러시아, 미국의 사이버 공격 '탐색'",
+      '조 바이든 대통령은 미국 기업들이 "즉시" 방어 태세를 갖추어야 한다고 말했습니다.'
+    ],
+    [
+      'Keowee 호수: 경찰은 보트 총격으로 사우스캐롤라이나 남성을 기소하기를 거부합니다.',
+      '네이선 드류 모건은 사우스 캐롤라이나의 호수에서 끌려온 후 구조자가 쏜 총에 치명상을 입었다.'
+    ],
+    [
+      "기후변화 우크라이나 전쟁 때문에 화석연료에 의지하는 '광기'",
+      '유엔 사무총장은 우크라이나 때문에 국가들이 석탄에 의존하게 되면 기후 목표가 위험해질 것이라고 말했습니다.'
+    ],
+    [
+      '에드 시런과 카밀라 카벨로가 우크라이나 콘서트 라인업에 합류하다',
+      '카밀라 카벨로, 에드 시런, 그레고리 포터, 스노우 패트롤이 모두 기금 모금 행사에 참여할 것이다.'
+    ],
+    [
+      '미얀마 로힝야 폭력은 대량 학살이라고 미국은 말한다.',
+      '한 미국 관리는 이번 조치로 인해 군이 더 이상의 학대를 저지르기가 어려워질 것이라고 말했다.'
+    ],
+    [
+      '복음주의 및 브라질: 국가 대표팀을 통해 퍼진 종교 운동',
+      '브라질 축구 국가대표팀 내의 복음주의가 증가하여 브라질 전역에 걸쳐 광범위한 추세를 반영하고 있습니다.'
+    ],
+    [
+      '아사카: 드릴 음악이 가나에서 새로운 집을 찾은 방법',
+      '아사카, 즉 가나 훈련은 아프로베츠의 세계적인 성공에 이은 아프리카에서 온 최신 핫 사운드입니다.'
+    ],
+    [
+      '우크라이나: 대리모와 부모에게는 불가능한 선택',
+      '수백 명의 우크라이나 여성들이 다른 사람들의 아이를 임신하고 있어 복잡한 문제들의 거미줄을 치고 있다.'
+    ],
+    [
+      '마리우폴: 러시아에게 도시가 중요한 네 가지 이유',
+      '우크라이나와 러시아 전쟁에서 가장 많은 폭격을 받은 도시는 모스크바 군사작전의 핵심이다.'
+    ],
+    [
+      'Omicron vs Zero-Covid: 중국은 얼마나 버틸 수 있을까?',
+      '중국의 2년 만의 최악의 사태는 중국이 얼마나 오랫동안 전략을 고수할 수 있을지에 대해 의문을 제기하고 있다.'
+    ],
+    [
+      '고양이로 변신할 수 있는 나이지리아인 사냥',
+      '한 남자가 나이지리아를 사로잡은 일련의 살인 사건 이후 마술에 대한 나이지리아인들의 믿음에 도전하고 있다.'
+    ],
+    [
+      '우크라이나 전쟁: 키이우 러시아 미사일에 맞은 쇼핑 센터',
+      '인근 카메라는 키이우의 쇼핑 센터가 비산물에 맞은 순간을 포착했다.'
+    ],
+    [
+      '우크라이나 전쟁: 러시아 군인들이 헤르손 시위대에 발포하다',
+      '폭발음이 들리고 러시아 군인들이 총격을 가하자 케르손의 시위대는 뿔뿔이 흩어졌다.'
+    ],
+    [
+      '텍사스는 170개 이상의 산불과 싸우고 있다.',
+      '지난 한 주 동안, 산불이 미국 주 전역에 걸쳐 10만 에이커를 태웠다.'
+    ],
+    [
+      '우크라이나 분쟁: 푸틴 전쟁의 부상당한 아이들은',
+      '마리우폴 폭격 생존자들은 분쟁의 신체적, 정신적 상처를 입고 있다.'
+    ],
+    [
+      '우크라이나 전쟁: 케르손 시위대가 러시아 트럭을 후진시키는 것처럼 보인다.',
+      '화면에는 일요일 러시아 케르손 점령에 항의하는 민간인들의 모습이 담겨있다.'
+    ]
+  ],
+  clearText: [
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false
+  ]
+}
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:58
+    return result[]
+                  ^
+
+SyntaxError: Unexpected token ']'
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Module.require (internal/modules/cjs/loader.js:887:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:17:13)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[
+  [
+    '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+    '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+  ],
+  [
+    'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+    'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+  ]
+]
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:50
+app.getDateIdx('/DateIdx', async function (req, res) {
+    ^
+
+TypeError: app.getDateIdx is not a function
+    at Object.<anonymous> (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:50:5)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:50
+app.getDateIdx('/DateIdx', async function (req, res) {
+    ^
+
+TypeError: app.getDateIdx is not a function
+    at Object.<anonymous> (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:50:5)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+(node:1225955) UnhandledPromiseRejectionWarning: MongoNotConnectedError: MongoClient must be connected to perform this operation
+    at getTopology (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/utils.js:369:11)
+    at Collection.find (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:242:69)
+    at Collection.findOne (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:233:21)
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:57:33)
+    at bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:28)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:24
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+(node:1225955) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1225955) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+(node:1225991) UnhandledPromiseRejectionWarning: MongoNotConnectedError: MongoClient must be connected to perform this operation
+    at getTopology (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/utils.js:369:11)
+    at Collection.find (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:242:69)
+    at Collection.findOne (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/mongodb/lib/collection.js:233:21)
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:57:33)
+    at bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:28)
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:24
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/node_modules/express/lib/router/layer.js:95:5)
+(node:1225991) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+(node:1225991) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+(node:1226040) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:59:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226040) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1226040) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+viewNews
+(node:1226040) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:59:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226040) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+(node:1226117) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:59:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226117) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1226117) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+null
+(node:1226155) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:60:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226155) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1226155) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+viewNews
+null
+(node:1226155) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:60:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226155) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+viewNews
+null
+(node:1226155) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:60:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226155) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 3)
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+null
+(node:1226272) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:60:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226272) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1226272) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+undefined 0?date=20220322
+null
+(node:1226428) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textKor' of null
+    at Object.getDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/api/news/bbc.js:60:20)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async bbcGetDateIdx (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:159:18)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:51:18
+(node:1226428) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1226428) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+20220322 0
+{
+  _id: new ObjectId("623974b1279d09ce35b5fda0"),
+  title: '20220322',
+  textEng: [
+    [
+      'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+      'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+    ],
+    [
+      'Ukraine war: Holocaust survivor killed by Russian shelling in Kharkiv',
+      'Boris Romantschenko was killed in Kharkiv 77 years after surviving the Buchenwald concentration camp.'
+    ],
+    [
+      "Malmö: Two women killed after 'violence' at Swedish school",
+      'An 18-year-old student is arrested on suspicion of murder after "deadly violence" in the city of Malmö.'
+    ],
+    [
+      'China plane crash: Rescuers search for survivors as families await news',
+      'Rescuers continue to search for survivors of the China Eastern flight, which was carrying 132 people.'
+    ],
+    [
+      'Sudan: BBC investigation shows abuse of female demonstrators',
+      'The BBC has identified a number of female protesters who have been physically and sexually assaulted by security forces in Sudan.'
+    ],
+    [
+      'Yvan Colonna: Corsican nationalist dies after jihadist jail attack',
+      "Yvan Colonna's strangling by a fellow inmate had sparked violent protests on the French island."
+    ],
+    [
+      'Gareth Ward: Australia state MP charged with sexual abuse',
+      'Gareth Ward - a former minister - says he denies assaulting a teenage boy in 2013 and a man in 2015.'
+    ],
+    [
+      "Biden: Russia 'exploring' US cyber-attacks",
+      'President Joe Biden says US companies should "immediately" prepare defences.'
+    ],
+    [
+      'Lake Keowee: Police refuse to charge South Carolina man over boat shooting',
+      'Nathan Drew Morgan was fatally shot by his rescuer after being pulled from a lake in South Carolina.'
+    ],
+    [
+      "Climate change: 'Madness' to turn to fossil fuels because of Ukraine war",
+      'UN Secretary General says climate goals are in danger if countries turn to coal because of Ukraine.'
+    ],
+    [
+      'Ed Sheeran and Camila Cabello join Ukraine concert line-up',
+      'Camila Cabello, Ed Sheeran, Gregory Porter and Snow Patrol will all take part in the fundraiser.'
+    ],
+    [
+      'Myanmar Rohingya violence is genocide, US says',
+      'A US official said the move would make it harder for the military to commit further abuses.'
+    ],
+    [
+      'Evangelicalism & Brazil: The religious movement that spread through a national team',
+      "Evangelicalism within Brazil's national football team has been on the rise, mirroring a wider trend across the country."
+    ],
+    [
+      'Asakaa: How drill music found a new home in Ghana',
+      'Asakaa, or Ghana drill, is the latest hot sound from Africa, following the global success of Afrobeats.'
+    ],
+    [
+      'Ukraine: Impossible choices for surrogate mothers and parents',
+      "Hundreds of Ukrainian women are pregnant with other people's children - creating a web of complex problems."
+    ],
+    [
+      'Mariupol: Four reasons the city matters so much to Russia',
+      'The most bombarded city in Ukraine’s war with Russia is key to Moscow’s military campaign.'
+    ],
+    [
+      'Omicron vs Zero-Covid: How long can China hold on?',
+      "China's worst outbreak in two years has got some questioning how long it can hang on to its strategy."
+    ],
+    [
+      'The hunt for Nigerians who can change into cats',
+      "One man is challenging Nigerians' belief in magic after a wave of killings that has gripped the country."
+    ],
+    [
+      'War in Ukraine: Kyiv shopping centre hit by Russian missile',
+      'A nearby camera captured the moment the shopping centre in Kyiv was struck by a missile.'
+    ],
+    [
+      'Ukraine war: Russian soldiers fire on Kherson protesters',
+      'Protesters in Kherson scattered as explosions are heard and shots were fired by Russian soldiers.'
+    ],
+    [
+      'Texas is battling over 170 wildfires',
+      'Over the past week, wildfires have burned over 100,000 acres across the US state.'
+    ],
+    [
+      "Ukraine conflict: The wounded children of Putin's war",
+      'Survivors from the bombardment of Mariupol are bearing the physical and mental scars of the conflict.'
+    ],
+    [
+      'War in Ukraine: Protesters in Kherson appear to make Russian truck reverse',
+      'Footage shows civilians protesting against Russian occupation in Kherson on Sunday.'
+    ]
+  ],
+  textKor: [
+    [
+      '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+      '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+    ],
+    [
+      '우크라이나 전쟁: 하르키브에서 러시아의 포격으로 사망한 홀로코스트 생존자',
+      '보리스 로만츠첸코는 부헨발트 강제수용소에서 살아남은 지 77년 만에 하르키프에서 살해됐다.'
+    ],
+    [
+      '말뫼: 스웨덴 학교 폭력 후 여성 2명 사망',
+      '말뫼시에서 18세 학생이 "죽은 폭력" 후 살인 혐의로 체포되었습니다.'
+    ],
+    [
+      '중국 여객기 추락: 구조대원들 생존자 수색, 가족 소식 기다린다',
+      '구조대원들은 132명을 태운 중국동부항공기의 생존자를 계속 찾고 있다.'
+    ],
+    [
+      '수단: BBC 조사, 여성 시위자 학대 발견',
+      'BBC는 수단에서 보안군에 의해 신체적, 성폭력을 당한 많은 여성 시위자들을 확인했습니다.'
+    ],
+    [
+      'Yvan Colonna: 코르시카 민족주의자, 지하드 감옥 공격 후 사망',
+      'Yvan Colonna가 동료 수감자에게 목을 졸라 살해당한 것은 프랑스 섬에서 폭력 시위를 촉발시켰다.'
+    ],
+    [
+      '가레스 워드: 성학대로 기소된 호주 주 하원의원',
+      '전 장관인 가레스 워드는 2013년 10대 소년과 2015년 한 남성을 폭행한 사실을 부인한다고 말했다.'
+    ],
+    [
+      "바이든: 러시아, 미국의 사이버 공격 '탐색'",
+      '조 바이든 대통령은 미국 기업들이 "즉시" 방어 태세를 갖추어야 한다고 말했습니다.'
+    ],
+    [
+      'Keowee 호수: 경찰은 보트 총격으로 사우스캐롤라이나 남성을 기소하기를 거부합니다.',
+      '네이선 드류 모건은 사우스 캐롤라이나의 호수에서 끌려온 후 구조자가 쏜 총에 치명상을 입었다.'
+    ],
+    [
+      "기후변화 우크라이나 전쟁 때문에 화석연료에 의지하는 '광기'",
+      '유엔 사무총장은 우크라이나 때문에 국가들이 석탄에 의존하게 되면 기후 목표가 위험해질 것이라고 말했습니다.'
+    ],
+    [
+      '에드 시런과 카밀라 카벨로가 우크라이나 콘서트 라인업에 합류하다',
+      '카밀라 카벨로, 에드 시런, 그레고리 포터, 스노우 패트롤이 모두 기금 모금 행사에 참여할 것이다.'
+    ],
+    [
+      '미얀마 로힝야 폭력은 대량 학살이라고 미국은 말한다.',
+      '한 미국 관리는 이번 조치로 인해 군이 더 이상의 학대를 저지르기가 어려워질 것이라고 말했다.'
+    ],
+    [
+      '복음주의 및 브라질: 국가 대표팀을 통해 퍼진 종교 운동',
+      '브라질 축구 국가대표팀 내의 복음주의가 증가하여 브라질 전역에 걸쳐 광범위한 추세를 반영하고 있습니다.'
+    ],
+    [
+      '아사카: 드릴 음악이 가나에서 새로운 집을 찾은 방법',
+      '아사카, 즉 가나 훈련은 아프로베츠의 세계적인 성공에 이은 아프리카에서 온 최신 핫 사운드입니다.'
+    ],
+    [
+      '우크라이나: 대리모와 부모에게는 불가능한 선택',
+      '수백 명의 우크라이나 여성들이 다른 사람들의 아이를 임신하고 있어 복잡한 문제들의 거미줄을 치고 있다.'
+    ],
+    [
+      '마리우폴: 러시아에게 도시가 중요한 네 가지 이유',
+      '우크라이나와 러시아 전쟁에서 가장 많은 폭격을 받은 도시는 모스크바 군사작전의 핵심이다.'
+    ],
+    [
+      'Omicron vs Zero-Covid: 중국은 얼마나 버틸 수 있을까?',
+      '중국의 2년 만의 최악의 사태는 중국이 얼마나 오랫동안 전략을 고수할 수 있을지에 대해 의문을 제기하고 있다.'
+    ],
+    [
+      '고양이로 변신할 수 있는 나이지리아인 사냥',
+      '한 남자가 나이지리아를 사로잡은 일련의 살인 사건 이후 마술에 대한 나이지리아인들의 믿음에 도전하고 있다.'
+    ],
+    [
+      '우크라이나 전쟁: 키이우 러시아 미사일에 맞은 쇼핑 센터',
+      '인근 카메라는 키이우의 쇼핑 센터가 비산물에 맞은 순간을 포착했다.'
+    ],
+    [
+      '우크라이나 전쟁: 러시아 군인들이 헤르손 시위대에 발포하다',
+      '폭발음이 들리고 러시아 군인들이 총격을 가하자 케르손의 시위대는 뿔뿔이 흩어졌다.'
+    ],
+    [
+      '텍사스는 170개 이상의 산불과 싸우고 있다.',
+      '지난 한 주 동안, 산불이 미국 주 전역에 걸쳐 10만 에이커를 태웠다.'
+    ],
+    [
+      '우크라이나 분쟁: 푸틴 전쟁의 부상당한 아이들은',
+      '마리우폴 폭격 생존자들은 분쟁의 신체적, 정신적 상처를 입고 있다.'
+    ],
+    [
+      '우크라이나 전쟁: 케르손 시위대가 러시아 트럭을 후진시키는 것처럼 보인다.',
+      '화면에는 일요일 러시아 케르손 점령에 항의하는 민간인들의 모습이 담겨있다.'
+    ]
+  ],
+  clearText: [
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false
+  ]
+}
+[
+  [
+    '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+    '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+  ],
+  [
+    'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+    'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+  ]
+]
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[
+  [
+    '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+    '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+  ],
+  [
+    'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+    'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+  ]
+]
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[
+  [
+    '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+    '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+  ],
+  [
+    'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+    'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+  ]
+]
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[
+  [
+    '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.',
+    '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.'
+  ],
+  [
+    'Ukraine war: Belarusian dissidents fight against Russia in Ukraine',
+    'Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.'
+  ]
+]
+[
+  [
+    '우크라이나 전쟁: 하르키브에서 러시아의 포격으로 사망한 홀로코스트 생존자',
+    '보리스 로만츠첸코는 부헨발트 강제수용소에서 살아남은 지 77년 만에 하르키프에서 살해됐다.'
+  ],
+  [
+    'Ukraine war: Holocaust survivor killed by Russian shelling in Kharkiv',
+    'Boris Romantschenko was killed in Kharkiv 77 years after surviving the Buchenwald concentration camp.'
+  ]
+]
+[
+  [
+    '말뫼: 스웨덴 학교 폭력 후 여성 2명 사망',
+    '말뫼시에서 18세 학생이 "죽은 폭력" 후 살인 혐의로 체포되었습니다.'
+  ],
+  [
+    "Malmö: Two women killed after 'violence' at Swedish school",
+    'An 18-year-old student is arrested on suspicion of murder after "deadly violence" in the city of Malmö.'
+  ]
+]
+[
+  [
+    '중국 여객기 추락: 구조대원들 생존자 수색, 가족 소식 기다린다',
+    '구조대원들은 132명을 태운 중국동부항공기의 생존자를 계속 찾고 있다.'
+  ],
+  [
+    'China plane crash: Rescuers search for survivors as families await news',
+    'Rescuers continue to search for survivors of the China Eastern flight, which was carrying 132 people.'
+  ]
+]
+[
+  [
+    '수단: BBC 조사, 여성 시위자 학대 발견',
+    'BBC는 수단에서 보안군에 의해 신체적, 성폭력을 당한 많은 여성 시위자들을 확인했습니다.'
+  ],
+  [
+    'Sudan: BBC investigation shows abuse of female demonstrators',
+    'The BBC has identified a number of female protesters who have been physically and sexually assaulted by security forces in Sudan.'
+  ]
+]
+[
+  [
+    'Yvan Colonna: 코르시카 민족주의자, 지하드 감옥 공격 후 사망',
+    'Yvan Colonna가 동료 수감자에게 목을 졸라 살해당한 것은 프랑스 섬에서 폭력 시위를 촉발시켰다.'
+  ],
+  [
+    'Yvan Colonna: Corsican nationalist dies after jihadist jail attack',
+    "Yvan Colonna's strangling by a fellow inmate had sparked violent protests on the French island."
+  ]
+]
+[
+  [
+    '가레스 워드: 성학대로 기소된 호주 주 하원의원',
+    '전 장관인 가레스 워드는 2013년 10대 소년과 2015년 한 남성을 폭행한 사실을 부인한다고 말했다.'
+  ],
+  [
+    'Gareth Ward: Australia state MP charged with sexual abuse',
+    'Gareth Ward - a former minister - says he denies assaulting a teenage boy in 2013 and a man in 2015.'
+  ]
+]
+[
+  [
+    "바이든: 러시아, 미국의 사이버 공격 '탐색'",
+    '조 바이든 대통령은 미국 기업들이 "즉시" 방어 태세를 갖추어야 한다고 말했습니다.'
+  ],
+  [
+    "Biden: Russia 'exploring' US cyber-attacks",
+    'President Joe Biden says US companies should "immediately" prepare defences.'
+  ]
+]
+[
+  [
+    'Keowee 호수: 경찰은 보트 총격으로 사우스캐롤라이나 남성을 기소하기를 거부합니다.',
+    '네이선 드류 모건은 사우스 캐롤라이나의 호수에서 끌려온 후 구조자가 쏜 총에 치명상을 입었다.'
+  ],
+  [
+    'Lake Keowee: Police refuse to charge South Carolina man over boat shooting',
+    'Nathan Drew Morgan was fatally shot by his rescuer after being pulled from a lake in South Carolina.'
+  ]
+]
+[
+  [
+    "기후변화 우크라이나 전쟁 때문에 화석연료에 의지하는 '광기'",
+    '유엔 사무총장은 우크라이나 때문에 국가들이 석탄에 의존하게 되면 기후 목표가 위험해질 것이라고 말했습니다.'
+  ],
+  [
+    "Climate change: 'Madness' to turn to fossil fuels because of Ukraine war",
+    'UN Secretary General says climate goals are in danger if countries turn to coal because of Ukraine.'
+  ]
+]
+[
+  [
+    '에드 시런과 카밀라 카벨로가 우크라이나 콘서트 라인업에 합류하다',
+    '카밀라 카벨로, 에드 시런, 그레고리 포터, 스노우 패트롤이 모두 기금 모금 행사에 참여할 것이다.'
+  ],
+  [
+    'Ed Sheeran and Camila Cabello join Ukraine concert line-up',
+    'Camila Cabello, Ed Sheeran, Gregory Porter and Snow Patrol will all take part in the fundraiser.'
+  ]
+]
+[
+  [
+    '미얀마 로힝야 폭력은 대량 학살이라고 미국은 말한다.',
+    '한 미국 관리는 이번 조치로 인해 군이 더 이상의 학대를 저지르기가 어려워질 것이라고 말했다.'
+  ],
+  [
+    'Myanmar Rohingya violence is genocide, US says',
+    'A US official said the move would make it harder for the military to commit further abuses.'
+  ]
+]
+[
+  [
+    '복음주의 및 브라질: 국가 대표팀을 통해 퍼진 종교 운동',
+    '브라질 축구 국가대표팀 내의 복음주의가 증가하여 브라질 전역에 걸쳐 광범위한 추세를 반영하고 있습니다.'
+  ],
+  [
+    'Evangelicalism & Brazil: The religious movement that spread through a national team',
+    "Evangelicalism within Brazil's national football team has been on the rise, mirroring a wider trend across the country."
+  ]
+]
+[
+  [
+    '아사카: 드릴 음악이 가나에서 새로운 집을 찾은 방법',
+    '아사카, 즉 가나 훈련은 아프로베츠의 세계적인 성공에 이은 아프리카에서 온 최신 핫 사운드입니다.'
+  ],
+  [
+    'Asakaa: How drill music found a new home in Ghana',
+    'Asakaa, or Ghana drill, is the latest hot sound from Africa, following the global success of Afrobeats.'
+  ]
+]
+[
+  [
+    '우크라이나: 대리모와 부모에게는 불가능한 선택',
+    '수백 명의 우크라이나 여성들이 다른 사람들의 아이를 임신하고 있어 복잡한 문제들의 거미줄을 치고 있다.'
+  ],
+  [
+    'Ukraine: Impossible choices for surrogate mothers and parents',
+    "Hundreds of Ukrainian women are pregnant with other people's children - creating a web of complex problems."
+  ]
+]
+[
+  [
+    '마리우폴: 러시아에게 도시가 중요한 네 가지 이유',
+    '우크라이나와 러시아 전쟁에서 가장 많은 폭격을 받은 도시는 모스크바 군사작전의 핵심이다.'
+  ],
+  [
+    'Mariupol: Four reasons the city matters so much to Russia',
+    'The most bombarded city in Ukraine’s war with Russia is key to Moscow’s military campaign.'
+  ]
+]
+[
+  [
+    'Omicron vs Zero-Covid: 중국은 얼마나 버틸 수 있을까?',
+    '중국의 2년 만의 최악의 사태는 중국이 얼마나 오랫동안 전략을 고수할 수 있을지에 대해 의문을 제기하고 있다.'
+  ],
+  [
+    'Omicron vs Zero-Covid: How long can China hold on?',
+    "China's worst outbreak in two years has got some questioning how long it can hang on to its strategy."
+  ]
+]
+[
+  [
+    '고양이로 변신할 수 있는 나이지리아인 사냥',
+    '한 남자가 나이지리아를 사로잡은 일련의 살인 사건 이후 마술에 대한 나이지리아인들의 믿음에 도전하고 있다.'
+  ],
+  [
+    'The hunt for Nigerians who can change into cats',
+    "One man is challenging Nigerians' belief in magic after a wave of killings that has gripped the country."
+  ]
+]
+[
+  [
+    '우크라이나 전쟁: 키이우 러시아 미사일에 맞은 쇼핑 센터',
+    '인근 카메라는 키이우의 쇼핑 센터가 비산물에 맞은 순간을 포착했다.'
+  ],
+  [
+    'War in Ukraine: Kyiv shopping centre hit by Russian missile',
+    'A nearby camera captured the moment the shopping centre in Kyiv was struck by a missile.'
+  ]
+]
+[
+  [
+    '우크라이나 전쟁: 러시아 군인들이 헤르손 시위대에 발포하다',
+    '폭발음이 들리고 러시아 군인들이 총격을 가하자 케르손의 시위대는 뿔뿔이 흩어졌다.'
+  ],
+  [
+    'Ukraine war: Russian soldiers fire on Kherson protesters',
+    'Protesters in Kherson scattered as explosions are heard and shots were fired by Russian soldiers.'
+  ]
+]
+[
+  [
+    '텍사스는 170개 이상의 산불과 싸우고 있다.',
+    '지난 한 주 동안, 산불이 미국 주 전역에 걸쳐 10만 에이커를 태웠다.'
+  ],
+  [
+    'Texas is battling over 170 wildfires',
+    'Over the past week, wildfires have burned over 100,000 acres across the US state.'
+  ]
+]
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+viewNews
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+A bomb hit this theatre hiding hundreds - here's how one woman survived
+The BBC speaks to survivors of the Mariupol theatre attack, who describe for the first time what happened.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '폭탄이 이 극장을 덮쳐 수백 명이 숨었습니다 - 여기 한 여성이 살아남은 방법이 있습니다\n' +
+        'BBC는 마리우폴 극장 공격의 생존자들에게 처음으로 무슨 일이 일어났는지 이야기합니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Russia Navalny: Putin critic given nine-year jail sentence in trial branded 'sham'
+Alexei Navalny will be sent to a "strict regime" colony after a judge jailed him for nine more years.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "러시아 나발니: 푸틴 비판자, '샴'이라는 이름의 재판에서 9년 징역형 선고\n" +
+        '알렉세이 나발니는 판사가 알렉세이 나발니를 9년 더 수감한 후 엄격한 정권 수용소로 보내질 것이다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Florida governor rejects transgender swimmer's win
+Florida governor Ron DeSantis signs a proclamation recognising runner-up Emma Weyant as the winner of the highest US national college swimming title.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '플로리다 주지사, 트랜스젠더 수영선수 승리 거부\n' +
+        '플로리다 주지사 론 드 산티스가 2위 엠마 웨이얀트를 미국 국립 대학 수영 최고 타이틀의 우승자로 인정하는 선언문에 서명했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Malmö: Two women killed after violent attack at Swedish school
+An 18-year-old student is arrested on suspicion of murder after two deaths in the city of Malmö.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '말뫼: 스웨덴 학교 폭력 공격 후 여성 2명 사망\n말뫼 시에서 18세 학생이 두 건의 사망 후 살인 혐의로 체포되었습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Sudan: BBC investigation shows abuse of female demonstrators
+The BBC has identified a number of female protesters who have been physically and sexually assaulted by security forces in Sudan.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '수단: BBC 조사, 여성 시위자 학대 발견\n' +
+        'BBC는 수단에서 보안군에 의해 신체적, 성폭력을 당한 많은 여성 시위자들을 확인했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+China Eastern plane crash rescuers find no survivors
+Crash investigators do not yet know why a flight carrying 132 people plunged out of the sky.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '중국동부 비행기 추락 구조대원 생존자 발견\n사고 조사관들은 132명을 태운 비행기가 하늘에서 추락한 이유를 아직 알지 못한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Israel: Four killed in shopping centre attack
+Three people were stabbed and a fourth run over in one of the deadliest such attacks for years.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '이스라엘: 쇼핑센터 공격으로 4명 사망\n몇 년 동안 가장 치명적인 공격 중 하나로 세 명이 칼에 찔리고 네 번째가 치였다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Tesla: Elon Musk opens delayed 'gigafactory' in Berlin
+The more than €5bn (£4bn) factory is the biggest investment in a German car plant in recent history.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "테슬라: 일론 머스크 베를린에 지연된 '기가 공장' 오픈\n" +
+        '50억 유로(약 40억 파운드)가 넘는 이 공장은 최근 독일 자동차 공장에 대한 가장 큰 투자입니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Terror of African students in Russian-occupied Kherson
+Nigerian students in Ukraine plead for help leaving Kherson as food, medicine and water run low.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 러시아가 점령한 헤르손의 아프리카 학생 테러\n' +
+        '우크라이나에 있는 나이지리아 학생들은 식량, 의약품, 물이 부족해지자 케르슨을 떠나도록 도와달라고 애원하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Some Disney staff stage walkout over Florida LGBT law
+A handful of staff join a protest against the company's "apathetic" response to Florida's education bill.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '일부 디즈니 직원들은 플로리다 LGBT 법안에 대해 파업을 벌인다.\n' +
+        '소수의 직원들이 플로리다의 교육 법안에 대한 회사의 "무감정적인" 반응에 항의하는 시위에 동참하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Maharashtra: Rubber penis in family planning kit sparks row
+Some lawmakers in Maharashtra state say female health workers will be embarrassed but others disagree.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '마하라슈트라: 가족계획키트에 고무로 만든 음경 스파크 열\n' +
+        '마하라슈트라 주의 일부 의원들은 여성 의료 종사자들이 당황할 것이라고 말했지만 다른 의원들은 동의하지 않았다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine's recruits swap spreadsheets for sniper rifles to defend Kyiv
+Preparing to defend Kyiv, Ukraine's new recruits must learn a new way of life - how to fight.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 신병들은 키이우 방어를 위해 스프레드시트를 저격용 소총으로 교환한다.\n' +
+        '키이우를 방어할 준비를 하면서, 우크라이나의 신병들은 새로운 생활 방식인 싸우는 방법을 배워야 합니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine: The small town which managed to block Russia's big plans
+The mayor of Voznesensk hails the "fighting spirit" of local people who drove Russian troops back.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나: 러시아의 큰 계획을 간신히 저지한 작은 마을\n' +
+        '보즈네센스크 시장은 러시아군을 몰아낸 현지인들의 투지를 높이 평가하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ketanji Brown Jackson: Key moments as Biden's Supreme Court pick quizzed
+Lawmakers on a key Senate panel are grilling Ketanji Brown Jackson about her record as a judge.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '케탄지 브라운 잭슨: 바이든의 대법원이 뽑은 주요 순간들\n' +
+        '상원 핵심 위원회 의원들은 케탄지 브라운 잭슨에게 판사로서의 경력을 따지고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+The 3 Russian cyber-attacks the West most fears
+US intelligence says Russia could launch cyber-attacks on the West. What is the worst-case scenario?
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '러시아 3대 사이버 공격이 서방세계에 가장 두려운 것은\n' +
+        '미 정보당국은 러시아가 서방세계에 사이버 공격을 가할 수 있다고 말한다. 최악의 시나리오는 무엇입니까?',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Evangelicalism & Brazil: The religious movement that spread through a national team
+Evangelicalism within Brazil's national football team has been on the rise, mirroring a wider trend across the country.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '복음주의 및 브라질: 국가 대표팀을 통해 퍼진 종교 운동\n' +
+        '브라질 축구 국가대표팀 내의 복음주의가 증가하여 브라질 전역에 걸쳐 광범위한 추세를 반영하고 있습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Asakaa: How drill music found a new home in Ghana
+Asakaa, or Ghana drill, is the latest hot sound from Africa, following the global success of Afrobeats.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '아사카: 드릴 음악이 가나에서 새로운 집을 찾은 방법\n' +
+        '아사카, 즉 가나 훈련은 아프로베츠의 세계적인 성공에 이은 아프리카에서 온 최신 핫 사운드입니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine: Impossible choices for surrogate mothers and parents
+Hundreds of Ukrainian women are pregnant with other people's children - creating a web of complex problems.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나: 대리모와 부모에게는 불가능한 선택\n' +
+        '수백 명의 우크라이나 여성들이 다른 사람들의 아이를 임신하고 있어 복잡한 문제들의 거미줄을 치고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Mariupol: Why Mariupol is so important to Russia's plan
+The most bombarded city in Ukraine’s war with Russia is key to Moscow’s military campaign.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '마리우폴: 마리우폴이 왜 러시아의 계획에 중요한가\n' +
+        '우크라이나와 러시아 전쟁에서 가장 많은 폭격을 받은 도시는 모스크바 군사작전의 핵심이다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+WATCH: Ukrainian sailing club protest superyacht linked to Abramovich in Turkey
+A Ukrainian sailing team protest against the arrival of a superyacht linked to Roman Abramovich in Turkey.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '감시: 터키의 아브라모비치와 연계된 우크라이나 요트 클럽 시위 슈퍼요트\n' +
+        '우크라이나 요트팀이 로만 아브라모비치와 연계된 슈퍼요트의 터키 도착에 항의하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Belarusian dissidents fight against Russia in Ukraine
+Belarusian dissident Pavel Kulazhanka left his life in New York to join the fight against Russia.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 벨라루스 반체제 인사들이 우크라이나에서 러시아에 맞서 싸운다.\n' +
+        '벨로루시 반체제 인사인 파벨 쿨라잔카는 러시아와의 전쟁에 참여하기 위해 뉴욕에서 그의 삶을 떠났다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+War in Ukraine: Kyiv shopping centre hit by Russian missile
+A nearby camera captured the moment the shopping centre in Kyiv was struck by a missile.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 키이우 러시아 미사일에 맞은 쇼핑 센터\n인근 카메라는 키이우의 쇼핑 센터가 비산물에 맞은 순간을 포착했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Russian soldiers fire on Kherson protesters
+Protesters in Kherson scattered as explosions are heard and shots were fired by Russian soldiers.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 러시아 군인들이 헤르손 시위대에 발포하다\n' +
+        '폭발음이 들리고 러시아 군인들이 총격을 가하자 케르손의 시위대는 뿔뿔이 흩어졌다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Texas is battling over 170 wildfires
+Over the past week, wildfires have burned over 100,000 acres across the US state.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '텍사스는 170개 이상의 산불과 싸우고 있다.\n지난 한 주 동안, 산불이 미국 주 전역에 걸쳐 10만 에이커를 태웠다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null,
+      modelVer: '1.2.11|enko.2022.0119.02|koen.2022.0119.02'
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+viewNews
+viewNews
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+(node:1301328) UnhandledPromiseRejectionWarning: ReferenceError: result is not defined
+    at bbcGet (/home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:164:3)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:45:18
+(node:1301328) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1301328) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+undefined
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+undefined
+undefined
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+{ '?date': '20220321' }
+undefined
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+{ date: '20220321' }
+20220321
+viewNews
+(node:1306762) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'textEng' of null
+    at /home/leedo/바탕화면/source/pythonparsing/DuouOLingo/my-app/src/server.js:49:20
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+(node:1306762) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1306762) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+{ date: '20220322' }
+20220322
+viewNews
+{ date: '20220322' }
+20220322
+viewNews
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
