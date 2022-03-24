@@ -2,9 +2,6 @@ import React from 'react';
 
 import { initializeApp } from 'firebase/app';
 import {
-    getAuthResponse,
-    setPersistence,
-    browserSessionPersistence,
     getAuth,
     onAuthStateChanged,
     GoogleAuthProvider,
@@ -45,19 +42,30 @@ class App extends React.Component {
             changeFlag: true,
             menuFlag: false,
             menuAccess: "menu_close",
-            menuClass: "foldMenu",
-            auth:{}
+            menuClass: "foldMenu"
         }
     }
     callTranslateIdx = async (idx) => {
         // const response = await (await fetch('http://1eed00.hopto.org:3000/viewNews')).json()
         // var hardData = "\n" + this.state.newsList[idx][0] + "\n" + this.state.newsList[idx][1]
         var hardData = idx
+        console.log(hardData)
+        const response = await (await fetch('http://222.112.129.129:3001/tranIdx?idx=' + idx)).json()
+        //Test
+        // let response = {};
+        // response.message = {}
+        // response.message.result = {}
+        // response.message.result.translatedText = "레나는 여러 차례 순차 예선전을 앞두고 중요한 코딩 대회를 준비하고 있다.\n처음에, 그녀의 행운의 균형은 0이다. 그녀는 '행운을 살린다'고 믿으며, 자신의 이론을 확인하고 싶어한다. 각 경기는 L[i]와 T[i]의 두 정수로 설명된다."
+        console.log(response)
         var newTranslateList = this.state.newsList;
-        newTranslateList[idx][2] = this.shake_it_String(newTranslateList[idx][4])
-        newTranslateList[idx][3] = this.shake_it_String(newTranslateList[idx][5])
+        newTranslateList[idx][2] = this.shake_it_String(response[0])
+        newTranslateList[idx][3] = this.shake_it_String(response[1])
+        newTranslateList[idx][4] = (response[0])
+        newTranslateList[idx][5] = (response[1])
         this.setState({ newsList: newTranslateList });
         this.setAutoHeight()
+        console.log(response)
+        // console.log(response)
     }
     callInputButtonIdx = async (idx, index, rIdx) => {
         var newTranslateList = this.state.newsList;
@@ -133,12 +141,7 @@ class App extends React.Component {
     componentDidMount() {
         this.callAPI()
         initializeApp(getFirebaseConfig());
-        getAuth().onAuthStateChanged( (user) =>{
-            const auth = sessionStorage.getItem("firebase:authUser:"+getFirebaseConfig().apiKey+":[DEFAULT]")
-            this.setState({auth:JSON.parse(auth)})
-            console.log(this.state.auth)
-        })
-        this.setState({selectIndex:5})
+
     }
     componentDidUpdate(prevProps) {
         if (this.state.changeFlag) {
@@ -165,59 +168,15 @@ class App extends React.Component {
             this.setState({ menuAccess: "menu_close" })
         }
     }
-    onGetAuth = async (event) => {
-        let idToken = ""
-        if (getAuth().currentUser) {
-            idToken = getAuth().currentUser.accessToken
-        }
-    }
-    signOut = async (e) => {
-        signOut(getAuth())
-    }
     onGoggleClick = async (event) => {
         console.log(event)
         var provider = new GoogleAuthProvider();
-        let r
-        setPersistence(getAuth(), browserSessionPersistence).then(async () => {
-            await signInWithPopup(getAuth(), provider);
-            const { 
-                apiKey
-                ,createdAt
-                ,displayName
-                ,email
-                ,emailVerified
-                ,isAnonymous
-                ,lastLoginAt
-                ,photoURL
-                ,uid } = this.state.auth
-    
-            const authObj = { 
-                apiKey:apiKey,
-                createdAt:createdAt,
-                displayName:displayName,
-                email:email,
-                emailVerified:emailVerified,
-                isAnonymous:isAnonymous,
-                lastLoginAt:lastLoginAt,
-                photoURL:photoURL,
-                uid:uid 
-            } 
-            console.log(authObj)
-            const response = await (await fetch('http://222.112.129.129:3001/sessionLogin/', {
-                method: "POST",
-                body: JSON.stringify({ data: authObj }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })).json()
-            console.log(response)
+        await signInWithPopup(getAuth(), provider).then(function (result) {
+            console.log(result)
         });
-
     }
     callAPI = async () => {
-        let date = "20220322"
-        let result = await (await fetch('http://222.112.129.129:3001/viewNews?date=' + date)).json()
-        let response = result[0] 
+        let response = await (await fetch('http://222.112.129.129:3001/viewNews')).json()
         // Test logic
         // let response = []
         if (response.length === 0) {
@@ -258,8 +217,8 @@ class App extends React.Component {
             for (var i = 0; i < response.length; i++) {
                 response[i].push("")
                 response[i].push("")
-                response[i].push(result[1][i][0])
-                response[i].push(result[1][i][1])
+                response[i].push("")
+                response[i].push("")
                 response[i].push([false, false]);
                 response[i].push([])
                 response[i].push([])
@@ -302,8 +261,7 @@ class App extends React.Component {
                                 <li><button>학습 히스토리</button></li>
                                 <li><button>학습 통계</button></li>
                                 <li id="logon">
-                                    <button onClick={(e) => this.onGetAuth(e)}>인증테스트</button>
-                                    {!this.state.auth ? <button onClick={(e) => this.onGoggleClick(e)}>로그인</button> : <button onClick={(e) => this.signOut(e)}>로그아웃</button>}
+                                    <button onClick={(e) => this.onGoggleClick(e)}>로그인</button>
                                 </li>
                             </ul>
                         </div>

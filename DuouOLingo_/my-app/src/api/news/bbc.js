@@ -32,10 +32,10 @@ async function toDayData() {
     let month = today.getMonth() + 1;  // 월
     let date = today.getDate();  // 날짜
 
-    if(month < 10)
-        month="0"+month
-    if(date < 10)
-        date="0"+date
+    // if(month < 10)
+    //     month="0"+month
+    // if(date < 10)
+    //     date="0"+date
 
     // if(month<10)
     //     month="0"+month
@@ -50,14 +50,6 @@ async function toDayData() {
     const result = await newsCn.findOne({title:title})
     return result
 }
-async function getDate(date){
-    await client.connect()
-    const database = client.db('engData');
-    const newsCn = database.collection('news');
-    const result = await newsCn.findOne({title:date})
-    return result
-}
-
 async function insertNews(text) {
     const database = client.db('engData');
     const newsCn = database.collection('news');
@@ -117,13 +109,10 @@ async function getText() {
     return selector
 };
 
-async function run (){
-    await client.connect()
+// async function run (){
+//     const a = await getText()
 
-    const a = await getDateIdx("20220322",0)
-
-    console.log(a)    
-}
+//     console.log(a)    
+// }
 exports.get = get
-exports.getDate = getDate
 // run()
