@@ -20,6 +20,7 @@ async function get() {
         await insertNews(text)
         toDay = await toDayData()
     }
+    console.log("run")
 
     // console.log("complete")
     await client.close()
@@ -120,10 +121,8 @@ async function getText() {
 async function run (){
     await client.connect()
 
-    const a = await getDateIdx("20220322",0)
-
-    console.log(a)    
+    await get()
 }
 exports.get = get
 exports.getDate = getDate
-// run()
+run()

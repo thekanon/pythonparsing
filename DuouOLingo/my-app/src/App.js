@@ -214,8 +214,20 @@ class App extends React.Component {
         });
 
     }
+    toDayData() {
+        let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        if(month < 10)
+            month="0"+month
+        let date = today.getDate();  // 날짜
+        if(date < 10)
+            date="0"+date
+
+        return year + '' + month + '' + date
+    }
     callAPI = async () => {
-        let date = "20220322"
+        let date = this.toDayData()
         let result = await (await fetch('http://222.112.129.129:3001/viewNews?date=' + date)).json()
         let response = result[0] 
         // Test logic
