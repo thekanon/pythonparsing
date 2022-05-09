@@ -51,6 +51,14 @@ async function toDayData() {
     const result = await newsCn.findOne({title:title})
     return result
 }
+async function getDateList(){
+    await client.connect()
+    const database = client.db('engData');
+    const newsCn = database.collection('news');
+    const result = await newsCn.find({},{projection:{_id:0,title:1}}).toArray()
+    return result
+}
+
 async function getDate(date){
     await client.connect()
     const database = client.db('engData');
@@ -125,4 +133,5 @@ async function run (){
 }
 exports.get = get
 exports.getDate = getDate
+exports.getDateList = getDateList
 run()

@@ -46,7 +46,9 @@ class App extends React.Component {
             menuFlag: false,
             menuAccess: "menu_close",
             menuClass: "foldMenu",
-            auth:{}
+            auth: {},
+            selectList:[],
+            currentDate:''
         }
     }
     callTranslateIdx = async (idx) => {
@@ -133,12 +135,12 @@ class App extends React.Component {
     componentDidMount() {
         this.callAPI()
         initializeApp(getFirebaseConfig());
-        getAuth().onAuthStateChanged( (user) =>{
-            const auth = sessionStorage.getItem("firebase:authUser:"+getFirebaseConfig().apiKey+":[DEFAULT]")
-            this.setState({auth:JSON.parse(auth)})
+        getAuth().onAuthStateChanged((user) => {
+            const auth = sessionStorage.getItem("firebase:authUser:" + getFirebaseConfig().apiKey + ":[DEFAULT]")
+            this.setState({ auth: JSON.parse(auth) })
             console.log(this.state.auth)
         })
-        this.setState({selectIndex:5})
+        this.setState({ selectIndex: 5 })
     }
     componentDidUpdate(prevProps) {
         if (this.state.changeFlag) {
@@ -180,28 +182,28 @@ class App extends React.Component {
         let r
         setPersistence(getAuth(), browserSessionPersistence).then(async () => {
             await signInWithPopup(getAuth(), provider);
-            const { 
+            const {
                 apiKey
-                ,createdAt
-                ,displayName
-                ,email
-                ,emailVerified
-                ,isAnonymous
-                ,lastLoginAt
-                ,photoURL
-                ,uid } = this.state.auth
-    
-            const authObj = { 
-                apiKey:apiKey,
-                createdAt:createdAt,
-                displayName:displayName,
-                email:email,
-                emailVerified:emailVerified,
-                isAnonymous:isAnonymous,
-                lastLoginAt:lastLoginAt,
-                photoURL:photoURL,
-                uid:uid 
-            } 
+                , createdAt
+                , displayName
+                , email
+                , emailVerified
+                , isAnonymous
+                , lastLoginAt
+                , photoURL
+                , uid } = this.state.auth
+
+            const authObj = {
+                apiKey: apiKey,
+                createdAt: createdAt,
+                displayName: displayName,
+                email: email,
+                emailVerified: emailVerified,
+                isAnonymous: isAnonymous,
+                lastLoginAt: lastLoginAt,
+                photoURL: photoURL,
+                uid: uid
+            }
             console.log(authObj)
             const response = await (await fetch('http://222.112.129.129:3001/sessionLogin/', {
                 method: "POST",
@@ -212,24 +214,47 @@ class App extends React.Component {
             })).json()
             console.log(response)
         });
-
     }
-    toDayData() {
-        let today = new Date();
-        let year = today.getFullYear(); // 년도
-        let month = today.getMonth() + 1;  // 월
-        if(month < 10)
-            month="0"+month
-        let date = today.getDate();  // 날짜
-        if(date < 10)
-            date="0"+date
-
-        return year + '' + month + '' + date
+    toDayData(selectDate) {
+        if(selectDate){
+            this.setState({currentDate:selectDate}) 
+        } else {
+            let today = new Date();
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            if (month < 10)
+                month = "0" + month
+            let date = today.getDate();  // 날짜
+            if (date < 10)
+                date = "0" + date
+            console.log(year + '' + month + '' + date)
+            this.setState({currentDate:year + '' + month + '' + date}) 
+            selectDate = year + '' + month + '' + date    
+        }
+        // this.callAPI()
+        return selectDate
+    }
+    onSelectChange = async (e)=> {
+        const date = e.target.value
+        await this.setState({currentDate:date}) 
+        // this.state.currentDate = date
+        console.log(this.state.currentDate)
+        this.callAPI()
+    }
+    getDateList = async ()=> {
+        let result = await (await fetch('http://222.112.129.129:3001/dateList')).json()
+        const arr = []
+        result.map(e => {
+            arr.push(e.title)
+        })
+        this.setState({selectList:arr})
     }
     callAPI = async () => {
-        let date = this.toDayData()
+        let date = this.state.currentDate ? this.state.currentDate : this.toDayData()
+
+        this.getDateList()
         let result = await (await fetch('http://222.112.129.129:3001/viewNews?date=' + date)).json()
-        let response = result[0] 
+        let response = result[0]
         // Test logic
         // let response = []
         if (response.length === 0) {
@@ -302,7 +327,14 @@ class App extends React.Component {
                                 <path d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z" />
                             </svg>
                         </button>
-                        <a className="logo">Parsing To BBC</a>
+                        <a className="logo">
+                            Parsing To BBC / &nbsp;
+                            <select value={this.state.currentDate} onChange={(e) => this.onSelectChange(e)}>
+                                {this.state.selectList.map(e => {
+                                    return <option value={e}>{e}</option>
+                                })}
+                            </select>
+                        </a>
                         <button className="search">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" />

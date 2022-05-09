@@ -182,6 +182,16 @@ button:hover {
 .answer-button button {
   width:50%
 }
+select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background:black;
+  color:white;
+  border-color: black;
+  font-size: 17px;
+}
 footer {
   width: 100%;
   position: absolute;

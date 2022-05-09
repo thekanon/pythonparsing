@@ -44,17 +44,12 @@ app.get('/viewNews', async function (req, res) {
   if(req.query.date){
     date= req.query.date
   }
-  const result = await bbcGet(date)
+  const result = await bbc.getDate(date)
   console.log("viewNews")
   res.json([result.textEng,result.textKor])
 })
-app.get('/tranIdx', async function (req, res) {
-  const result = await bbcGet()
-  // console.log(result.textKor[req.body.data])
-  res.json(result.textKor[req.query.idx])
-})
-app.get('/dateIdx', async function (req, res) {
-  const result = await bbcGetDateIdx(req.query.date,req.query.idx)
+app.get('/dateList', async function (req, res) {
+  const result = await bbc.getDateList()
   // console.log(result.textKor[req.body.data])
   res.json(result)
 })
@@ -85,35 +80,6 @@ app.post('/sessionLogin', async function (req, res) {
   const result = await logonGet(idToken)
   console.log(result)
   res.json(result)
-
-//   // Set session expiration to 5 days.
-//   const expiresIn = 60 * 60 * 24 * 5 * 1000;
-//   // Create the session cookie. This will also verify the ID token in the process.
-//   // The session cookie will have the same claims as the ID token.
-//   // We could also choose to enforce that the ID token auth_time is recent.
-//   admin.auth().verifyIdToken(idToken).then(function (decodedClaims) {
-//     console.log("decodedClaims")
-//     console.log(decodedClaims)
-//     // In this case, we are enforcing that the user signed in in the last 5 minutes.
-//     if (new Date().getTime() / 1000 - decodedClaims.auth_time < 5 * 60) {
-//       return admin.auth().createSessionCookie(idToken, { expiresIn: expiresIn });
-//     }
-//     throw new Error('UNAUTHORIZED REQUEST!');
-//   })
-//     .then(function (sessionCookie) {
-//       // Note httpOnly cookie will not be accessible from javascript.
-//       // secure flag should be set to true in production.
-//       const options = { maxAge: expiresIn };
-//       res.cookie('session', sessionCookie, options);
-//       res.cookie('session', sessionCookie, { maxAge: 1000 * 60 * 10, httpOnly: false });
-
-//       res.setHeader('Set-Cookie', ['session=' + sessionCookie, 'language=javascript']);
-//       res.setHeader("test", "ttest")
-//       res.end(JSON.stringify({ status: 'success', cookie: sessionCookie }));
-//     })
-//     .catch(function (error) {
-//       res.status(401).send('UNAUTHORIZED REQUEST!');
-//     });
 });
 app.post('/logon', function (req, res, next) {
   const api_url = 'https://openapi.naver.com/v1/papago/n2mt'
@@ -146,17 +112,6 @@ app.post('/logon', function (req, res, next) {
     }
   })
 });
-
-function convertWebToString(data) {
-  //가져온 데이터가 Object 형태인데, 왜인지 모르겠지만 eval로 다시 초기화 하지 않으면 버퍼로 데이터를 가지고 있음
-  let myJsonString = (data.toString());
-  myJsonString = eval(myJsonString);
-  console.log(myJsonString)
-  return myJsonString
-  // //eval로 초기화 시 array형태의 데이터 얻을 수 있음.
-  // console.log(myJsonString)
-  // 
-}
 async function bbcGet(date) {
   console.log(date)
   if(date){
@@ -164,10 +119,6 @@ async function bbcGet(date) {
   } else {
     return await bbc.get()
   }
-}
-async function bbcGetDateIdx(date,idx) {
-  const result = await bbc.getDateIdx(date,idx)
-  return result
 }
 async function logonGet(user){
     const result = await logon.get(user)

@@ -1,0 +1,540 @@
+
+> my-app@0.1.0 back
+> nodemon ./src/server.js
+
+[33m[nodemon] 2.0.15[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node ./src/server.js`[39m
+server start
+Ukraine war: Dozens feared dead after bomb hits school
+A Ukrainian official says 60 people may be dead after an air strike on a village school in Luhansk.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나의 전쟁: 폭탄이 학교를 강타한 후 수십 명이 사망할 것으로 우려된다.\n' +
+        '우크라이나 관리는 루한스크의 한 마을 학교에 대한 공습으로 60명이 사망했다고 말했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+'We tried not to watch' - escapees recount terror of Russian-occupied Izyum
+Two women recall what happened when Russia took over a strategically-important city in the Donbas.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "'우리는 보지 않으려고 애썼다' - 탈출자들은 러시아 점령지 이줌의 공포를 되새긴다.\n" +
+        '두 여성은 러시아가 돈바스의 전략적으로 중요한 도시를 점령했을 때 무슨 일이 일어났는지 기억한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Two held in manhunt for axe attackers who killed three Israelis
+Israeli police say the Palestinians were found hiding in bush near Elad where the attack took place.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '두 명은 이스라엘인 3명을 살해한 도끼 공격자 수색에 붙잡혔다.\n' +
+        '이스라엘 경찰은 팔레스타인인들이 공격이 있었던 엘라드 인근 덤불 속에 숨어 있는 것이 발견됐다고 밝혔습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Hong Kong's John Lee: Ex-security chief becomes new leader
+John Lee's appointment is being seen as a move by China to tighten its grip on the city.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '홍콩의 존 리: 전직 보안 책임자가 새로운 지도자가 되다\n' +
+        '존 리의 임명은 중국이 이 도시에 대한 지배력을 강화하기 위한 움직임으로 보여지고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Kentucky Derby: 80-1 outsider Rich Strike pulls off historic upset
+Rich Strike, a 80-1 outsider, won the race despite only being brought in after a horse dropped out.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '켄터키 더비: 80-1 아웃사이더 리치 스트라이크가 역사적인 역전승을 거두다\n' +
+        '80-1 아웃사이더인 리치 스트라이크는 말 한 마리가 탈락한 후에야 출전했음에도 불구하고 경기에서 승리했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+UK YouTuber Benjamin Rich held at Russian space centre
+Bald and Bankrupt vlogger Benjamin Rich was held in Kazakhstan, Russia's space agency says.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '러시아 우주센터에서 열린 영국 유튜버 벤자민 리치\n' +
+        '대머리와 파산한 블로거 벤자민 리치가 카자흐스탄에서 억류됐다고 러시아 우주국이 밝혔다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Brazil's Lula launches presidential campaign
+The former Brazilian president says he wants to unite the country and defend its democracy.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '브라질 룰라 대통령 선거 운동 시작\n전 브라질 대통령은 국가를 통합하고 민주주의를 수호하고 싶다고 말했습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+EasyJet to take out seats so it can fly with fewer crew
+The airline plans to remove a row of seats so that it can fly with fewer cabin crew on board.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '더 적은 승무원으로 비행할 수 있도록 좌석 반출을 위한 이지젯\n' +
+        '그 항공사는 더 적은 승무원으로 비행할 수 있도록 한 줄로 늘어선 좌석을 제거할 계획이다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+War in Ukraine: Zelensky WW2 speech accuses Russia of Nazi atrocities
+The Ukrainian leader compares Russia's invasion of his country to wartime Nazi bombings.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 젤렌스키 제2차 세계 대전 연설, 러시아에 나치 잔학 행위\n' +
+        '이 우크라이나 지도자는 러시아의 자국 침공을 전시 나치 폭격에 비유한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+New Mexico wildfire: Huge blaze could worsen this weekend
+"Historic" extreme weather likely to stoke New Mexico fire, which is already the size of Chicago.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '뉴멕시코 산불: 이번 주말에 큰 불길이 더 심해질 수 있다.\n' +
+        '"역사적인" 극한의 날씨는 이미 시카고 크기인 뉴멕시코의 화재를 일으킬 것 같다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Afghanistan: Women’s faces become latest Taliban restriction after face veil rule
+“They are always after women” rather than tackling Afghanistan’s many problems, one activist told the BBC.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '아프가니스탄: 여성의 얼굴은 면사포 규정 이후 탈레반의 최근 제한사항이 되었다.\n' +
+        '한 활동가는 BBC와의 인터뷰에서 "그들은 아프가니스탄의 많은 문제를 해결하기보다는 항상 여성을 추구한다"고 말했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Nigerian airlines to halt domestic flights over jet fuel hikes
+Prices have risen almost fourfold this year, mainly triggered by Russia's invasion of Ukraine.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '나이지리아 항공사들, 제트 연료 증가 문제로 국내선 운항 중단\n' +
+        '올해 물가가 거의 네 배로 올랐는데, 주로 러시아의 우크라이나 침공으로 촉발되었다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Returning to the place my father was killed
+As Vadim and his father tried to rescue their dogs, they were fired upon by a convoy they believe was Russian.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 아버지가 살해당한 곳으로 돌아가기\n' +
+        'Vadim과 그의 아버지가 그들의 개를 구조하려고 할 때, 그들은 러시아인이라고 믿는 호송차에 의해 발사되었다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: 'If this is true, then I am also a Nazi'
+Holocaust survivors in the Ukrainian city of Uman feel insulted by Russian claims to be fighting Nazis.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "우크라이나 전쟁: '만약 이것이 사실이라면, 나도 나치이다.'\n" +
+        '우크라이나 우만의 홀로코스트 생존자들은 나치와 싸우고 있다는 러시아의 주장에 모욕감을 느낀다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ros Atkins on... Why 9 May matters to Russia
+Ros Atkins explains why Victory Day is such an important date in Russia.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '로즈 앳킨슨... 5월 9일이 러시아에게 중요한 이유\n' +
+        'Ros Atkins는 왜 러시아에서 승리의 날이 그렇게 중요한 날인지 설명한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Viewpoint: Putin now faces only different kinds of defeat
+Russia's Victory Day parade won't represent any sort of victory over Ukraine, writes defence analyst Michael Clarke.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '관점: 푸틴은 이제 다른 종류의 패배에 직면할 뿐이다.\n' +
+        '러시아의 전승절 퍼레이드는 우크라이나에 대한 어떤 종류의 승리도 의미하지 않을 것이라고 국방 분석가 마이클 클라크는 쓰고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+KwaZulu-Natal floods: The South African family who lost nine children
+Mass funerals are held in South Africa after the country's most deadly natural disaster.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '콰줄루나탈 홍수: 9명의 아이들을 잃은 남아프리카의 가족은\n남아공에서 가장 치명적인 자연재해 이후 대규모 장례식이 치러진다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Philippines election: 'Politicians hire me to spread fake stories'
+Voters in the Philippines presidential election are facing an onslaught of online lies.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "필리핀 선거: '정치인들은 가짜 이야기를 퍼뜨리기 위해 나를 고용한다'\n" +
+        '필리핀 대통령 선거에서 유권자들이 온라인 거짓말의 맹공격을 받고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Fergal Keane: How I found a way to live with PTSD
+The BBC correspondent, who was diagnosed with PTSD in 2008, explores the effects of the condition and how it can be treated.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '퍼거 킨: PTSD와 함께 살 수 있는 방법을 찾은 방법\n' +
+        '2008년 PTSD 진단을 받은 BBC 특파원은 이 질환의 영향과 치료 방법을 탐구한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Who is Alina Kabaeva, Putin's alleged girlfriend?
+The EU is proposing to sanction Alina Kabaeva, an ex-gymnast turned media boss close to President Vladimir Putin.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '푸틴의 여자친구로 추정되는 알리나 카바예바는 누구인가?\n' +
+        '유럽연합(EU)은 블라디미르 푸틴 대통령과 가까운 전직 체조 선수 출신 언론사 사장 알리나 카바예바를 제재할 것을 제안하고 있다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Bono sings with soldier in Kyiv metro station
+The U2 frontman was seen singing at a downtown metro station covering the hit track Stand by Me.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나 전쟁: 보노는 키이우 지하철역에서 군인과 함께 노래한다.\n' +
+        'U2의 선두 주자는 히트 트랙인 "스탠바이 미"를 커버하는 시내 지하철역에서 노래를 부르는 것이 목격되었다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Ukraine war: Rebuilt Kyiv railway bridge a symbol of hope
+A railway bridge close to Kyiv has been rebuilt, just a month after it was destroyed by Russian attacks.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '우크라이나의 전쟁: 희망의 상징인 키이우 철교 재건\n' +
+        '키이우와 가까운 철교가 러시아의 공격으로 파괴된 지 불과 한 달 만에 재건되었습니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+The return of California's butterflies
+Efforts to protect these beautiful insects include driving electric tractors and hand-rearing them in a lab.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '캘리포니아 나비의 귀환\n' +
+        '이 아름다운 곤충들을 보호하기 위한 노력에는 전기 트랙터를 운전하고 실험실에서 그것들을 손으로 기르는 것이 포함됩니다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Acid attack survivors in Mexico: 'Justice is not enough'
+Carmen Sanchez launched her foundation in Mexico to help survivors of attacks rebuild their lives.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: "멕시코 산성비 생존자: '정의는 충분하지 않다'\n" +
+        '카르멘 산체스는 멕시코에서 공격의 생존자들이 그들의 삶을 재건하는 것을 돕기 위해 그녀의 재단을 설립했다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+Australia election: Welcome to Durack, a seat six times bigger than Britain
+Australians head to the polls on 21 May - and in Durack, it means a massive logistical effort.
+{
+  message: {
+    result: {
+      srcLangType: 'en',
+      tarLangType: 'ko',
+      translatedText: '오스트레일리아 선거: 영국보다 6배나 큰 두락에 오신 것을 환영합니다.\n' +
+        '호주인들은 5월 21일에 투표소로 향한다 - 그리고 듀락에서는 그것은 엄청난 물류 노력을 의미한다.',
+      engineType: 'UNDEF_MULTI_SENTENCE',
+      pivot: null,
+      dict: null,
+      tarDict: null
+    },
+    '@type': 'response',
+    '@service': 'naverservice.nmt.proxy',
+    '@version': '1.0.0'
+  }
+}
+run
+{ date: '20220509' }
+viewNews
+{ date: '20220509' }
+viewNews
+Putin says Russia fighting for motherland in Ukraine in Victory Day speech
+The Russian leader uses Victory Day to tie the war in Ukraine to the fight against Nazi Germany.
+Ukraine bid to join EU will take decades says Macron
+The French leader suggests other ways the EU can help Ukraine, other than fast tracking its membership.
+Ukraine War: Putin gives few clues in Victory Day speech
+Prior to Victory Day, Moscow was full of rumours about what Putin might announce in his speech.
+Philippines election: Marcos son eyes return with early lead
+As votes are counted, Ferdinand "Bongbong" Marcos Jr takes a huge early lead in the presidential race.
+Mahinda Rajapaksa: Sri Lankan PM resigns amid economic crisis
+Protesters have been out on the streets since last month over soaring prices and power cuts.
+President Biden criticises abortion protests at judges' houses
+Pro-choice activists marched to the homes of two conservative Supreme Court justices this weekend.
+Ukraine war: 'When the shelling stops, the traitors will be punished'
+A clash of loyalties is dividing opinion among the residents of Bakhmut in Ukraine's eastern Donbas region.
+Haiti's 400 Mawozo gang abducts 17 people from tourist bus
+A gang infamous for taking hostages for ransom abducts a bus full of Haitian and Turkish passengers.
+IndiGo: Anger after India airline removes disabled teenager
+IndiGo allegedly refused to let the teenager board its flight, saying he was a "risk to passengers".
+Patron the mine-sniffing dog awarded medal by President Zelensky
+Patron, aged two-and-a-half, is credited with helping find more than 200 devices since the war began.
+Egypt arrests teenagers for harassing female tourists at pyramids
+A video showing a group haranguing the young women at the Giza pyramids sparked outrage online.
+Nigerian airlines suspend plans to ground flights
+Plans to stop domestic flights in protest at the spiralling cost of aviation fuel are suspended.
+From handshakes to hostilities: How dangerous is the situation in North Korea?
+South Korea's incoming president promises to take a hard line on North Korea’s military escalations.
+Ukraine war: Returning to the place my father was killed
+As Vadim and his father tried to rescue their dogs, they were fired upon by a convoy they believe was Russian.
+Nigeria's Looty seeks to reclaim African art in digital form
+A Nigerian designer is making NFTs of African artefacts in Western museums to help local artists.
+Philippines election: 'Politicians hire me to spread fake stories'
+Voters in the Philippines presidential election are facing an onslaught of online lies.
+Viewpoint: Putin now faces only different kinds of defeat
+Russia's Victory Day parade won't represent any sort of victory over Ukraine, writes defence analyst Michael Clarke.
+Fergal Keane: How I found a way to live with PTSD
+The BBC correspondent, who was diagnosed with PTSD in 2008, explores the effects of the condition and how it can be treated.
+KwaZulu-Natal floods: The South African family who lost nine children
+Mass funerals are held in South Africa after the country's most deadly natural disaster.
+'We tried not to watch' - escapees recount terror of Russian-occupied Izyum
+Two women recall what happened when Russia took over a strategically-important city in the Donbas.
+Ukraine war: 'If this is true, then I am also a Nazi'
+Holocaust survivors in the Ukrainian city of Uman feel insulted by Russian claims to be fighting Nazis.
+Red liquid thrown over Russian ambassador to Poland at WWII cemetery
+The moment red liquid is thrown over Russia's ambassador to Poland at a WWII cemetery.
+'You are fighting for Russia'- Putin addresses Victory Day parade
+In his address, Vladimir Putin says that Russia has been threatened by Nato and other countries.
+Ukraine war: Artist George Butler sketches conflict
+Artist George Butler has recently returned to the UK after a month spent in Ukraine.
+Sri Lanka: The protests unifying a nation where ethnic fault lines run deep
+Unprecedented protests in Colombo are unifying a nation where ethnic fault lines run deep.
+Ukraine war: Bono sings with soldier in Kyiv metro station
+The U2 frontman was seen singing at a downtown metro station covering the hit track Stand by Me.
