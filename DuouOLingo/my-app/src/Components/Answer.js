@@ -28,7 +28,6 @@ function Answer(props) {
                 rIdx={rIdx}
                 key={index} >{buttonArr[element]}</AnswerButton>
         });
-        console.log(str);
         return <div>{str}</div>
     }
     let line = "";

@@ -19,7 +19,9 @@
     "firebase-admin": "^10.0.2",
     "mongodb": "^4.4.1",
     "node-fetch": "^3.2.1",
+    "nodeenv": "^3.0.74",
     "nodemon": "^2.0.15",
+    "nodenv": "^0.1.0",
     "puppeteer": "^13.4.1",
     "puppeteer-extra": "^3.2.3",
     "react": "^16.13.1",
@@ -52,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "graceful-fs": "^4.2.10"
   }
 }

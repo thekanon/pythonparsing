@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { initializeApp } from 'firebase/app';
 import {
     getAuthResponse,
@@ -13,7 +12,6 @@ import {
 } from 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getFirebaseConfig } from './firebase/fBase';
-
 import './App.css';
 import Question from "./Components/Question.js";
 import ButtonList from "./Components/ButtonList.js";
@@ -24,17 +22,13 @@ class App extends React.Component {
         /*
             newsList[0] : title
             newsList[1] : description
-
             newsList[2] : translate shuffle title
             newsList[3] : translate shuffle description
-
             newsList[4] : translate title
             newsList[5] : translate description
-
             newsList[6] : this row Flag
             newsList[6][0] : (true / false) show/hide translate shuffle title, description
             newsList[6][1] : (true / false) show/hide translate title, description
-
             newsList[7] : user Title Input
             newsList[8] : user Description Input
         */
@@ -47,8 +41,8 @@ class App extends React.Component {
             menuAccess: "menu_close",
             menuClass: "foldMenu",
             auth: {},
-            selectList:[],
-            currentDate:''
+            selectList: [],
+            currentDate: ''
         }
     }
     callTranslateIdx = async (idx) => {
@@ -60,6 +54,18 @@ class App extends React.Component {
         newTranslateList[idx][3] = this.shake_it_String(newTranslateList[idx][5])
         this.setState({ newsList: newTranslateList });
         this.setAutoHeight()
+        const currentIndex = this.state.currentDate + "_" + idx
+        const obj = {
+            uid:this.state.auth.uid,
+            currentIndex:currentIndex
+        }
+        const response = await (await fetch('http://222.112.129.129:3001/setCurrentIndex/', {
+            method: "POST",
+            body: JSON.stringify({ data: obj }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })).json()
     }
     callInputButtonIdx = async (idx, index, rIdx) => {
         var newTranslateList = this.state.newsList;
@@ -74,7 +80,6 @@ class App extends React.Component {
         const numbers = this.state.newsList
         const selectIndex = this.state.selectIndex
         numbers[selectIndex][7 + rIdx].splice(cIdx, 1);
-        console.log(numbers[selectIndex][7 + rIdx])
         this.setState({ newsList: numbers });
         this.setState({ changeFlag: true })
     }
@@ -103,7 +108,6 @@ class App extends React.Component {
     }
     callSkip(selectIndex) {
         this.setState({ selectIndex: selectIndex });
-        console.log("callSkip! selectIndex is " + selectIndex)
         this.callTranslateIdx(selectIndex)
     }
     callAnswer(selectIndex, numbers) {
@@ -114,10 +118,8 @@ class App extends React.Component {
         let numbers = this.state.newsList;
         const selectIndex = this.state.selectIndex
         const addData = numbers[selectIndex][7 + rIdx][data]
-
         numbers[selectIndex][7 + rIdx].splice(data, 1);
         numbers[selectIndex][7 + rIdx].splice(index, 0, addData);
-
         this.setState({ newsList: numbers });
     }
     shake_it_String(str) {
@@ -137,14 +139,12 @@ class App extends React.Component {
         initializeApp(getFirebaseConfig());
         getAuth().onAuthStateChanged((user) => {
             const auth = sessionStorage.getItem("firebase:authUser:" + getFirebaseConfig().apiKey + ":[DEFAULT]")
-            this.setState({ auth: JSON.parse(auth) })
-            console.log(this.state.auth)
+            this.setState({ auth: !auth ? {} : JSON.parse(auth) })
         })
-        this.setState({ selectIndex: 5 })
+        this.setState({ selectIndex: 0 })
     }
     componentDidUpdate(prevProps) {
         if (this.state.changeFlag) {
-            console.log("render");
             this.setAutoHeight()
         }
     }
@@ -157,7 +157,6 @@ class App extends React.Component {
         this.setState({ changeFlag: false })
     }
     onMenuClick(e) {
-        console.log(this.state.menuFlag)
         this.state.menuFlag = !this.state.menuFlag
         if (this.state.menuClass == "foldMenu") {
             this.setState({ menuClass: "expandMenu" })
@@ -177,7 +176,6 @@ class App extends React.Component {
         signOut(getAuth())
     }
     onGoggleClick = async (event) => {
-        console.log(event)
         var provider = new GoogleAuthProvider();
         let r
         setPersistence(getAuth(), browserSessionPersistence).then(async () => {
@@ -192,7 +190,6 @@ class App extends React.Component {
                 , lastLoginAt
                 , photoURL
                 , uid } = this.state.auth
-
             const authObj = {
                 apiKey: apiKey,
                 createdAt: createdAt,
@@ -204,7 +201,6 @@ class App extends React.Component {
                 photoURL: photoURL,
                 uid: uid
             }
-            console.log(authObj)
             const response = await (await fetch('http://222.112.129.129:3001/sessionLogin/', {
                 method: "POST",
                 body: JSON.stringify({ data: authObj }),
@@ -212,12 +208,11 @@ class App extends React.Component {
                     'Content-Type': 'application/json'
                 }
             })).json()
-            console.log(response)
         });
     }
     toDayData(selectDate) {
-        if(selectDate){
-            this.setState({currentDate:selectDate}) 
+        if (selectDate) {
+            this.setState({ currentDate: selectDate })
         } else {
             let today = new Date();
             let year = today.getFullYear(); // 년도
@@ -227,31 +222,28 @@ class App extends React.Component {
             let date = today.getDate();  // 날짜
             if (date < 10)
                 date = "0" + date
-            console.log(year + '' + month + '' + date)
-            this.setState({currentDate:year + '' + month + '' + date}) 
-            selectDate = year + '' + month + '' + date    
+            this.setState({ currentDate: year + '' + month + '' + date })
+            selectDate = year + '' + month + '' + date
         }
         // this.callAPI()
         return selectDate
     }
-    onSelectChange = async (e)=> {
+    onSelectChange = async (e) => {
         const date = e.target.value
-        await this.setState({currentDate:date}) 
+        await this.setState({ currentDate: date })
         // this.state.currentDate = date
-        console.log(this.state.currentDate)
         this.callAPI()
     }
-    getDateList = async ()=> {
+    getDateList = async () => {
         let result = await (await fetch('http://222.112.129.129:3001/dateList')).json()
         const arr = []
         result.map(e => {
             arr.push(e.title)
         })
-        this.setState({selectList:arr})
+        this.setState({ selectList: arr })
     }
     callAPI = async () => {
         let date = this.state.currentDate ? this.state.currentDate : this.toDayData()
-
         this.getDateList()
         let result = await (await fetch('http://222.112.129.129:3001/viewNews?date=' + date)).json()
         let response = result[0]
@@ -304,7 +296,6 @@ class App extends React.Component {
             this.setState({ newsList: response });
         }
         this.callTranslateIdx(this.state.selectIndex)
-        console.log(response)
     }
     render() {
         var news = [];
@@ -315,7 +306,6 @@ class App extends React.Component {
         return (
             <div className="App" >
                 <div className={this.state.menuAccess} onClick={(e) => this.onMenuClick(e)}></div>
-
                 <header>
                     <link
                         rel="stylesheet"
@@ -347,7 +337,7 @@ class App extends React.Component {
                                 <li><button>학습 통계</button></li>
                                 <li id="logon">
                                     <button onClick={(e) => this.onGetAuth(e)}>인증테스트</button>
-                                    {!this.state.auth ? <button onClick={(e) => this.onGoggleClick(e)}>로그인</button> : <button onClick={(e) => this.signOut(e)}>로그아웃</button>}
+                                    {!this.state.auth.uid ? <button onClick={(e) => this.onGoggleClick(e)}>로그인</button> : <button onClick={(e) => this.signOut(e)}>로그아웃</button>}
                                 </li>
                             </ul>
                         </div>
@@ -382,6 +372,7 @@ class App extends React.Component {
                             />
                         </div>
                         <div className="answer-button">
+                            <button onClick={(e) => { this.callSkip(0) }}>처음</button>
                             <button onClick={(e) => { this.callSkip(this.state.selectIndex + 1) }}>다음</button>
                             <button onClick={(e) => { this.callSubmit(this.state.selectIndex, this.state.newsList) }}>제출</button>
                             <button onClick={(e) => { this.callAnswer(this.state.selectIndex, this.state.newsList) }}>정답</button>
@@ -392,5 +383,4 @@ class App extends React.Component {
         );
     }
 }
-
 export default App;

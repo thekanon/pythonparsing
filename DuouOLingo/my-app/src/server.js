@@ -15,7 +15,8 @@ const app = express()
 //Python 파일 경로
 const path = require('path')
 const bbc = require("./api/news/bbc")
-const logon = require("./api/logon/logon")
+const profile = require("./api/profile/profile")
+// const bookmark = require("./api/boomark/bookmark")
 
 // 클라이언트 정보 추가
 // const client_id = 'n3RO1LZqp6aV3zGYnzha'
@@ -73,45 +74,39 @@ app.post('/translate', function (req, res, next) {
     }
   })
 });
+app.post('/setCurrentIndex', async function (req, res) {
+  // Get ID token and CSRF token.
+  const obj = req.body.data;
+
+  const result = await setIndex(obj)
+  console.log(result)
+  res.json(result)
+});
 app.post('/sessionLogin', async function (req, res) {
   // Get ID token and CSRF token.
   const idToken = req.body.data;
 
-  const result = await logonGet(idToken)
+  const result = await profileGet(idToken)
+  console.log("result : ")
   console.log(result)
   res.json(result)
 });
-app.post('/logon', function (req, res, next) {
-  const api_url = 'https://openapi.naver.com/v1/papago/n2mt'
-  const request = require('request')
-  const tran = req.body.data
-  console.log(req.body.data)
+app.post('/userBookmark', async function (req, res) {
+  // Get ID token and CSRF token.
+  const bookmark = req.body.data;
 
-  getAuth()
-    .verifyIdToken(idToken)
-    .then((decodedToken) => {
-      const uid = decodedToken.uid;
-      // ...
-    })
-    .catch((error) => {
-      // Handle error
-    });
-
-  const options = {
-    url: api_url,
-    form: { 'source': 'en', 'target': 'ko', 'text': tran },
-    headers: { 'X-Naver-Client-Id': client_id, 'X-Naver-Client-Secret': client_secret }
-  }
-  request.post(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      res.writeHead(200, { 'Content-Type': 'text/json; charset=UTF-8' })
-      res.end(body)
-    } else {
-      res.status(response.statusCode).end()
-      console.log('error = ' + response.statusCode)
-    }
-  })
+  const result = await setBookMark(bookmark)
+  console.log(result)
+  res.json(result)
 });
+async function setIndex(obj){
+  console.log("obj : ")
+  console.log(obj)
+  const result = await profile.setCurrentIndex(obj)
+  return result
+
+  return 
+}
 async function bbcGet(date) {
   console.log(date)
   if(date){
@@ -120,7 +115,11 @@ async function bbcGet(date) {
     return await bbc.get()
   }
 }
-async function logonGet(user){
-    const result = await logon.get(user)
+async function profileGet(user){
+    const result = await profile.get(user)
     return result
+}
+async function setBookMark(data){
+  const result = await bookmark.insertBookmark(data)
+  return result
 }

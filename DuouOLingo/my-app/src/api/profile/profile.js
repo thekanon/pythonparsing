@@ -44,11 +44,20 @@ async function insertUser(text) {
     await usersCol.insertOne(text)
 
 }
-
+async function setCurrentIndex(obj) {
+    const database = client.db('engData');
+    const news = database.collection('news');
+    const date = obj.currentIndex.split("_")[0]
+    const index = obj.currentIndex.split("_")[1]
+    const result = await news.find({title:date}).toArray()
+    console.log(index)
+    return [result[0].textEng[index],result[0].textKor[index]]
+}
 // async function run (){
 //     const a = await getText()
 
 //     console.log(a)    
 // }
 exports.get = get
+exports.setCurrentIndex = setCurrentIndex
 // run()
