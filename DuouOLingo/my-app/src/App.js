@@ -59,7 +59,7 @@ class App extends React.Component {
             uid:this.state.auth.uid,
             currentIndex:currentIndex
         }
-        const response = await (await fetch('http://222.112.129.129:3001/setCurrentIndex/', {
+        const response = await (await fetch('http://dombtido.iptime.org:3001/setCurrentIndex/', {
             method: "POST",
             body: JSON.stringify({ data: obj }),
             headers: {
@@ -201,7 +201,7 @@ class App extends React.Component {
                 photoURL: photoURL,
                 uid: uid
             }
-            const response = await (await fetch('http://222.112.129.129:3001/sessionLogin/', {
+            const response = await (await fetch('http://dombtido.iptime.org:3001/sessionLogin/', {
                 method: "POST",
                 body: JSON.stringify({ data: authObj }),
                 headers: {
@@ -235,7 +235,7 @@ class App extends React.Component {
         this.callAPI()
     }
     getDateList = async () => {
-        let result = await (await fetch('http://222.112.129.129:3001/dateList')).json()
+        let result = await (await fetch('http://dombtido.iptime.org:3001/dateList')).json()
         const arr = []
         result.map(e => {
             arr.push(e.title)
@@ -245,7 +245,7 @@ class App extends React.Component {
     callAPI = async () => {
         let date = this.state.currentDate ? this.state.currentDate : this.toDayData()
         this.getDateList()
-        let result = await (await fetch('http://222.112.129.129:3001/viewNews?date=' + date)).json()
+        let result = await (await fetch('http://dombtido.iptime.org:3001/viewNews?date=' + date)).json()
         let response = result[0]
         // Test logic
         // let response = []
