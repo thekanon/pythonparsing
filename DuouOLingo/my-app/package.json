@@ -30,12 +30,13 @@
     "react-dnd-touch-backend": "^11.1.3",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "update": "^0.7.4"
+    "update": "^0.7.4",
+    "xml2js": "^0.6.2"
   },
   "scripts": {
     "start": "set PORT=23000 && react-scripts start",
     "front": "set PORT=23000 && react-scripts start",
-    "back": "nodemon ./src/server.js",
+    "back": "node ./src/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

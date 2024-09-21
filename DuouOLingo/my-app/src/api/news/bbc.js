@@ -11,7 +11,6 @@ const uri = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(uri);
 async function get() {
   console.log("get");
-  //step1 MBTI가 있는 모든 문서를 가져옴
   await client.connect();
 
   let toDay = await toDayData();
@@ -73,17 +72,25 @@ async function insertNews(text) {
   const newsObj = {};
   const tranKor = [];
 
+  console.log(text);
+
   for (var el of text) {
-    // console.log(el[0]+"\n"+el[1])
-    const response = await (
-      await fetch("http://localhost:3001/translate/", {
-        method: "POST",
-        body: JSON.stringify({ data: el[0] + "\n" + el[1] }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-    ).json();
+    const rawResponse = await fetch("http://localhost:3001/translate/", {
+      method: "POST",
+      body: JSON.stringify({ data: el[0] + "\n" + el[1] }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!rawResponse.ok) {
+      console.error(
+        `Error from translation service: ${rawResponse.statusText}`
+      );
+      continue; // Skip this iteration and continue with the next one
+    }
+
+    const response = await rawResponse.json();
     console.log(response);
     tranKor.push(response.message.result.translatedText.split("\n"));
   }
@@ -102,31 +109,31 @@ async function insertNews(text) {
 
   await newsCn.insertOne(newsObj);
 }
-async function getText() {
-  const puppeteer = require("puppeteer");
-  const path = require("path");
-  const fs = require("fs");
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  // const iPhone = puppeteer.devices['iPhone 6'];
-  // await page.emulate(iPhone);
 
-  await page.goto("https://feeds.bbci.co.uk/news/world/rss.xml");
-  // console.log(keyword)
-  await page.waitForSelector("#item > ul > li");
-  // console.log(imgUrl)
-  const selector = await page.$$eval(
-    "#item > ul > li",
-    (options) =>
-      options.map((option) => [
-        option.children[0].textContent,
-        option.children[2].textContent,
-      ])
-    // options.map((option)=> option.textContent)
-  );
-  // await page.goto(imgUrl);
-  await browser.close();
-  return selector;
+const xml2js = require("xml2js");
+
+async function getText() {
+  try {
+    const response = await fetch("https://feeds.bbci.co.uk/news/world/rss.xml");
+    const body = await response.text();
+    const parser = new xml2js.Parser({
+      explicitArray: false,
+      ignoreAttrs: true,
+    });
+    const result = await parser.parseStringPromise(body);
+
+    const items = result.rss.channel.item;
+    const formattedItems = items.map((item) => ({
+      title: item.title,
+      description: item.description,
+      link: item.link,
+      pubDate: item.pubDate,
+    }));
+
+    return formattedItems;
+  } catch (error) {
+    console.error("Error parsing RSS feed:", error);
+  }
 }
 
 async function run() {

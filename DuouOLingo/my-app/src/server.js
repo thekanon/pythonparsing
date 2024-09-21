@@ -49,12 +49,13 @@ app.get("/viewNews", async function (req, res) {
     let result = await bbc.getDate(date);
 
     if (!result) {
-      await bbc.get();
-      result = await bbc.getDate(date);
+      // await bbc.get();
+      console.log("getgetget");
+      result = await bbc.getDate("20240212");
     }
 
     // console.log(result)
-    console.log("viewNews");
+    // console.log("viewNews");
     res.json([result.textEng, result.textKor]);
   } catch (e) {
     console.log(e);
@@ -127,14 +128,7 @@ async function setIndex(obj) {
 
   return;
 }
-async function bbcGet(date) {
-  console.log(date);
-  if (date) {
-    return await bbc.getDate(date);
-  } else {
-    return await bbc.get();
-  }
-}
+
 async function profileGet(user) {
   const result = await profile.get(user);
   return result;
