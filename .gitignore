@@ -1,0 +1,29 @@
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+coverage/
+test-results/
+playwright-report/
+.vercel/
+
+.env
+.env.*
+!.env.example
+
+*.log
+.DS_Store
+*.tsbuildinfo
+
+# Local database and backup artifacts
+*.sqlite
+*.sqlite-journal
+backups/*.enc
+restore-output/
+
+# Credentials must never be committed.
+**/*service-account*.json
+**/*firebase-adminsdk*.json
+**/key.json
+**/secrets.json

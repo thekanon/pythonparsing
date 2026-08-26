@@ -1,0 +1,8 @@
+.next
+coverage
+node_modules
+playwright-report
+pnpm-lock.yaml
+test-results
+DuouOLingo
+docs/nextjs-refactor-plan.md

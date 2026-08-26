@@ -1,0 +1,13 @@
+title = "NewsOrder secret scanning policy"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated dependencies, build output, test artifacts, and lockfile"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)\.next/''',
+  '''(^|/)(coverage|test-results|playwright-report)/''',
+  '''(^|/)pnpm-lock\.yaml$'''
+]

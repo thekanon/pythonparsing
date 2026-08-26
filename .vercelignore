@@ -1,0 +1,14 @@
+DuouOLingo/
+backup/test1.txt
+docs/
+.github/
+
+*.py
+package-lock.json
+
+**/node_modules/
+**/.next/
+**/*.tsbuildinfo
+**/coverage/
+**/test-results/
+**/playwright-report/

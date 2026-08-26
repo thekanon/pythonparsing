@@ -1,0 +1,35 @@
+{
+  "name": "@newsorder/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./schema": "./src/schema/index.ts",
+    "./restore": "./src/restore/index.ts"
+  },
+  "scripts": {
+    "db:check": "drizzle-kit check",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/migrate.ts",
+    "restore": "tsx src/restore/cli.ts",
+    "lint": "eslint src drizzle.config.ts vitest.config.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "postgres": "3.4.9",
+    "server-only": "0.0.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.5",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
+}
