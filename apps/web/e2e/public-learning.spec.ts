@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 test("public home and today pages have no serious or critical axe violations", async ({
   page,
 }) => {
-  for (const path of ["/", "/today"]) {
+  for (const path of ["/", "/today", "/reddit", "/books"]) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).analyze();
     expect(
@@ -14,6 +14,175 @@ test("public home and today pages have no serious or critical axe violations", a
       ),
     ).toEqual([]);
   }
+});
+
+test("a public-domain book card opens a word-order lesson", async ({
+  page,
+}) => {
+  await page.goto("/books");
+  await expect(
+    page.getByRole("heading", { name: "가벼운 고전 소설로 영어 공부" }),
+  ).toBeVisible();
+
+  await page.getByRole("link", { name: "작품 읽기" }).first().click();
+  await expect(
+    page.getByRole("heading", { name: "Daddy-Long-Legs" }),
+  ).toBeVisible();
+
+  await page
+    .getByRole("link", { name: /1번 A Perfectly Awful Day 영어 학습 시작/u })
+    .click();
+  await expect(page).toHaveURL(
+    /\/books\/daddy-long-legs\/daddy-long-legs-opening-01$/u,
+  );
+  await expect(page.getByText("본문", { exact: true })).toBeVisible();
+  await expect(page.getByText("한국어 번역 보기")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "핵심 표현" })).toBeVisible();
+
+  await page
+    .getByRole("article")
+    .getByRole("button", { name: "Perfectly 뜻 보기" })
+    .dblclick();
+  await expect(page.getByText("완전히, 정말", { exact: true })).toBeVisible();
+});
+
+test("a public-domain book can be read from the opening to the final section", async ({
+  page,
+}) => {
+  await page.goto("/books/daddy-long-legs");
+  await page.getByRole("link", { name: "처음부터 읽기" }).first().click();
+
+  await expect(page).toHaveURL(
+    /\/books\/daddy-long-legs\/read\/blue-wednesday$/u,
+  );
+  await expect(
+    page.getByRole("heading", { name: "Blue Wednesday" }),
+  ).toBeVisible();
+  await expect(page.getByText("1/89 · 약 2,106단어")).toBeVisible();
+  await expect(page.locator(".book-reader-copy p").first()).toContainText(
+    "The first Wednesday in every month",
+  );
+
+  const stored = await page.evaluate(() =>
+    localStorage.getItem("newsorder.book-reading.v1"),
+  );
+  expect(stored).toContain('"sectionSlug":"blue-wednesday"');
+
+  await page.getByRole("link", { name: "다음 구획" }).click();
+  await expect(page).toHaveURL(/\/read\/letter-001$/u);
+  await expect(page.getByText("2/89", { exact: false })).toBeVisible();
+});
+
+test("book structure practice keeps the sentence, candidates, and slots together", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto("/books/daddy-long-legs/practice/blue-wednesday");
+
+  const sentence = page.locator("#lesson-stage-title");
+  const candidates = page.getByRole("group", {
+    name: "먼저 고를 영어 어구",
+  });
+  const slots = page.getByRole("list", { name: "문장 성분 자리" });
+  await expect(sentence).toBeVisible();
+  await expect(candidates).toBeVisible();
+  await expect(slots).toBeVisible();
+
+  const sentenceBox = await sentence.boundingBox();
+  const candidateBox = await candidates.boundingBox();
+  const slotBox = await slots.boundingBox();
+  expect(sentenceBox).not.toBeNull();
+  expect(candidateBox).not.toBeNull();
+  expect(slotBox).not.toBeNull();
+  expect(sentenceBox!.y + sentenceBox!.height).toBeLessThanOrEqual(728);
+  expect(candidateBox!.y + candidateBox!.height).toBeLessThanOrEqual(728);
+  expect(slotBox!.y + slotBox!.height).toBeLessThanOrEqual(728);
+
+  const desktopLayout = await page.evaluate(() => {
+    const english = document.querySelector("#lesson-stage-title");
+    const candidateGroup = document.querySelector(
+      "[role=group][aria-labelledby=structure-candidate-title]",
+    );
+    const slotList = document.querySelector('[aria-label="문장 성분 자리"]');
+    const follows = (first: Element | null, second: Element | null) =>
+      Boolean(
+        first &&
+        second &&
+        first.compareDocumentPosition(second) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      );
+    return {
+      noHorizontalOverflow:
+        document.documentElement.scrollWidth <= window.innerWidth + 1,
+      learningOrder:
+        follows(english, candidateGroup) && follows(candidateGroup, slotList),
+      mainLandmarks: document.querySelectorAll("main").length,
+    };
+  });
+  expect(desktopLayout).toEqual({
+    noHorizontalOverflow: true,
+    learningOrder: true,
+    mainLandmarks: 1,
+  });
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  await expect(candidates).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth + 1,
+    ),
+  ).toBe(true);
+});
+
+test("clicking a lesson card opens the lesson", async ({ page }) => {
+  await page.goto("/");
+  const card = page.getByRole("link", { name: /1번 학습 시작/u });
+
+  await card
+    .getByRole("heading", {
+      name: "Coastal towns test new flood warning systems",
+    })
+    .click();
+
+  await expect(page).toHaveURL(/\/lessons\/\d{4}-\d{2}-\d{2}-fixture-01$/u);
+});
+
+test("double-clicking an English word shows its Korean meaning", async ({
+  page,
+}) => {
+  await page.goto("/today");
+  await page.getByRole("link", { name: /1번 학습 시작/u }).click();
+
+  await page.getByRole("button", { name: "Coastal 뜻 보기" }).dblclick();
+
+  await expect(page.getByText("해안의", { exact: true })).toBeVisible();
+});
+
+test("a Reddit topic card opens a word-order learning page", async ({
+  page,
+}) => {
+  await page.goto("/reddit");
+  await expect(
+    page.getByRole("heading", { name: "Reddit 주요 토픽으로 영어 공부" }),
+  ).toBeVisible();
+
+  await page
+    .getByRole("link", { name: /영어 학습 시작/u })
+    .first()
+    .click();
+
+  await expect(page).toHaveURL(/\/reddit\/[a-z0-9-]+$/u);
+  await expect(page.getByText("제목", { exact: true })).toBeVisible();
+  await expect(page.getByText("지문", { exact: true })).toBeVisible();
+  await expect(page.getByText("영문 제목", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "순서 확인" })).toBeDisabled();
+  await expect(page.getByRole("list", { name: "후보 어절" })).toBeVisible();
+  await expect(page.getByText("한국어 번역 보기")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "핵심 표현" })).toBeVisible();
 });
 
 test("an anonymous learner completes both stages and keeps content out of local storage", async ({
@@ -68,6 +237,18 @@ test("an anonymous learner completes both stages and keeps content out of local 
   expect(stored).toContain('"completedAt"');
   expect(stored).not.toContain("주민들은");
   expect(stored).not.toContain("tokenIds");
+
+  await page.reload();
+  await expect(page.getByText("완료한 단계입니다.")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "해안 어절을 내 문장으로 이동" }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: "다시 풀기" }).click();
+  await expect(
+    page.getByRole("button", { name: "해안 어절을 내 문장으로 이동" }),
+  ).toBeEnabled();
+  await page.getByRole("button", { name: /2\/2 발췌 완료/u }).click();
+  await expect(page.getByText("영문 발췌", { exact: true })).toBeVisible();
 });
 
 test("a keyboard-only learner can place and reorder title tokens", async ({
@@ -77,7 +258,7 @@ test("a keyboard-only learner can place and reorder title tokens", async ({
   const start = page.getByRole("link", { name: /1번 학습 시작/u });
   await start.focus();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/lessons\/2026-08-26-fixture-01$/u);
+  await expect(page).toHaveURL(/\/lessons\/\d{4}-\d{2}-\d{2}-fixture-01$/u);
 
   const coastCandidate = page.getByRole("button", {
     name: "해안 어절을 내 문장으로 이동",
@@ -101,6 +282,9 @@ test("a keyboard-only learner can place and reorder title tokens", async ({
   await expect(
     page.getByRole("button", { name: adjacentCandidateLabel, exact: true }),
   ).toBeFocused();
+  await page.getByRole("button", { name: /1번째 어절 해안/u }).click();
+  await expect(coastCandidate).toBeVisible();
+  await coastCandidate.click();
 
   for (const token of [
     "도시들이",
@@ -122,7 +306,8 @@ test("a keyboard-only learner can place and reorder title tokens", async ({
 
   const last = page.getByRole("button", { name: /7번째 어절 시험한다/u });
   await last.focus();
-  await page.keyboard.press("Delete");
+  await page.keyboard.press("Space");
+  await page.keyboard.press("ArrowDown");
   const returnedCandidate = page.getByRole("button", {
     name: "시험한다 어절을 내 문장으로 이동",
   });
