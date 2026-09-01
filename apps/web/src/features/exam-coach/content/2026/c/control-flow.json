@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "c.control-flow.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-control-flow"],
+  "prerequisites": ["c-operator"],
+  "objective": "C 조건문의 실행 흐름을 실행 없이 추론한다.",
+  "knowledgeType": "code",
+  "prompt": "int x = 3; if (x > 2) x += 2; 실행 뒤 x의 값은?",
+  "answer": "5",
+  "explanation": "3은 2보다 크므로 if 본문이 실행되어 x에 2가 더해진다.",
+  "grading": {
+    "acceptedAnswers": ["5"]
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewer": null,
+  "reviewStatus": "draft",
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "초기 C 수직 범위 기준 콘텐츠",
+  "memoryInheritance": "reset"
+}
