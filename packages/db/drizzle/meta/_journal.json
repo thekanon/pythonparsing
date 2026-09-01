@@ -8,6 +8,55 @@
       "when": 1787722266805,
       "tag": "0000_dapper_abomination",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787745784285,
+      "tag": "0001_dashing_thena",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787746278109,
+      "tag": "0002_new_purifiers",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1787751164620,
+      "tag": "0003_daily_white_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1787801889390,
+      "tag": "0004_colossal_patriot",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1787802891322,
+      "tag": "0005_yielding_mulholland_black",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1787803992477,
+      "tag": "0006_many_fenris",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1787807566373,
+      "tag": "0007_pale_meltdown",
+      "breakpoints": true
     }
   ]
 }

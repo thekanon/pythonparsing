@@ -61,6 +61,33 @@ export const stageProgress = pgTable(
   ],
 );
 
+export const lessonRestoreIdentities = pgTable(
+  "lesson_restore_identity",
+  {
+    lessonId: uuid("lesson_id").primaryKey(),
+    learningDate: date("learning_date", { mode: "string" }).notNull(),
+    ordinal: integer("ordinal").notNull(),
+    providerKey: text("provider_key").notNull(),
+    externalIdHash: text("external_id_hash").notNull(),
+    sourceHash: text("source_hash").notNull(),
+    restoredAt: timestamp("restored_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex("lesson_restore_identity_source_unique").on(
+      table.providerKey,
+      table.externalIdHash,
+      table.sourceHash,
+    ),
+    index("lesson_restore_identity_date_idx").on(table.learningDate),
+    check(
+      "lesson_restore_identity_ordinal_range",
+      sql`${table.ordinal} between 1 and 10`,
+    ),
+  ],
+);
+
 export const translationReports = pgTable(
   "translation_report",
   {

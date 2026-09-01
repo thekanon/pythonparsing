@@ -1,0 +1,2 @@
+DROP INDEX "lesson_restore_identity_source_unique";--> statement-breakpoint
+CREATE UNIQUE INDEX "lesson_restore_identity_source_unique" ON "lesson_restore_identity" USING btree ("provider_key","external_id_hash","source_hash");

@@ -7,6 +7,7 @@ import { z } from "zod";
 import {
   accounts,
   deletionEvents,
+  lessonRestoreIdentities,
   stageProgress,
   users,
 } from "../schema/index";
@@ -77,6 +78,7 @@ const userRows: (typeof users.$inferInsert)[] = payload.tables.users.map(
 const accountRows: (typeof accounts.$inferInsert)[] =
   payload.tables.accounts.map((row) => ({
     id: requiredString(row, "id"),
+    issuer: requiredString(row, "issuer"),
     accountId: requiredString(row, "accountId"),
     providerId: requiredString(row, "providerId"),
     userId: requiredString(row, "userId"),
@@ -102,6 +104,20 @@ const progressRows: (typeof stageProgress.$inferInsert)[] =
     lastAttemptAt: requiredDate(row, "lastAttemptAt"),
   }));
 
+const lessonIdentityRows: (typeof lessonRestoreIdentities.$inferInsert)[] =
+  payload.tables.lessonIdentities.map((row) => ({
+    lessonId: z.uuid().parse(row.lessonId),
+    learningDate: z.iso.date().parse(row.learningDate),
+    ordinal: z.number().int().min(1).max(10).parse(row.ordinal),
+    providerKey: requiredString(row, "providerKey"),
+    externalIdHash: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/u)
+      .parse(row.externalIdHash),
+    sourceHash: requiredString(row, "sourceHash"),
+    restoredAt: requiredDate(row, "restoredAt"),
+  }));
+
 const deletionRows: (typeof deletionEvents.$inferInsert)[] =
   payload.tables.deletionEvents.map((row) => deletionRowSchema.parse(row));
 
@@ -120,6 +136,11 @@ try {
       await transaction.insert(accounts).values(accountRows);
     if (progressRows.length > 0)
       await transaction.insert(stageProgress).values(progressRows);
+    if (lessonIdentityRows.length > 0) {
+      await transaction
+        .insert(lessonRestoreIdentities)
+        .values(lessonIdentityRows);
+    }
     if (deletionRows.length > 0)
       await transaction.insert(deletionEvents).values(deletionRows);
 
@@ -127,13 +148,15 @@ try {
       transaction.select({ value: count() }).from(users),
       transaction.select({ value: count() }).from(accounts),
       transaction.select({ value: count() }).from(stageProgress),
+      transaction.select({ value: count() }).from(lessonRestoreIdentities),
       transaction.select({ value: count() }).from(deletionEvents),
     ]);
     const actualCounts = {
       users: restoredCounts[0][0]?.value ?? 0,
       accounts: restoredCounts[1][0]?.value ?? 0,
       stageProgress: restoredCounts[2][0]?.value ?? 0,
-      deletionEvents: restoredCounts[3][0]?.value ?? 0,
+      lessonIdentities: restoredCounts[3][0]?.value ?? 0,
+      deletionEvents: restoredCounts[4][0]?.value ?? 0,
     };
     for (const [table, actual] of Object.entries(actualCounts)) {
       if (payload.rowCounts[table] !== actual) {

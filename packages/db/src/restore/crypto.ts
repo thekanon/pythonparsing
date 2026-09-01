@@ -11,11 +11,12 @@ export const backupTablesSchema = z.object({
   users: z.array(z.record(z.string(), z.unknown())),
   accounts: z.array(z.record(z.string(), z.unknown())),
   stageProgress: z.array(z.record(z.string(), z.unknown())),
+  lessonIdentities: z.array(z.record(z.string(), z.unknown())),
   deletionEvents: z.array(z.record(z.string(), z.unknown())),
 });
 
 export const backupPayloadSchema = z.object({
-  version: z.literal(1),
+  version: z.literal(2),
   schemaVersion: z.string().min(1),
   migrationVersion: z.string().min(1),
   createdAt: z.iso.datetime(),
@@ -67,7 +68,7 @@ export function createBackupPayload(
   );
 
   return {
-    version: 1,
+    version: 2,
     schemaVersion: options.schemaVersion,
     migrationVersion: options.migrationVersion,
     createdAt: (options.createdAt ?? new Date()).toISOString(),

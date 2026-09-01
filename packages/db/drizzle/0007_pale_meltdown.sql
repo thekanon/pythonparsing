@@ -1,0 +1,1 @@
+ALTER TABLE "reddit_topic" ADD COLUMN "korean_title_translation" text;

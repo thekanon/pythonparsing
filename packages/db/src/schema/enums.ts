@@ -55,3 +55,8 @@ export const backupStatusEnum = pgEnum("backup_status", [
   "succeeded",
   "failed",
 ]);
+export const redditTopicRunStatusEnum = pgEnum("reddit_topic_run_status", [
+  "running",
+  "succeeded",
+  "failed",
+]);

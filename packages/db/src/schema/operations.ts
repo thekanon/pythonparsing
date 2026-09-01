@@ -20,6 +20,7 @@ import {
   backupStatusEnum,
   ingestionItemStatusEnum,
   ingestionRunStatusEnum,
+  redditTopicRunStatusEnum,
 } from "./enums";
 
 export const ingestionRuns = pgTable(
@@ -149,6 +150,76 @@ export const monthlyTranslationUsage = pgTable(
     check(
       "monthly_translation_usage_guard",
       sql`${table.characterCount} <= 450000`,
+    ),
+  ],
+);
+
+export const redditTopicRuns = pgTable(
+  "reddit_topic_run",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    collectionDate: date("collection_date", { mode: "string" }).notNull(),
+    redditPostId: text("reddit_post_id").notNull(),
+    threadUrl: text("thread_url").notNull(),
+    postTitle: text("post_title"),
+    status: redditTopicRunStatusEnum("status").default("running").notNull(),
+    availableCommentCount: integer("available_comment_count")
+      .default(0)
+      .notNull(),
+    analyzedCommentCount: integer("analyzed_comment_count")
+      .default(0)
+      .notNull(),
+    topicCount: integer("topic_count").default(0).notNull(),
+    model: text("model"),
+    errorCode: text("error_code"),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    finishedAt: timestamp("finished_at", { withTimezone: true }),
+  },
+  (table) => [
+    uniqueIndex("reddit_topic_run_date_post_unique").on(
+      table.collectionDate,
+      table.redditPostId,
+    ),
+    index("reddit_topic_run_started_idx").on(table.startedAt),
+    check(
+      "reddit_topic_run_counts_nonnegative",
+      sql`${table.availableCommentCount} >= 0 and ${table.analyzedCommentCount} >= 0 and ${table.topicCount} >= 0`,
+    ),
+  ],
+);
+
+export type RedditLearningExpression = {
+  phrase: string;
+  meaning: string;
+};
+
+export const redditTopics = pgTable(
+  "reddit_topic",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    runId: uuid("run_id")
+      .notNull()
+      .references(() => redditTopicRuns.id, { onDelete: "cascade" }),
+    rank: integer("rank").notNull(),
+    title: text("title").notNull(),
+    summary: text("summary").notNull(),
+    keywords: jsonb("keywords").$type<string[]>().notNull(),
+    englishTitle: text("english_title"),
+    koreanTitleTranslation: text("korean_title_translation"),
+    englishPassage: text("english_passage"),
+    koreanTranslation: text("korean_translation"),
+    expressions: jsonb("expressions").$type<RedditLearningExpression[]>(),
+    wordMeanings: jsonb("word_meanings").$type<Record<string, string>>(),
+    supportingCommentCount: integer("supporting_comment_count").notNull(),
+  },
+  (table) => [
+    uniqueIndex("reddit_topic_run_rank_unique").on(table.runId, table.rank),
+    check("reddit_topic_rank_range", sql`${table.rank} between 1 and 7`),
+    check(
+      "reddit_topic_support_nonnegative",
+      sql`${table.supportingCommentCount} >= 0`,
     ),
   ],
 );

@@ -109,7 +109,7 @@ export const articleRevisions = pgTable(
     check("article_revision_positive_number", sql`${table.revisionNumber} > 0`),
     check(
       "article_revision_published_has_content",
-      sql`${table.status} = 'withdrawn' or (${table.englishTitle} is not null and ${table.englishExcerpt} is not null and ${table.koreanTitle} is not null and ${table.koreanExcerpt} is not null)`,
+      sql`${table.status} not in ('approved', 'published') or (${table.englishTitle} is not null and ${table.englishExcerpt} is not null and ${table.koreanTitle} is not null and ${table.koreanExcerpt} is not null)`,
     ),
   ],
 );

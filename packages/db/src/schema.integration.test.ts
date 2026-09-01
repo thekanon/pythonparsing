@@ -10,6 +10,7 @@ import {
   articles,
   contentSources,
   dailyLessons,
+  lessonRestoreIdentities,
   stageProgress,
   users,
 } from "./schema/index";
@@ -162,15 +163,48 @@ integration("PostgreSQL schema invariants", () => {
   });
 
   it("restores progress independently of licensed lesson rows", async () => {
+    const lessonId = randomUUID();
+    const year = 2300 + (Number.parseInt(suffix.slice(0, 2), 16) % 100);
+    const month = String(
+      1 + (Number.parseInt(suffix.slice(2, 4), 16) % 12),
+    ).padStart(2, "0");
+    const day = String(
+      1 + (Number.parseInt(suffix.slice(4, 6), 16) % 28),
+    ).padStart(2, "0");
+    const learningDate = `${year}-${month}-${day}`;
+    await database.db.insert(lessonRestoreIdentities).values({
+      lessonId,
+      learningDate,
+      ordinal: 1,
+      providerKey,
+      externalIdHash: "a".repeat(64),
+      sourceHash: `restore-${suffix}`,
+    });
     await expect(
       database.db.insert(stageProgress).values({
         userId,
-        lessonId: randomUUID(),
+        lessonId,
         stage: "title",
         attempts: 2,
         bestPositionScore: 50,
       }),
     ).resolves.toBeDefined();
+
+    const articleId = await createArticle(`restored-${suffix}`);
+    const revisionId = await createPublishedRevision(articleId);
+    await database.db.insert(dailyLessons).values({
+      id: lessonId,
+      learningDate,
+      ordinal: 1,
+      articleRevisionId: revisionId,
+      status: "published",
+    });
+    const reconnected = await database.db
+      .select({ lessonId: dailyLessons.id })
+      .from(stageProgress)
+      .innerJoin(dailyLessons, eq(stageProgress.lessonId, dailyLessons.id))
+      .where(eq(stageProgress.userId, userId));
+    expect(reconnected).toContainEqual({ lessonId });
   });
 
   it("prevents updates and early deletion of append-only audit records", async () => {
