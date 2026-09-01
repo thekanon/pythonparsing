@@ -1,4 +1,8 @@
-import { mergeAnonymousProgress, mergeProgressStage } from "./merge";
+import {
+  chunkAnonymousProgress,
+  mergeAnonymousProgress,
+  mergeProgressStage,
+} from "./merge";
 import type { ProgressStage } from "./types";
 
 const earlier: ProgressStage = {
@@ -18,14 +22,34 @@ const later: ProgressStage = {
 };
 
 describe("progress merging", () => {
-  it("unions completion, caps attempts, keeps the best score, and uses the newest activity", () => {
+  it("merges full snapshots idempotently and keeps the best outcome", () => {
     expect(mergeProgressStage(earlier, later)).toEqual({
-      attempts: 10_000,
+      attempts: 9_999,
       bestScore: 95,
       completedAt: earlier.completedAt,
       helped: true,
       lastAttemptAt: later.lastAttemptAt,
     });
+  });
+
+  it("chunks long-lived browser progress without dropping stages", () => {
+    const progress = {
+      version: 1 as const,
+      stages: Object.fromEntries(
+        Array.from({ length: 85 }, (_, index) => [
+          `lesson-${index}:title`,
+          earlier,
+        ]),
+      ),
+    };
+
+    const chunks = chunkAnonymousProgress(progress, 40);
+    expect(chunks.map((chunk) => Object.keys(chunk.stages).length)).toEqual([
+      40, 40, 5,
+    ]);
+    expect(
+      new Set(chunks.flatMap((chunk) => Object.keys(chunk.stages))).size,
+    ).toBe(85);
   });
 
   it("unions stage keys from local and remote snapshots", () => {

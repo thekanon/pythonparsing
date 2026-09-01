@@ -20,12 +20,33 @@ export function mergeProgressStage(
   right: ProgressStage,
 ): ProgressStage {
   return {
-    attempts: Math.min(ATTEMPT_LIMIT, left.attempts + right.attempts),
+    attempts: Math.min(ATTEMPT_LIMIT, Math.max(left.attempts, right.attempts)),
     bestScore: Math.max(left.bestScore, right.bestScore),
     completedAt: earliestNullableIso(left.completedAt, right.completedAt),
     helped: left.helped || right.helped,
     lastAttemptAt: latestIso(left.lastAttemptAt, right.lastAttemptAt),
   };
+}
+
+export function chunkAnonymousProgress(
+  progress: AnonymousProgress,
+  chunkSize: number,
+): AnonymousProgress[] {
+  if (!Number.isInteger(chunkSize) || chunkSize < 1) {
+    throw new Error("INVALID_PROGRESS_CHUNK_SIZE");
+  }
+
+  const entries = Object.entries(progress.stages);
+  const chunks: AnonymousProgress[] = [];
+
+  for (let index = 0; index < entries.length; index += chunkSize) {
+    chunks.push({
+      version: 1,
+      stages: Object.fromEntries(entries.slice(index, index + chunkSize)),
+    });
+  }
+
+  return chunks;
 }
 
 export function mergeAnonymousProgress(

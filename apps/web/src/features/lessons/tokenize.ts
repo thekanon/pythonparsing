@@ -96,3 +96,25 @@ export function gradeTokenOrder(
     score,
   };
 }
+
+export function createTokenOrderHint(
+  canonicalTokens: readonly CanonicalToken[],
+  submittedTokenIds: readonly string[],
+  incorrectPositions: readonly number[],
+) {
+  const position = incorrectPositions[0];
+  if (position === undefined) return null;
+  const orderedTokens = canonicalTokens.toSorted(
+    (left, right) => left.position - right.position,
+  );
+  const expectedText = orderedTokens[position]?.text;
+  if (!expectedText) return null;
+  const incorrectSet = new Set(incorrectPositions);
+  const token =
+    orderedTokens.find(
+      (candidate) =>
+        candidate.text === expectedText &&
+        incorrectSet.has(submittedTokenIds.indexOf(candidate.id)),
+    ) ?? orderedTokens[position];
+  return token ? { position, tokenId: token.id } : null;
+}

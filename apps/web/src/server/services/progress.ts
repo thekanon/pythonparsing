@@ -120,7 +120,7 @@ export async function mergeProgressForUser(
   idempotencyId: string,
   incoming: AnonymousProgress,
 ): Promise<AnonymousProgress> {
-  const entries = Object.entries(incoming.stages).slice(0, 40);
+  const entries = Object.entries(incoming.stages);
   const parsedEntries = entries.flatMap(([key, progress]) => {
     const separator = key.lastIndexOf(":");
     const lessonId = key.slice(0, separator);
@@ -176,7 +176,7 @@ export async function mergeProgressForUser(
             stageProgress.stage,
           ],
           set: {
-            attempts: sql`least(10000, ${stageProgress.attempts} + ${entry.progress.attempts})`,
+            attempts: sql`greatest(${stageProgress.attempts}, ${entry.progress.attempts})`,
             bestPositionScore: sql`greatest(${stageProgress.bestPositionScore}, ${entry.progress.bestScore})`,
             completedAt: sql`coalesce(least(${stageProgress.completedAt}, ${completedAt}), ${stageProgress.completedAt}, ${completedAt})`,
             helped: sql`${stageProgress.helped} or ${entry.progress.helped}`,

@@ -16,6 +16,8 @@ export const anonymousProgressSchema = z.object({
 export type ProgressStage = z.infer<typeof progressStageSchema>;
 export type AnonymousProgress = z.infer<typeof anonymousProgressSchema>;
 
+export const MAX_PROGRESS_STAGES_PER_MERGE = 40;
+
 export const EMPTY_ANONYMOUS_PROGRESS: AnonymousProgress = {
   version: 1,
   stages: {},

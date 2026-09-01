@@ -1,50 +1,16 @@
 "use client";
 
 import { GoogleLogo, SignOut, Trash } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { authClient } from "@/lib/auth-client";
-import {
-  clearAnonymousProgress,
-  getAnonymousProgressSnapshot,
-  replaceAnonymousProgress,
-} from "@/features/progress/storage";
-import type { AnonymousProgress } from "@/features/progress/types";
+import { clearAnonymousProgress } from "@/features/progress/storage";
 
 export function AccountPanel() {
   const { data: session, isPending } = authClient.useSession();
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
-  const mergeId = useRef<string | null>(null);
-  const mergedForUser = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (!session?.user.id || mergedForUser.current === session.user.id) return;
-    mergedForUser.current = session.user.id;
-    mergeId.current ??= crypto.randomUUID();
-
-    const merge = async () => {
-      try {
-        const response = await fetch("/api/progress/merge", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            idempotencyId: mergeId.current,
-            progress: getAnonymousProgressSnapshot(),
-          }),
-        });
-        if (!response.ok) throw new Error("MERGE_FAILED");
-        replaceAnonymousProgress((await response.json()) as AnonymousProgress);
-        setMessage("이 브라우저의 진도를 계정 진도와 합쳤습니다.");
-      } catch {
-        mergedForUser.current = null;
-        setMessage("진도를 동기화하지 못했습니다. 잠시 뒤 다시 시도해 주세요.");
-      }
-    };
-
-    void merge();
-  }, [session?.user.id]);
 
   async function signIn() {
     setBusy(true);

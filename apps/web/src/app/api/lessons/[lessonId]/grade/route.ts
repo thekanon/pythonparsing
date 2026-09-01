@@ -1,15 +1,20 @@
 import { z } from "zod";
 
-import { gradeTokenOrder } from "@/features/lessons/tokenize";
+import {
+  createTokenOrderHint,
+  gradeTokenOrder,
+} from "@/features/lessons/tokenize";
 import { getAppSession } from "@/server/auth";
 import { isFixtureRuntime } from "@/server/env";
 import { findLesson } from "@/server/repositories/content";
+import { createAttemptProof } from "@/server/services/attempt-proof";
 import { incrementLearningEvent } from "@/server/services/learning-events";
 import { recordAuthenticatedAttempt } from "@/server/services/progress";
 
 const requestSchema = z.object({
   stage: z.enum(["title", "excerpt"]),
   tokenIds: z.array(z.string().min(1).max(160)).max(100),
+  attemptProof: z.string().min(1).max(1_000).optional(),
 });
 
 export async function POST(
@@ -46,7 +51,26 @@ export async function POST(
     await incrementLearningEvent("stage_submitted", Boolean(session));
     if (result.complete)
       await incrementLearningEvent("stage_completed", Boolean(session));
-    return Response.json(result, { headers: { "Cache-Control": "no-store" } });
+    return Response.json(
+      {
+        ...result,
+        ...(!result.complete
+          ? {
+              attemptProof: createAttemptProof(
+                parsed.data.attemptProof,
+                lesson.id,
+                parsed.data.stage,
+              ),
+              hint: createTokenOrderHint(
+                canonicalStage.tokens,
+                parsed.data.tokenIds,
+                result.incorrectPositions,
+              ),
+            }
+          : {}),
+      },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   } catch {
     return Response.json({ error: "INVALID_TOKEN_SET" }, { status: 400 });
   }

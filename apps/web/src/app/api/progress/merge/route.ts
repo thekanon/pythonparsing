@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { anonymousProgressSchema } from "@/features/progress/types";
+import {
+  anonymousProgressSchema,
+  MAX_PROGRESS_STAGES_PER_MERGE,
+} from "@/features/progress/types";
 import { AuthenticationError, requireUser } from "@/server/auth";
 import { isFixtureRuntime } from "@/server/env";
 import { mergeProgressForUser } from "@/server/services/progress";
@@ -16,7 +19,10 @@ export async function POST(request: Request) {
     const body = mergeSchema.safeParse(await request.json().catch(() => null));
     if (!body.success)
       return Response.json({ error: "INVALID_PROGRESS" }, { status: 400 });
-    if (Object.keys(body.data.progress.stages).length > 40) {
+    if (
+      Object.keys(body.data.progress.stages).length >
+      MAX_PROGRESS_STAGES_PER_MERGE
+    ) {
       return Response.json(
         { error: "PROGRESS_LIMIT_EXCEEDED" },
         { status: 400 },

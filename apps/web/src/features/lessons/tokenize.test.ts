@@ -1,4 +1,5 @@
 import {
+  createTokenOrderHint,
   fisherYates,
   gradeTokenOrder,
   seededRandom,
@@ -21,6 +22,7 @@ describe("Korean tokenization", () => {
   it("returns no tokens for whitespace-only input", () => {
     expect(tokenizeKorean(" \n ")).toEqual([]);
   });
+
 });
 
 describe("Fisher-Yates shuffle", () => {
@@ -64,5 +66,18 @@ describe("exact token-order grading", () => {
     expect(() =>
       gradeTokenOrder(canonical, ["same-a", "same-b", "foreign"]),
     ).toThrow(/exactly once/u);
+  });
+
+  it("returns the correct token for the first incorrect position", () => {
+    const submitted = ["ending", "same-a", "same-b"];
+    const result = gradeTokenOrder(canonical, submitted);
+
+    expect(
+      createTokenOrderHint(
+        canonical,
+        submitted,
+        result.incorrectPositions,
+      ),
+    ).toEqual({ position: 0, tokenId: "same-b" });
   });
 });

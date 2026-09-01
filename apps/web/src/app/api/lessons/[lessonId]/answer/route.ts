@@ -3,6 +3,7 @@ import { z } from "zod";
 import { getAppSession } from "@/server/auth";
 import { isFixtureRuntime } from "@/server/env";
 import { findLesson } from "@/server/repositories/content";
+import { verifyAttemptProof } from "@/server/services/attempt-proof";
 import { incrementLearningEvent } from "@/server/services/learning-events";
 import {
   markAuthenticatedHelped,
@@ -11,7 +12,7 @@ import {
 
 const requestSchema = z.object({
   stage: z.enum(["title", "excerpt"]),
-  anonymousAttempts: z.number().int().min(0).max(10_000).default(0),
+  attemptProof: z.string().min(1).max(1_000).optional(),
 });
 
 export async function POST(
@@ -30,7 +31,11 @@ export async function POST(
     return Response.json({ error: "LESSON_NOT_FOUND" }, { status: 404 });
   const session = await getAppSession(request.headers);
   const eligible =
-    parsed.data.anonymousAttempts >= 3 ||
+    verifyAttemptProof(
+      parsed.data.attemptProof,
+      lesson.id,
+      parsed.data.stage,
+    ) >= 3 ||
     (session &&
       !isFixtureRuntime() &&
       (await stageHasThreeAttempts(

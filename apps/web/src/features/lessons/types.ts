@@ -7,7 +7,7 @@ export type CanonicalToken = {
 };
 
 export type LessonSource = {
-  provider: "BBC" | "fixture";
+  provider: "BBC" | "Reddit" | "Project Gutenberg" | "fixture";
   label: string;
   url: string;
   publishedAt: string;
@@ -46,10 +46,30 @@ export type PublicToken = {
   text: string;
 };
 
+export type PublicGrammarGuideStep = {
+  role: string;
+  englishPhrase: string;
+  koreanFunction: string;
+  instruction: string;
+  tokenIds: string[];
+};
+
+export type PublicGrammarGuide = {
+  provider: "claude-cli/sonnet" | "codex-cli/gpt-5.6-terra";
+  learningMode?: "structure-reasoning";
+  structure: string;
+  steps: PublicGrammarGuideStep[];
+  grammarPoints: Array<{
+    expression: string;
+    explanation: string;
+  }>;
+};
+
 export type PublicLessonStage = {
   stage: LessonStage;
   english: string;
   tokens: PublicToken[];
+  grammarGuide?: PublicGrammarGuide;
 };
 
 export type PublicLesson = {
@@ -65,4 +85,9 @@ export type GradeResult = {
   complete: boolean;
   score: number;
   incorrectPositions: number[];
+  attemptProof?: string;
+  hint?: {
+    position: number;
+    tokenId: string;
+  };
 };
