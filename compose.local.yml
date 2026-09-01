@@ -1,0 +1,23 @@
+services:
+  newsorder-postgres:
+    image: postgres:16-alpine
+    container_name: newsorder-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: newsorder
+      POSTGRES_USER: newsorder
+      # This database is reachable only through the loopback binding below.
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - newsorder_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U newsorder -d newsorder"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  newsorder_postgres_data:
+    name: newsorder_postgres_data

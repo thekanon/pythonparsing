@@ -34,6 +34,31 @@ const serverEnvSchema = z
     GOOGLE_CLOUD_LOCATION: z.string().trim().default("global"),
     GEMINI_API_KEY: optionalString,
     GEMINI_MODEL: z.literal("gemini-3.7-flash").default("gemini-3.7-flash"),
+    REDDIT_USER_AGENT: z
+      .string()
+      .trim()
+      .min(12)
+      .default(
+        "Sentence/0.1 personal-study topic collector (https://sentence.doowiki.dev)",
+      ),
+    REDDIT_SCRAPER_URL: optionalUrl,
+    REDDIT_SUMMARIZER_PROVIDER: z
+      .enum(["gemini", "codex-cli", "claude-cli", "claude-then-codex"])
+      .default("gemini"),
+    REDDIT_CODEX_MODEL: z.string().trim().min(1).default("gpt-5.6-terra"),
+    REDDIT_CLAUDE_MODEL: z.string().trim().min(1).default("sonnet"),
+    REDDIT_CODEX_CLI_PATH: z.string().trim().min(1).default("codex"),
+    REDDIT_CLAUDE_CLI_PATH: z.string().trim().min(1).default("claude"),
+    REDDIT_CLI_TIMEOUT_MS: z.coerce
+      .number()
+      .int()
+      .min(30_000)
+      .max(600_000)
+      .default(240_000),
+    REDDIT_TOPICS_ENABLED: z
+      .enum(["true", "false"])
+      .default("false")
+      .transform((value) => value === "true"),
     BLOB_READ_WRITE_TOKEN: optionalString,
     BACKUP_ENCRYPTION_KEY: optionalString,
     DELETION_EVENT_HMAC_KEY: optionalString,
@@ -45,6 +70,31 @@ const serverEnvSchema = z
   })
   .strict()
   .superRefine((env, context) => {
+    if (env.REDDIT_TOPICS_ENABLED) {
+      const redditRequired = [
+        "DATABASE_URL",
+        "CRON_SECRET",
+        "REDDIT_SCRAPER_URL",
+      ] as const;
+      for (const key of redditRequired) {
+        if (!env[key]) {
+          context.addIssue({
+            code: "custom",
+            path: [key],
+            message: `${key} is required when Reddit topics are enabled.`,
+          });
+        }
+      }
+      if (env.REDDIT_SUMMARIZER_PROVIDER === "gemini" && !env.GEMINI_API_KEY) {
+        context.addIssue({
+          code: "custom",
+          path: ["GEMINI_API_KEY"],
+          message:
+            "GEMINI_API_KEY is required when the Reddit summarizer is Gemini.",
+        });
+      }
+    }
+
     if (env.NEWSORDER_RUNTIME_MODE !== "production") return;
 
     const required = [
@@ -58,6 +108,7 @@ const serverEnvSchema = z
       "BLOB_READ_WRITE_TOKEN",
       "BACKUP_ENCRYPTION_KEY",
       "DELETION_EVENT_HMAC_KEY",
+      "REDDIT_SCRAPER_URL",
     ] as const;
 
     for (const key of required) {
@@ -98,6 +149,15 @@ export function getServerEnv(): ServerEnv {
     GOOGLE_CLOUD_LOCATION: process.env.GOOGLE_CLOUD_LOCATION,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     GEMINI_MODEL: process.env.GEMINI_MODEL,
+    REDDIT_USER_AGENT: process.env.REDDIT_USER_AGENT,
+    REDDIT_SCRAPER_URL: process.env.REDDIT_SCRAPER_URL,
+    REDDIT_SUMMARIZER_PROVIDER: process.env.REDDIT_SUMMARIZER_PROVIDER,
+    REDDIT_CODEX_MODEL: process.env.REDDIT_CODEX_MODEL,
+    REDDIT_CLAUDE_MODEL: process.env.REDDIT_CLAUDE_MODEL,
+    REDDIT_CODEX_CLI_PATH: process.env.REDDIT_CODEX_CLI_PATH,
+    REDDIT_CLAUDE_CLI_PATH: process.env.REDDIT_CLAUDE_CLI_PATH,
+    REDDIT_CLI_TIMEOUT_MS: process.env.REDDIT_CLI_TIMEOUT_MS,
+    REDDIT_TOPICS_ENABLED: process.env.REDDIT_TOPICS_ENABLED,
     BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
     BACKUP_ENCRYPTION_KEY: process.env.BACKUP_ENCRYPTION_KEY,
     DELETION_EVENT_HMAC_KEY: process.env.DELETION_EVENT_HMAC_KEY,

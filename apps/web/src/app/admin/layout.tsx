@@ -15,6 +15,7 @@ export const instant = false;
 const navigation = [
   { href: "/admin", label: "현황" },
   { href: "/admin/ingestion", label: "수집" },
+  { href: "/admin/reddit-topics", label: "Reddit 토픽" },
   { href: "/admin/quarantine", label: "격리" },
   { href: "/admin/reports", label: "신고" },
   { href: "/admin/users", label: "역할" },

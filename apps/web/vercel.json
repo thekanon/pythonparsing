@@ -9,6 +9,22 @@
     {
       "path": "/api/cron/backup",
       "schedule": "30 21 * * *"
+    },
+    {
+      "path": "/api/cron/reddit-topics/Frontend",
+      "schedule": "0 22 * * *"
+    },
+    {
+      "path": "/api/cron/reddit-topics/SideProject",
+      "schedule": "0 23 * * *"
+    },
+    {
+      "path": "/api/cron/reddit-topics/ChatGPT",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/reddit-topics/ObsidianMD",
+      "schedule": "0 1 * * *"
     }
   ]
 }
