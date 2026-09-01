@@ -2,14 +2,16 @@
 
 ## 자동 검증
 
-- [ ] Node `24.19.0`, pnpm `11.24.0`, Next `16.3.3` exact pin
-- [ ] frozen lockfile install
-- [ ] format, ESLint, TypeScript, Vitest
-- [ ] Drizzle check, 빈 PostgreSQL migration, DB constraint tests
-- [ ] production build
-- [ ] Playwright 핵심 익명 학습과 axe serious/critical 0
-- [ ] 현재 tree Gitleaks 0
-- [ ] 알려진 Critical/High 취약점 0
+- [x] Node `24.19.0`, pnpm `11.24.0`, Next `16.3.3` exact pin
+- [x] frozen lockfile install
+- [x] format, ESLint, TypeScript, Vitest (웹 32개)
+- [x] Drizzle check, 빈 PostgreSQL migration, DB constraint tests (실제 PostgreSQL 17에서 5개)
+- [x] production build (`next build --webpack`)
+- [x] Playwright 핵심 익명 학습과 axe serious/critical 0 (데스크톱·모바일 10개)
+- [x] 현재 tree Gitleaks 0 (Gitleaks `8.30.1`)
+- [x] 알려진 Critical/High 취약점 0 (`pnpm audit --prod --audit-level high`)
+
+위 자동 검증 결과는 2026-08-26 Node `24.19.0` 환경에서 기록했다. 외부 서비스와 실제 운영 데이터가 필요한 아래 항목은 별도 증거가 생기기 전까지 완료로 표시하지 않는다.
 
 ## 보안·권리
 
@@ -19,6 +21,8 @@
 - [ ] BBC 승인 원본 외부 제한 저장, 개인정보 제거 요약만 저장소에 유지
 - [ ] 비상업·비제휴·원문 링크·200자 조건 표본 검사
 - [ ] Gemini 무료 티어 및 데이터 제품 개선 가능성 고지 확인
+- [ ] Reddit 파싱 허용 기록·User-Agent·수집 대상·요청 제한 확인
+- [ ] Reddit 게시물 원문·사용자명 미저장 및 30일 보존 삭제 표본 검사
 
 ## 기능·운영
 
