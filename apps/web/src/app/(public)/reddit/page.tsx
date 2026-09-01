@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { RedditDigestLoading } from "@/components/reddit/digest-loading";
 import { formatKoreanDate } from "@/server/domain/date";
 import { getLatestRedditLearningDigest } from "@/server/queries/reddit-learning";
 
@@ -15,22 +16,6 @@ export const metadata: Metadata = {
   description: "Reddit 주요 토픽을 짧은 영문 지문과 한국어 해설로 공부합니다.",
   robots: { index: false, follow: true },
 };
-
-function DigestLoading() {
-  return (
-    <div className="mt-12 grid gap-10" aria-label="Reddit 학습을 불러오는 중">
-      {[0, 1].map((item) => (
-        <section key={item} aria-hidden="true">
-          <div className="skeleton h-8 w-44" />
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            <div className="skeleton h-72 w-full" />
-            <div className="skeleton h-72 w-full" />
-          </div>
-        </section>
-      ))}
-    </div>
-  );
-}
 
 async function RedditLearningDigest() {
   const digest = await getLatestRedditLearningDigest();
@@ -153,7 +138,7 @@ export default function RedditLearningPage() {
         </p>
       </aside>
 
-      <Suspense fallback={<DigestLoading />}>
+      <Suspense fallback={<RedditDigestLoading />}>
         <RedditLearningDigest />
       </Suspense>
     </div>
