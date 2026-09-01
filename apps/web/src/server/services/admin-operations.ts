@@ -12,7 +12,7 @@ import {
   translationReports,
   users,
 } from "@newsorder/db/schema";
-import { and, asc, count, eq, max, sql } from "drizzle-orm";
+import { asc, count, eq, max, sql } from "drizzle-orm";
 
 import type { RssCandidate, TranslationPair } from "@/features/ingestion/types";
 import {
@@ -324,12 +324,7 @@ export async function reverifyQuarantinedTranslation(input: {
     const existingLessons = await transaction
       .select({ ordinal: dailyLessons.ordinal })
       .from(dailyLessons)
-      .where(
-        and(
-          eq(dailyLessons.learningDate, row.learningDate),
-          eq(dailyLessons.status, "published"),
-        ),
-      )
+      .where(eq(dailyLessons.learningDate, row.learningDate))
       .orderBy(asc(dailyLessons.ordinal));
     const usedOrdinals = new Set(
       existingLessons.map((lesson) => lesson.ordinal),

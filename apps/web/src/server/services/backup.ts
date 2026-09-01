@@ -1,10 +1,16 @@
 import "server-only";
 
+import { createHash } from "node:crypto";
+
 import {
   accounts,
   adminAuditLogs,
+  articleRevisions,
+  articles,
   backupRuns,
+  dailyLessons,
   deletionEvents,
+  lessonRestoreIdentities,
   stageProgress,
   users,
 } from "@newsorder/db/schema";
@@ -34,27 +40,68 @@ async function exportTables(): Promise<BackupTables> {
       sql`set transaction isolation level repeatable read`,
     );
 
-    const [userRows, accountRows, progressRows, deletionRows] =
-      await Promise.all([
-        transaction.select().from(users),
-        transaction
-          .select({
-            id: accounts.id,
-            accountId: accounts.accountId,
-            providerId: accounts.providerId,
-            userId: accounts.userId,
-            createdAt: accounts.createdAt,
-            updatedAt: accounts.updatedAt,
-          })
-          .from(accounts),
-        transaction.select().from(stageProgress),
-        transaction.select().from(deletionEvents),
-      ]);
+    const [
+      userRows,
+      accountRows,
+      progressRows,
+      deletionRows,
+      liveLessonRows,
+      restoredLessonRows,
+    ] = await Promise.all([
+      transaction.select().from(users),
+      transaction
+        .select({
+          id: accounts.id,
+          issuer: accounts.issuer,
+          accountId: accounts.accountId,
+          providerId: accounts.providerId,
+          userId: accounts.userId,
+          createdAt: accounts.createdAt,
+          updatedAt: accounts.updatedAt,
+        })
+        .from(accounts),
+      transaction.select().from(stageProgress),
+      transaction.select().from(deletionEvents),
+      transaction
+        .select({
+          lessonId: dailyLessons.id,
+          learningDate: dailyLessons.learningDate,
+          ordinal: dailyLessons.ordinal,
+          providerKey: articles.providerKey,
+          externalId: articles.externalId,
+          sourceHash: articleRevisions.sourceHash,
+        })
+        .from(dailyLessons)
+        .innerJoin(
+          articleRevisions,
+          eq(dailyLessons.articleRevisionId, articleRevisions.id),
+        )
+        .innerJoin(articles, eq(articleRevisions.articleId, articles.id)),
+      transaction.select().from(lessonRestoreIdentities),
+    ]);
+
+    const lessonIdentities = new Map(
+      restoredLessonRows.map((row) => [row.lessonId, row]),
+    );
+    for (const row of liveLessonRows) {
+      lessonIdentities.set(row.lessonId, {
+        lessonId: row.lessonId,
+        learningDate: row.learningDate,
+        ordinal: row.ordinal,
+        providerKey: row.providerKey,
+        externalIdHash: createHash("sha256")
+          .update(row.externalId)
+          .digest("hex"),
+        sourceHash: row.sourceHash,
+        restoredAt: new Date(),
+      });
+    }
 
     return {
       users: userRows,
       accounts: accountRows,
       stageProgress: progressRows,
+      lessonIdentities: [...lessonIdentities.values()],
       deletionEvents: deletionRows,
     };
   });
@@ -91,8 +138,8 @@ export async function runUserDataBackup() {
   try {
     const tables = await exportTables();
     const payload = createBackupPayload(tables, {
-      schemaVersion: "1",
-      migrationVersion: "0000",
+      schemaVersion: "2",
+      migrationVersion: "0002",
     });
     const encrypted = encryptBackup(payload, env.BACKUP_ENCRYPTION_KEY!);
     const datePrefix = payload.createdAt.slice(0, 10);

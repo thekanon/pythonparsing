@@ -2,7 +2,9 @@
 
 ## 백업
 
-매일 21:30 UTC Cron이 repeatable-read transaction에서 사용자·역할, OAuth provider/account 연결 메타데이터, 단계 진도, 삭제 이벤트를 export한다. OAuth token, session, 인증 token, 콘텐츠, 분석 집계는 제외한다.
+매일 21:30 UTC Cron이 repeatable-read transaction에서 사용자·역할, OAuth provider/account 연결 메타데이터, 단계 진도, 비콘 형태의 레슨 복원 식별자, 삭제 이벤트를 export한다. OAuth token, session, 인증 token, 콘텐츠, 원문 URL, 분석 집계는 제외한다.
+
+payload v2의 다섯 데이터셋은 `users`, `accounts`, `stageProgress`, `lessonIdentities`, `deletionEvents`다. `lessonIdentities`에는 기존 레슨 UUID, 당시 날짜·순번, 공급자 key, 외부 ID의 SHA-256, source hash만 저장한다. 같은 공급자·외부 ID·source hash가 이후 다시 수집되면 기존 레슨 UUID를 재사용해 복원된 진도와 새 콘텐츠를 다시 연결한다. 원문이 바뀐 revision에는 이 식별자를 재사용하지 않는다.
 
 `BACKUP_ENCRYPTION_KEY`는 base64 인코딩된 임의 32바이트 값이다. Blob token과 분리된 Vercel secret 및 외부 비밀번호 관리자에 복구 사본을 보관한다.
 
@@ -49,7 +51,7 @@ CLI는 다음을 transaction 안에서 확인한다.
 - 대상 user table이 비어 있음
 - envelope 인증, payload checksum, manifest row count
 - timestamp를 DB `Date` 값으로 재수화
-- 네 테이블 insert 후 실제 row count
+- 다섯 데이터셋 insert 후 실제 row count
 - 백업 내부와 supplemental 삭제 HMAC을 사용한 탈퇴 계정 재삭제
 - session 미복원
 
@@ -57,6 +59,7 @@ CLI는 다음을 transaction 안에서 확인한다.
 
 - CLI checksum과 supplemental 삭제 수를 기록한다.
 - 사용자/계정/진도 표본과 관리자 역할을 확인한다.
+- 동일 source revision 재수집 시 복원된 레슨 UUID와 기존 진도가 다시 연결되는지 확인한다.
 - 삭제 이벤트 대상 사용자가 존재하지 않음을 확인한다.
 - 로그인은 새 session으로 다시 해야 함을 확인한다.
 - 임시 branch와 내려받은 백업 파일을 승인된 방식으로 폐기한다.

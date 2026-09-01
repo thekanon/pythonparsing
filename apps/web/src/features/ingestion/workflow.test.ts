@@ -91,6 +91,7 @@ describe("ingestion workflow", () => {
     expect(batch.quarantined[0]).toMatchObject({
       errorCode: "NMT_UNAVAILABLE",
       retries: 2,
+      candidate: { externalId: "bad" },
     });
   });
 

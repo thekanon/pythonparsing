@@ -1,10 +1,11 @@
 //firebase 초기화
 const admin = require("firebase-admin");
-const serviceAccount = require("./firebase/bbcnews-ee071-firebase-adminsdk-7nueo-6eb0f7aa53.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://bbcnews-ee071-default-rtdb.firebaseio.com",
+  credential: admin.credential.applicationDefault(),
+  databaseURL:
+    process.env.FIREBASE_DATABASE_URL ||
+    "https://bbcnews-ee071-default-rtdb.firebaseio.com",
 });
 // express 모듈 가져옴.
 const express = require("express");
@@ -18,11 +19,9 @@ const bbc = require("./api/news/bbc");
 const profile = require("./api/profile/profile");
 // const bookmark = require("./api/boomark/bookmark")
 
-// 클라이언트 정보 추가
-// const client_id = 'n3RO1LZqp6aV3zGYnzha'
-// const client_secret = 'rGLmrR9FZL'
-const client_id = "n3RO1LZqp6aV3zGYnzha";
-const client_secret = "rGLmrR9FZL";
+// Papago 자격증명은 배포 환경에서만 주입한다.
+const naverClientId = process.env.NAVER_CLIENT_ID;
+const naverClientSecret = process.env.NAVER_CLIENT_SECRET;
 
 //크로스도메인 이슈 해결
 const corsOptions = {
@@ -67,16 +66,20 @@ app.get("/dateList", async function (req, res) {
   res.json(result);
 });
 app.post("/translate", function (req, res, next) {
+  if (!naverClientId || !naverClientSecret) {
+    res.status(503).json({ error: "TRANSLATION_NOT_CONFIGURED" });
+    return;
+  }
+
   const api_url = "https://openapi.naver.com/v1/papago/n2mt";
   const request = require("request");
   const tran = req.body.data;
-  console.log(req.body.data);
   const options = {
     url: api_url,
     form: { source: "en", target: "ko", text: tran },
     headers: {
-      "X-Naver-Client-Id": client_id,
-      "X-Naver-Client-Secret": client_secret,
+      "X-Naver-Client-Id": naverClientId,
+      "X-Naver-Client-Secret": naverClientSecret,
     },
   };
   request.post(options, function (error, response, body) {
@@ -84,8 +87,9 @@ app.post("/translate", function (req, res, next) {
       res.writeHead(200, { "Content-Type": "text/json; charset=UTF-8" });
       res.end(body);
     } else {
-      res.status(response.statusCode).end();
-      console.log("error = " + response.statusCode);
+      const statusCode = response?.statusCode || 502;
+      res.status(statusCode).end();
+      console.log("Papago request failed with status " + statusCode);
     }
   });
 });

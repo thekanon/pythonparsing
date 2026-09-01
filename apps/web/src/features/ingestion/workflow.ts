@@ -83,6 +83,9 @@ export async function prepareIngestionBatch(
       break;
     }
 
+    let translation:
+      Awaited<ReturnType<TranslationAdapter["translate"]>> | undefined;
+
     try {
       const translated = await withRetry(
         () => translator.translate(candidate),
@@ -91,6 +94,7 @@ export async function prepareIngestionBatch(
       );
       translatedCount += 1;
       characterCount += translated.value.characterCount;
+      translation = translated.value;
 
       const sourceSentToVerifier = {
         englishTitle: candidate.englishTitle,
@@ -141,6 +145,8 @@ export async function prepareIngestionBatch(
         externalIdHash: safeExternalIdHash(candidate.externalId),
         errorCode: normalizedErrorCode(error),
         retries: retryDelaysMs.length,
+        candidate,
+        ...(translation ? { translation } : {}),
       });
     }
   }

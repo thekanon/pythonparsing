@@ -11,6 +11,7 @@ const emptyTables: BackupTables = {
   users: [],
   accounts: [],
   stageProgress: [],
+  lessonIdentities: [],
   deletionEvents: [],
 };
 
@@ -19,8 +20,8 @@ describe("encrypted logical backups", () => {
 
   it("round-trips an AES-256-GCM payload with manifest data", () => {
     const payload = createBackupPayload(emptyTables, {
-      schemaVersion: "1",
-      migrationVersion: "0000",
+      schemaVersion: "2",
+      migrationVersion: "0002",
       createdAt: new Date("2026-08-26T00:00:00Z"),
     });
     expect(decryptBackup(encryptBackup(payload, key), key)).toEqual(payload);
@@ -28,8 +29,8 @@ describe("encrypted logical backups", () => {
 
   it("rejects ciphertext tampering", () => {
     const payload = createBackupPayload(emptyTables, {
-      schemaVersion: "1",
-      migrationVersion: "0000",
+      schemaVersion: "2",
+      migrationVersion: "0002",
     });
     const envelope = encryptBackup(payload, key);
     const bytes = Buffer.from(envelope.ciphertext, "base64");
@@ -41,8 +42,8 @@ describe("encrypted logical backups", () => {
 
   it("rejects a manifest row-count mismatch even when the envelope is authentic", () => {
     const payload = createBackupPayload(emptyTables, {
-      schemaVersion: "1",
-      migrationVersion: "0000",
+      schemaVersion: "2",
+      migrationVersion: "0002",
     });
     const inconsistent = {
       ...payload,
