@@ -74,7 +74,7 @@ export async function fetchBbcRss(
   const response = await fetch(url, {
     headers: {
       Accept: "application/rss+xml, application/xml;q=0.9",
-      "User-Agent": "NewsOrder/0.1 non-commercial education RSS reader",
+      "User-Agent": "Sentence/0.1 non-commercial education RSS reader",
     },
     signal: AbortSignal.timeout(10_000),
   });

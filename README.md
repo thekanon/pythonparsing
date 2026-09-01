@@ -1,6 +1,8 @@
-# NewsOrder
+# Sentence
 
-NewsOrder는 BBC 뉴스의 영어 헤드라인과 최대 200자 발췌를 한국어 어절 배열로 학습하는 비상업 공개 베타입니다. BBC의 공식 또는 제휴 서비스가 아닙니다.
+Sentence는 영어 뉴스, Reddit 주요 토픽, 퍼블릭 도메인 고전을 문장 배열로 학습하는 비상업 공개 베타입니다. BBC의 공식 또는 제휴 서비스가 아닙니다.
+
+> 문장으로 읽는 영어 · https://sentence.doowiki.dev
 
 이 저장소의 신규 애플리케이션은 Next.js 16 App Router와 pnpm workspace로 구성됩니다. 기존 `DuouOLingo/my-app`은 전환 후 7일 rollback 기간이 끝날 때까지 보존합니다.
 
@@ -44,6 +46,6 @@ Production migration은 앱 시작이나 `drizzle-kit push`로 실행하지 않�
 
 ## 출시 전 필수 외부 작업
 
-현재 트리에서는 추적되던 자격증명 파일을 제거했지만, 과거 Git 이력은 별도 maintenance 작업 없이는 정리되지 않습니다. 공급자 콘솔에서 노출 자격증명을 먼저 폐기한 뒤 [보안 사고 정리 runbook](docs/operations/security-incident.md)에 따라 mirror, `git filter-repo`, 원격 갱신, 전체 이력 secret scan을 수행해야 합니다.
+현재 트리에서는 추적되던 자격증명 파일과 레거시 서버의 하드코딩된 Naver 자격증명을 제거했지만, 과거 Git 이력은 별도 maintenance 작업 없이는 정리되지 않습니다. Google/Firebase와 Naver 공급자 콘솔에서 노출 자격증명을 먼저 폐기한 뒤 [보안 사고 정리 runbook](docs/operations/security-incident.md)에 따라 mirror, `git filter-repo`, 원격 갱신, 전체 이력 secret scan을 수행해야 합니다.
 
 운영 전에는 [출시 체크리스트](docs/operations/release-checklist.md)의 외부 검증 항목까지 완료해야 합니다.

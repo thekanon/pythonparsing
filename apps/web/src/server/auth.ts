@@ -7,6 +7,8 @@ import { betterAuth } from "better-auth/minimal";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin } from "better-auth/plugins";
 
+import { SITE_NAME } from "@/lib/site";
+
 import { getDatabase, hasDatabase } from "./db";
 import { getServerEnv, isFixtureRuntime } from "./env";
 
@@ -21,13 +23,17 @@ function createNewsOrderAuth() {
   );
 
   return betterAuth({
-    appName: "NewsOrder",
+    appName: SITE_NAME,
     baseURL: env.NEXT_PUBLIC_APP_URL,
     secret: env.BETTER_AUTH_SECRET,
     database: drizzleAdapter(getDatabase(), {
       provider: "pg",
       schema: authSchema,
     }),
+    user: { modelName: "users" },
+    session: { modelName: "sessions" },
+    account: { modelName: "accounts" },
+    verification: { modelName: "verifications" },
     emailAndPassword: { enabled: false },
     socialProviders: googleConfigured
       ? {
@@ -48,7 +54,7 @@ function createNewsOrderAuth() {
       window: 60,
       max: 100,
       storage: "database",
-      modelName: "rateLimit",
+      modelName: "rateLimits",
     },
     databaseHooks: {
       user: {

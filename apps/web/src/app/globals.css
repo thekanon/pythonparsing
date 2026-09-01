@@ -8,6 +8,9 @@
 
 :root {
   color-scheme: light dark;
+  --font-geist: "Apple SD Gothic Neo";
+  --font-geist-mono: "SFMono-Regular";
+  --font-editorial: "Noto Serif CJK KR";
   --canvas: #f2f5f8;
   --surface: #fbfcfe;
   --surface-raised: #ffffff;
@@ -127,11 +130,34 @@ button:active,
   padding-block: clamp(2.5rem, 7vw, 6rem);
 }
 
+.practice-page-shell {
+  width: min(calc(100% - 1.5rem), 84rem);
+  margin-inline: auto;
+  padding-block: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
 .surface-card {
   border: 1px solid var(--line);
   border-radius: 1.125rem;
   background: color-mix(in srgb, var(--surface-raised) 94%, transparent);
   box-shadow: 0 1rem 3rem rgb(var(--shadow) / 0.08);
+}
+
+.book-reader-copy {
+  color: var(--ink);
+  font-family: var(--font-editorial), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.08rem, 1.4vw, 1.24rem);
+  line-height: 1.95;
+  letter-spacing: -0.008em;
+  text-wrap: pretty;
+}
+
+.book-reader-copy p {
+  margin: 0;
+}
+
+.book-reader-copy p + p {
+  margin-top: 1.55em;
 }
 
 .button {

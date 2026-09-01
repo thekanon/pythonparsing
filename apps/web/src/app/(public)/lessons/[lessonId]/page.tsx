@@ -87,7 +87,7 @@ async function LessonContent({ params }: LessonPageProps) {
         <div className="rounded-[1rem] border border-[var(--line)] bg-[var(--surface)] p-4 text-sm leading-6 text-[var(--ink-soft)]">
           <p className="font-bold text-[var(--ink)]">출처와 학습 범위</p>
           <p className="mt-2">
-            NewsOrder는 BBC의 공식 또는 제휴 서비스가 아닙니다. 실제 운영에서는
+            Sentence는 BBC의 공식 또는 제휴 서비스가 아닙니다. 실제 운영에서는
             헤드라인과 기사당 최대 200자 발췌만 사용하며 원문 전체를 저장하지
             않습니다.
           </p>

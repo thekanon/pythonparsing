@@ -2,7 +2,7 @@
   "name": "newsorder",
   "version": "0.1.0",
   "private": true,
-  "description": "BBC 영어 뉴스를 한국어 어절 배열로 학습하는 비상업 교육 서비스",
+  "description": "뉴스, Reddit 토픽, 고전 소설을 문장 배열로 학습하는 비상업 영어 교육 서비스",
   "packageManager": "pnpm@11.24.0",
   "engines": {
     "node": "24.19.0"

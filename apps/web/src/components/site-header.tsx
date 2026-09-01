@@ -1,8 +1,13 @@
 import { List, X } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 
+import { SiteAccountLink } from "@/components/auth/site-account-link";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
+
 const navigation = [
   { href: "/today", label: "오늘 학습" },
+  { href: "/reddit", label: "Reddit 영어" },
+  { href: "/books", label: "고전 소설" },
   { href: "/archive", label: "지난 학습" },
   { href: "/progress", label: "진도" },
   { href: "/about", label: "서비스 안내" },
@@ -15,15 +20,20 @@ export function SiteHeader() {
         <Link
           href="/"
           className="flex min-h-11 items-center gap-2.5 rounded-xl font-semibold tracking-[-0.03em] no-underline"
-          aria-label="NewsOrder 홈"
+          aria-label={`${SITE_NAME} 홈`}
         >
           <span
             aria-hidden="true"
             className="grid size-8 place-items-center rounded-[0.65rem] bg-[var(--accent)] text-sm font-black text-[var(--accent-ink)]"
           >
-            N
+            S
           </span>
-          <span className="text-[1.05rem]">NewsOrder</span>
+          <span className="grid leading-tight">
+            <span className="text-[1.05rem]">{SITE_NAME}</span>
+            <span className="hidden text-[0.68rem] font-medium tracking-[-0.01em] text-[var(--ink-soft)] lg:block">
+              {SITE_TAGLINE}
+            </span>
+          </span>
         </Link>
 
         <nav
@@ -39,12 +49,7 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/settings"
-            className="button button-secondary ml-2 text-sm"
-          >
-            로그인
-          </Link>
+          <SiteAccountLink />
         </nav>
 
         <details className="group relative md:hidden">
@@ -76,12 +81,7 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/settings"
-              className="mt-1 flex min-h-11 items-center rounded-xl bg-[var(--accent)] px-3.5 font-semibold text-[var(--accent-ink)] no-underline"
-            >
-              로그인과 설정
-            </Link>
+            <SiteAccountLink mobile />
           </nav>
         </details>
       </div>

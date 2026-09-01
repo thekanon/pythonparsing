@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "서비스 안내",
   description:
-    "NewsOrder의 BBC 콘텐츠 범위, 번역 검수, 비상업 운영 원칙을 안내합니다.",
+    "Sentence의 BBC·Reddit·퍼블릭 도메인 콘텐츠 범위와 비상업 운영 원칙을 안내합니다.",
 };
 
 export default function AboutPage() {
@@ -12,8 +12,8 @@ export default function AboutPage() {
     <div className="page-shell">
       <h1 className="page-title">서비스와 콘텐츠 운영 원칙</h1>
       <p className="lede mt-5">
-        NewsOrder는 영어 뉴스를 짧게 읽고 자연스러운 한국어 어순을 연습하는
-        비상업 교육 서비스입니다.
+        Sentence는 영어 뉴스와 공개 토픽, 고전 소설을 짧게 읽고 자연스러운
+        한국어 어순을 연습하는 비상업 교육 서비스입니다.
       </p>
 
       <article className="prose-policy mt-12">
@@ -46,6 +46,18 @@ export default function AboutPage() {
             번역은 기계 번역과 AI 검수를 거치며 인간 감수를 보장하지 않습니다.
           </li>
         </ul>
+
+        <h2>퍼블릭 도메인 고전 소설</h2>
+        <p>
+          저작권 보호기간이 만료된 오래된 영어 원문에서 짧은 구절을 골라 학습
+          자료로 제공합니다. 현재는 Jean Webster의 <i>Daddy-Long-Legs</i>와 L.
+          Frank Baum의 <i>The Wonderful Wizard of Oz</i>를 제공합니다.
+        </p>
+        <p>
+          영어 원문의 확인 경로로 Project Gutenberg 링크를 표시합니다. 한국어
+          문장은 Sentence가 원문에서 새로 번역했으며 현대 번역본, 해설, 삽화는
+          복제하지 않습니다.
+        </p>
 
         <h2>검수 실패와 철회</h2>
         <p>

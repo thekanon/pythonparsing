@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "개인정보 처리 안내",
   description:
-    "NewsOrder가 수집하고 보존하거나 저장하지 않는 데이터를 설명합니다.",
+    "Sentence가 수집하고 보존하거나 저장하지 않는 데이터를 설명합니다.",
 };
 
 export default function PrivacyPage() {
