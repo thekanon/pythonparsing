@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "id": "diagnostic.sql-c.2026.followup",
+  "form": "followup",
+  "estimatedMinutes": 18,
+  "items": [
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.sql-filter",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "sql",
+      "conceptIds": ["sql-select", "sql-where"],
+      "prerequisites": ["sql-table-row-column"],
+      "objective": "조건에 맞는 행에서 요구된 열만 조회하는 SQL을 작성한다.",
+      "knowledgeType": "sql",
+      "prompt": "members(id, name, team, active) 테이블에서 team이 'QA'인 구성원의 name만 조회하는 SQL을 작성하시오.",
+      "answer": "SELECT name FROM members WHERE team = 'QA';",
+      "explanation": "SELECT로 name을 지정하고 WHERE로 team이 QA인 행을 제한한다.",
+      "grading": {
+        "acceptedAnswers": [
+          "SELECT name FROM members WHERE team = 'QA';",
+          "SELECT name FROM members WHERE team='QA';"
+        ]
+      },
+      "difficulty": 2,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 SQL 응용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "sql-filter",
+        "form": "followup"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.sql-group",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "sql",
+      "conceptIds": ["sql-group"],
+      "prerequisites": ["sql-where"],
+      "objective": "그룹별 합계를 계산하는 SQL을 작성한다.",
+      "knowledgeType": "sql",
+      "prompt": "sales(product_id, quantity) 테이블에서 상품별 판매 수량 합계를 product_id와 total로 조회하는 SQL을 작성하시오.",
+      "answer": "SELECT product_id, SUM(quantity) AS total FROM sales GROUP BY product_id;",
+      "explanation": "product_id로 그룹화하고 각 그룹의 quantity 합계를 계산한다.",
+      "grading": {
+        "acceptedAnswers": [
+          "SELECT product_id, SUM(quantity) AS total FROM sales GROUP BY product_id;"
+        ]
+      },
+      "difficulty": 3,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 SQL 응용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "sql-group",
+        "form": "followup"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.sql-join",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "sql",
+      "conceptIds": ["sql-join"],
+      "prerequisites": ["sql-select"],
+      "objective": "키 관계를 이용해 두 테이블의 열을 결합하는 SQL을 작성한다.",
+      "knowledgeType": "sql",
+      "prompt": "authors(id, name)와 books(author_id, title)에서 각 도서의 저자 name과 title을 조회하는 SQL을 작성하시오.",
+      "answer": "SELECT authors.name, books.title FROM authors JOIN books ON authors.id = books.author_id;",
+      "explanation": "authors.id와 books.author_id를 조인 조건으로 연결한다.",
+      "grading": {
+        "acceptedAnswers": [
+          "SELECT authors.name, books.title FROM authors JOIN books ON authors.id = books.author_id;"
+        ]
+      },
+      "difficulty": 3,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 SQL 응용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "sql-join",
+        "form": "followup"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.c-control",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "programming-language",
+      "conceptIds": ["c-control-flow"],
+      "prerequisites": ["c-operator"],
+      "objective": "C 반복문의 상태 변화를 실행 없이 추론한다.",
+      "knowledgeType": "code",
+      "prompt": "다음 C 코드 실행 후 y의 값은? int y = 4; for (int i = 1; i <= 3; i++) { y += i; }",
+      "answer": "10",
+      "explanation": "y에 1, 2, 3이 차례대로 더해져 최종 값은 10이 된다.",
+      "grading": {
+        "acceptedAnswers": ["10"]
+      },
+      "difficulty": 2,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 프로그래밍 언어 활용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "c-control",
+        "form": "followup"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.c-array",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "programming-language",
+      "conceptIds": ["c-array"],
+      "prerequisites": ["c-control-flow"],
+      "objective": "C 배열 순회 결과를 실행 없이 추론한다.",
+      "knowledgeType": "code",
+      "prompt": "다음 C 코드 실행 후 sum의 값은? int a[] = {2, 4, 6, 8}; int sum = 0; for (int i = 0; i < 4; i++) { sum += a[i]; }",
+      "answer": "20",
+      "explanation": "배열의 네 원소 2, 4, 6, 8의 합은 20이다.",
+      "grading": {
+        "acceptedAnswers": ["20"]
+      },
+      "difficulty": 2,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 프로그래밍 언어 활용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "c-array",
+        "form": "followup"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "diagnostic.sql-c.2026.followup.c-pointer",
+      "version": 1,
+      "officialYear": 2026,
+      "domainId": "programming-language",
+      "conceptIds": ["c-pointer"],
+      "prerequisites": ["c-array"],
+      "objective": "C 포인터 역참조가 원본 변수에 미치는 결과를 추론한다.",
+      "knowledgeType": "code",
+      "prompt": "다음 C 코드 실행 후 y의 값은? int y = 12; int *p = &y; *p -= 5;",
+      "answer": "7",
+      "explanation": "p가 y를 가리키므로 *p에서 5를 빼면 y도 7이 된다.",
+      "grading": {
+        "acceptedAnswers": ["7"]
+      },
+      "difficulty": 3,
+      "estimatedMinutes": 3,
+      "author": "doo-study",
+      "reviewer": null,
+      "reviewStatus": "draft",
+      "rights": {
+        "source": "2026 Q-Net 정보처리기사 프로그래밍 언어 활용 범위",
+        "license": "original",
+        "notes": "공식 범위를 근거로 직접 작성한 종료 진단 문항"
+      },
+      "changeReason": "8주 개인 검증 종료 동형 진단 세트",
+      "memoryInheritance": "reset",
+      "assessment": {
+        "setId": "diagnostic.sql-c.2026",
+        "pairId": "c-pointer",
+        "form": "followup"
+      }
+    }
+  ]
+}

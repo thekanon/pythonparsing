@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.select.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-select"],
+  "prerequisites": ["sql-table-row-column"],
+  "objective": "SELECT 절이 결과에 포함할 열을 지정한다는 점을 독립적으로 회상한다.",
+  "knowledgeType": "sql",
+  "prompt": "SQL에서 조회 결과에 포함할 열이나 표현식을 지정하는 절은 무엇인가?",
+  "answer": "SELECT 절",
+  "explanation": "SELECT 절은 조회 결과에 포함할 열 또는 표현식을 지정한다.",
+  "grading": {
+    "acceptedAnswers": ["SELECT", "SELECT 절"]
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewer": null,
+  "reviewStatus": "draft",
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "초기 SQL 수직 범위 기준 콘텐츠",
+  "memoryInheritance": "reset"
+}
