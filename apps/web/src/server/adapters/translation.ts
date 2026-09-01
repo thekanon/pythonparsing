@@ -43,6 +43,21 @@ export class GoogleTranslationAdapter implements TranslationAdapter {
       characterCount: Array.from(contents.join("")).length,
     };
   }
+
+  async translateWord(word: string) {
+    const [response] = await this.client.translateText({
+      parent: `projects/${this.projectId}/locations/${this.location}`,
+      contents: [word],
+      mimeType: "text/plain",
+      sourceLanguageCode: "en",
+      targetLanguageCode: "ko",
+    });
+    const meaning = response.translations?.[0]?.translatedText
+      ?.normalize("NFC")
+      .trim();
+    if (!meaning) throw new Error("TRANSLATION_EMPTY_RESPONSE");
+    return meaning;
+  }
 }
 
 export class FixtureTranslationAdapter implements TranslationAdapter {

@@ -1,0 +1,159 @@
+{
+  "bookSlug": "daddy-long-legs",
+  "sectionSlug": "letter-006",
+  "provider": "claude-cli/sonnet",
+  "guides": [
+    {
+      "sentenceId": "daddy-long-legs:letter-006:sentence-0001",
+      "structure": "명사구 (시간 표현)",
+      "steps": [
+        {
+          "role": "수식어",
+          "englishPhrase": "Saturday",
+          "koreanFunction": "뒤의 명사를 꾸미는 요일 표현",
+          "instruction": "요일이 형용사처럼 명사 앞에 붙어 시점을 한정한다는 점을 확인하세요.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "핵심명사",
+          "englishPhrase": "morning",
+          "koreanFunction": "구의 중심이 되는 명사",
+          "instruction": "영어는 수식어+명사 순서라 한국어도 '토요일' 뒤에 '아침'을 두어 마무리합니다.",
+          "tokenEnd": 1
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Saturday morning",
+          "explanation": "명사가 다른 명사를 수식하는 명사+명사 구조로, 동사 없는 제목형 표현입니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-006:sentence-0002",
+      "structure": "주어 + 현재완료진행 + 등위접속(and) + 주어(it) + 동사 + 보어",
+      "steps": [
+        {
+          "role": "부사",
+          "englishPhrase": "just",
+          "koreanFunction": "방금 완료된 동작임을 표시",
+          "instruction": "현재완료와 함께 쓰여 '막 ~했다'는 뜻이므로 문장 맨 앞에 놓습니다.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "this letter",
+          "koreanFunction": "읽는 행위의 대상",
+          "instruction": "지시어 this를 살려 '이 편지를'로 목적어를 먼저 배열합니다.",
+          "tokenEnd": 2
+        },
+        {
+          "role": "부사",
+          "englishPhrase": "over and",
+          "koreanFunction": "다시 훑어봤다는 의미의 부사",
+          "instruction": "read ... over는 '되풀이해 읽다'라는 구동사이니 '다시'를 동사 앞에 둡니다.",
+          "tokenEnd": 3
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "I've just been reading",
+          "koreanFunction": "주어 I의 현재완료진행 서술어",
+          "instruction": "have been -ing로 방금까지 이어진 행동을 나타내며 '읽어 봤는데'로 절을 맺습니다.",
+          "tokenEnd": 5
+        },
+        {
+          "role": "부사",
+          "englishPhrase": "pretty",
+          "koreanFunction": "뒤의 형용사 정도를 강조",
+          "instruction": "구어에서 pretty는 '꽤'라는 정도부사이므로 보어 앞에 배치합니다.",
+          "tokenEnd": 6
+        },
+        {
+          "role": "보어+동사",
+          "englishPhrase": "it sounds un-cheerful",
+          "koreanFunction": "편지가 주는 인상을 서술",
+          "instruction": "sound+형용사는 '~하게 들리다'이며 and로 이어진 둘째 절이라 문장 끝에서 마무리합니다.",
+          "tokenEnd": 8
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "I've just been reading",
+          "explanation": "현재완료진행형: 조금 전까지 계속된 동작과 그 결과의 여운을 함께 나타냅니다."
+        },
+        {
+          "expression": "it sounds un-cheerful",
+          "explanation": "지각동사 sound 뒤에 형용사가 와서 '~하게 들리다/느껴지다'라는 보어 구조를 만듭니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-006:sentence-0003",
+      "structure": "대조 접속사 + 부정의문문(주어+동사) + that절 목적어(명사구 나열)",
+      "steps": [
+        {
+          "role": "접속부사",
+          "englishPhrase": "But",
+          "koreanFunction": "앞 내용과 대조를 표시",
+          "instruction": "문장 첫머리의 But은 '하지만'으로 옮겨 대조의 흐름을 먼저 세웁니다.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "수식어",
+          "englishPhrase": "due Monday morning",
+          "koreanFunction": "특별 주제 과제의 제출 기한을 한정",
+          "instruction": "due+시점은 '~까지 내야 하는'이라는 뜻이므로 명사 앞으로 끌어와 번역합니다.",
+          "tokenEnd": 4
+        },
+        {
+          "role": "목적어1",
+          "englishPhrase": "a special topic",
+          "koreanFunction": "that절 안 have의 첫 번째 대상",
+          "instruction": "관계어구 뒤에 오는 핵심 명사라 '특별 주제 과제와'로 묶어 나열을 시작합니다.",
+          "tokenEnd": 7
+        },
+        {
+          "role": "목적어2",
+          "englishPhrase": "a review in geometry",
+          "koreanFunction": "have의 두 번째 대상",
+          "instruction": "and로 연결된 두 번째 명사구이므로 '기하학 복습'으로 이어 놓습니다.",
+          "tokenEnd": 9
+        },
+        {
+          "role": "목적어3",
+          "englishPhrase": "and a very sneezy cold",
+          "koreanFunction": "have의 세 번째 대상",
+          "instruction": "세 번째 and 뒤 명사구로, sneezy는 '재채기가 심한'으로 풀어 '감기에'까지 배열합니다.",
+          "tokenEnd": 13
+        },
+        {
+          "role": "명사절 서술",
+          "englishPhrase": "that I have",
+          "koreanFunction": "guess의 목적어절을 이끄는 내용",
+          "instruction": "that절 전체가 '~시달리고 있다는 걸'로 명사화되어 주절 동사 앞에 옵니다.",
+          "tokenEnd": 16
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "can't you guess",
+          "koreanFunction": "문장의 주어+동사, 부정의문문",
+          "instruction": "can't you ~?는 '짐작 못하시겠어요?'라는 수사적 부정의문이라 맨 끝에서 마무리합니다.",
+          "tokenEnd": 18
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "can't you guess that ...?",
+          "explanation": "부정의문문으로 '당연히 알겠지'라는 뉘앙스를 담아 상대의 이해를 유도하는 수사적 표현입니다."
+        },
+        {
+          "expression": "a special topic due Monday morning",
+          "explanation": "형용사 due가 명사 뒤에서 기한을 나타내어 '월요일 아침까지 마감인'이라는 후치 수식이 됩니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    }
+  ]
+}

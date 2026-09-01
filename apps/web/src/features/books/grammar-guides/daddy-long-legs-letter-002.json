@@ -1,0 +1,1678 @@
+{
+  "bookSlug": "daddy-long-legs",
+  "sectionSlug": "letter-002",
+  "provider": "claude-cli/sonnet",
+  "guides": [
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0001",
+      "structure": "전치사 To + 수신인 이름(동격 별명 포함)",
+      "steps": [
+        {
+          "role": "수식어",
+          "englishPhrase": "Daddy-Long-Legs",
+          "koreanFunction": "이름 앞에 붙은 별명",
+          "instruction": "별명이 성(Smith) 앞에서 이름을 꾸미므로 한국어에서도 먼저 놓는다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "수신인",
+          "englishPhrase": "To Mr. ... Smith",
+          "koreanFunction": "편지를 받는 사람",
+          "instruction": "To는 수신인을 나타내며 한국어 '~씨께'로 마지막에 처리한다",
+          "tokenEnd": 3
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "To + 사람",
+          "explanation": "편지 서두에서 수신인을 밝히는 전치사구로, 한국어 '~께'에 해당한다."
+        },
+        {
+          "expression": "Mr. + 성",
+          "explanation": "남성 존칭. 이름 전체가 동격으로 이어져 한 사람을 가리킨다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0002",
+      "structure": "서수 + 월 (날짜 표기)",
+      "steps": [
+        {
+          "role": "날짜",
+          "englishPhrase": "1st October",
+          "koreanFunction": "편지 쓴 날짜",
+          "instruction": "영어는 일-월 순이지만 한국어는 월-일 순이므로 순서를 뒤집는다",
+          "tokenEnd": 1
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "1st = first",
+          "explanation": "서수로 날짜의 '일'을 나타낸다. 영국식은 '일 월' 순서로 쓴다."
+        },
+        {
+          "expression": "날짜 어순",
+          "explanation": "한국어는 큰 단위(월)부터 쓰므로 '10월 1일'이 된다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0003",
+      "structure": "호칭어 Dear + 별명",
+      "steps": [
+        {
+          "role": "수식어",
+          "englishPhrase": "Dear",
+          "koreanFunction": "호칭 앞의 친근한 인사말",
+          "instruction": "편지 첫머리 상투어로 별명 앞에 형용사처럼 놓는다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "호칭",
+          "englishPhrase": "Daddy-Long-Legs",
+          "koreanFunction": "부르는 상대의 별명",
+          "instruction": "부르는 대상이므로 '~께'를 붙여 뒤에 놓는다",
+          "tokenEnd": 2
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Dear ...,",
+          "explanation": "편지 서두 호칭. '친애하는 ~께'로 굳어진 표현이다."
+        },
+        {
+          "expression": "호칭 뒤 쉼표",
+          "explanation": "부르는 말 다음에 쉼표를 찍어 본문과 구분한다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0004",
+      "structure": "등위절1(주어+동사+목적어) + and + 등위절2 + 부연절(so~that 결과)",
+      "steps": [
+        {
+          "role": "주어+목적어+동사",
+          "englishPhrase": "I love college",
+          "koreanFunction": "첫 번째 절: 대학을 좋아함",
+          "instruction": "주어 I와 목적어 college를 먼저 놓고 서술어 love를 '좋다'로 연결한다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "관계수식어",
+          "englishPhrase": "for sending me",
+          "koreanFunction": "you를 꾸며 좋아하는 이유",
+          "instruction": "전치사 for 이유구를 '저를 보내 주신'으로 아저씨 앞에 붙인다",
+          "tokenEnd": 6
+        },
+        {
+          "role": "목적어+동사",
+          "englishPhrase": "I love you",
+          "koreanFunction": "두 번째 절: 아저씨도 좋아함",
+          "instruction": "and로 이어진 두 번째 love 절, '아저씨도 좋아요'로 맺는다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "주어+보어",
+          "englishPhrase": "I'm very, very happy",
+          "koreanFunction": "세 번째 절: 화자의 행복 상태",
+          "instruction": "새 문장의 주어와 형용사 보어를 놓는다",
+          "tokenEnd": 12
+        },
+        {
+          "role": "부사절 원인",
+          "englishPhrase": "so excited every moment of the time",
+          "koreanFunction": "결과절의 원인: 매 순간 신남",
+          "instruction": "so...that 구문의 원인 부분을 '매 순간이 너무 신나서'로 먼저 배열한다",
+          "tokenEnd": 16
+        },
+        {
+          "role": "결과절",
+          "englishPhrase": "that I can scarcely sleep",
+          "koreanFunction": "신나서 생긴 결과",
+          "instruction": "scarcely는 부정어이므로 '거의 잘 수가 없어요'로 문장 끝에 놓는다",
+          "tokenEnd": 21
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "so + 형용사 + that ...",
+          "explanation": "'너무 ~해서 (그 결과) ...하다'라는 정도·결과 구문이다."
+        },
+        {
+          "expression": "can scarcely",
+          "explanation": "scarcely는 '거의 ~않다'라는 준부정어로 문장을 부정 의미로 만든다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0005",
+      "structure": "주어 + 조동사 부정 + 동사 + 의문사절(how different ... from ...)",
+      "steps": [
+        {
+          "role": "의문사절 요소",
+          "englishPhrase": "how different it is from the John Grier Home",
+          "koreanFunction": "상상의 내용, 비교 대상과 정도를 담은 간접의문문",
+          "instruction": "'이곳이 존 그리어 고아원과 얼마나 다른지' 순서로 비교(from) 대상과 정도(how)를 먼저 배열한다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "주어",
+          "englishPhrase": "You",
+          "koreanFunction": "'상상도 못 하실' 동작의 주체",
+          "instruction": "간접의문문을 세운 뒤 주체 '아저씨는'을 놓는다",
+          "tokenEnd": 6
+        },
+        {
+          "role": "동사구",
+          "englishPhrase": "can't imagine",
+          "koreanFunction": "불가능을 나타내는 술어",
+          "instruction": "can't를 '상상도 못 하실 거예요'로 문장 끝에 배치한다",
+          "tokenEnd": 10
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "how different it is (간접의문문)",
+          "explanation": "how + 형용사 + 주어 + 동사 어순으로 명사절이 되어 imagine의 목적어 역할을 한다"
+        },
+        {
+          "expression": "different from ~",
+          "explanation": "'~와 다른'이라는 비교 표현으로 from 뒤에 비교 대상을 둔다"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0006",
+      "structure": "주어 + 동사 + that절(there was such a place in the world)",
+      "steps": [
+        {
+          "role": "장소 부사",
+          "englishPhrase": "in the world",
+          "koreanFunction": "존재의 범위",
+          "instruction": "that절 내용을 먼저 세우기 위해 '세상에'를 앞에 놓는다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "that절 주어",
+          "englishPhrase": "such a place",
+          "koreanFunction": "there was의 실제 주어",
+          "instruction": "'이런 곳이'로 놓아 there was 구문의 주어를 표현한다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "that절 술어",
+          "englishPhrase": "there was",
+          "koreanFunction": "과거의 존재를 인용하는 내용",
+          "instruction": "'있으리라고는'으로 만들어 dreamed의 목적절임을 표시한다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "부사",
+          "englishPhrase": "never dreamed",
+          "koreanFunction": "강한 부정, 전혀 생각 못 함",
+          "instruction": "never를 '꿈에도'로 살려 앞에 둔다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주어+동사",
+          "englishPhrase": "I never dreamed",
+          "koreanFunction": "화자의 생각을 나타내는 주절",
+          "instruction": "주어 I는 생략하고 '생각 못 했어요'로 문장을 마무리한다",
+          "tokenEnd": 7
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "I never dreamed (that) ...",
+          "explanation": "dream that절로 '~라고는 생각도 못했다'는 뜻, 접속사 that은 생략 가능"
+        },
+        {
+          "expression": "there was such a place",
+          "explanation": "there is/was 구문으로 존재를 나타내며 such a + 명사는 '그런 ~'"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0007",
+      "structure": "주어+동사+for목적어(관계절 두 개) ; 주어+동사+that절(대학 비교)",
+      "steps": [
+        {
+          "role": "관계절",
+          "englishPhrase": "who isn't a girl and who can't come here",
+          "koreanFunction": "everybody를 수식하는 두 관계절",
+          "instruction": "'여자아이가 아니어서 이곳에 올 수 없는'으로 사람을 꾸미는 조건을 먼저 배열한다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "전치사 목적어",
+          "englishPhrase": "everybody",
+          "koreanFunction": "안쓰러움의 대상",
+          "instruction": "수식어 뒤에 '모든 사람이'를 놓는다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "I'm feeling sorry for",
+          "koreanFunction": "화자의 감정 표현",
+          "instruction": "feel sorry for를 '안쓰럽게 느껴져요'로 첫 문장을 맺는다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "시간절",
+          "englishPhrase": "when you were a boy",
+          "koreanFunction": "대학을 다니던 시점",
+          "instruction": "두 번째 절의 시간 배경으로 '아저씨가 소년이었을 때'를 먼저 놓는다",
+          "tokenEnd": 12
+        },
+        {
+          "role": "주어부",
+          "englishPhrase": "the college you attended",
+          "koreanFunction": "비교의 주체가 되는 명사구",
+          "instruction": "관계절 '다니셨던'을 붙여 '대학도'로 만든다",
+          "tokenEnd": 14
+        },
+        {
+          "role": "보어",
+          "englishPhrase": "couldn't have been so nice",
+          "koreanFunction": "과거에 대한 부정적 추측",
+          "instruction": "'이렇게 좋지는 않았을 거라고'로 배열해 추측을 표현한다",
+          "tokenEnd": 18
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "I am sure",
+          "koreanFunction": "화자의 확신",
+          "instruction": "'확신해요'로 전체 문장을 마무리한다",
+          "tokenEnd": 19
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "couldn't have been",
+          "explanation": "'~였을 리가 없다'는 과거 사실에 대한 부정적 추측의 조동사 표현"
+        },
+        {
+          "expression": "everybody who ... and who ...",
+          "explanation": "선행사 하나에 관계대명사절 두 개를 and로 연결해 조건을 겹쳐 수식"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0008",
+      "structure": "주어 + 동사 + 장소보어(관계절 that used to be ... before절)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "My room",
+          "koreanFunction": "위치를 설명하는 대상",
+          "instruction": "'제 방은'으로 문장의 주어를 먼저 세운다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "시간절",
+          "englishPhrase": "before they built the new infirmary",
+          "koreanFunction": "탑의 용도가 유효하던 기간의 기준",
+          "instruction": "'새 병동을 짓기 전에'로 관계절 안의 시간 배경을 먼저 놓는다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "관계절 보어",
+          "englishPhrase": "that used to be the contagious ward",
+          "koreanFunction": "tower를 수식하는 과거의 용도",
+          "instruction": "used to be를 '전염병 병실로 쓰이던'으로 만들어 탑을 꾸민다",
+          "tokenEnd": 8
+        },
+        {
+          "role": "장소보어",
+          "englishPhrase": "up in a tower",
+          "koreanFunction": "방이 있는 위치",
+          "instruction": "'탑 위에'로 놓아 위치를 지정한다",
+          "tokenEnd": 10
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "is",
+          "koreanFunction": "위치를 나타내는 술어",
+          "instruction": "'있어요'로 문장을 마무리한다",
+          "tokenEnd": 11
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "used to be",
+          "explanation": "'예전에는 ~였다(지금은 아니다)'라는 과거의 상태를 나타내는 표현"
+        },
+        {
+          "expression": "before they built ...",
+          "explanation": "막연한 they로 '사람들이'를 가리키며 '~하기 전에'라는 시간 부사절"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0009",
+      "structure": "There is/are + 주어 + 장소구 -- 동격 목록(대시로 열거)",
+      "steps": [
+        {
+          "role": "장소 부사구",
+          "englishPhrase": "on the same floor of the tower",
+          "koreanFunction": "세 아이가 사는 위치를 지정",
+          "instruction": "'There are' 구문에서 장소구를 먼저 놓아 배경을 세운다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "존재 주어+동사",
+          "englishPhrase": "There are three other girls",
+          "koreanFunction": "존재를 알리는 주절",
+          "instruction": "There are 뒤 명사가 실제 주어이므로 '셋 있어요'로 처리",
+          "tokenEnd": 7
+        },
+        {
+          "role": "동격 수식절 1",
+          "englishPhrase": "a Senior who wears spectacles and is always asking us please to be a little more quiet",
+          "koreanFunction": "girls 중 첫 인물을 관계절로 묘사",
+          "instruction": "who 관계절 전체를 명사 앞 수식으로 돌려 '언니'를 꾸민다",
+          "tokenEnd": 19
+        },
+        {
+          "role": "열거 첫 항목 마무리",
+          "englishPhrase": "a Senior ... and two Freshmen",
+          "koreanFunction": "대시 뒤 목록의 첫 항목",
+          "instruction": "'한 명과'로 연결해 다음 항목과 나열함을 표시",
+          "tokenEnd": 21
+        },
+        {
+          "role": "동격 항목 2 + 이름",
+          "englishPhrase": "two Freshmen named Sallie McBride and Julia Rutledge Pendleton",
+          "koreanFunction": "나머지 두 인물과 그 이름",
+          "instruction": "named 분사를 '~이라는'으로 바꿔 이름을 신입생 앞에 붙이고 수량은 맨 뒤",
+          "tokenEnd": 29
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "There are three other girls",
+          "explanation": "There is/are는 존재를 나타내며 be동사 뒤 명사가 진짜 주어라 수일치한다."
+        },
+        {
+          "expression": "asking us please to be quiet",
+          "explanation": "ask + 목적어 + to부정사는 '~에게 …해 달라고 부탁하다'; please는 정중한 요청 표시."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0010",
+      "structure": "주어1 + 동사 나열(has, is) ; 주어2 + 동사 나열(comes, hasn't noticed) 대조",
+      "steps": [
+        {
+          "role": "주어 1",
+          "englishPhrase": "Sallie",
+          "koreanFunction": "앞 문장의 주제 인물",
+          "instruction": "세미콜론 앞뒤 두 인물을 대조하므로 먼저 샐리를 세운다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "술어 1a",
+          "englishPhrase": "has red hair and a turn-up nose",
+          "koreanFunction": "샐리의 외모 서술",
+          "instruction": "have 목적어들을 '~머리에 들창코이고'로 묶어 다음 서술과 연결",
+          "tokenEnd": 3
+        },
+        {
+          "role": "술어 1b",
+          "englishPhrase": "and is quite friendly",
+          "koreanFunction": "샐리 성격 서술",
+          "instruction": "등위 접속된 be 보어를 마무리로 놓는다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "주어 2",
+          "englishPhrase": "Julia",
+          "koreanFunction": "세미콜론 뒤 대조 인물",
+          "instruction": "새 주어 줄리아로 전환됨을 표시",
+          "tokenEnd": 6
+        },
+        {
+          "role": "술어 2a",
+          "englishPhrase": "comes from one of the first families in New York",
+          "koreanFunction": "줄리아의 출신 배경",
+          "instruction": "'one of the first families'를 '명문가 중 하나 출신'으로 풀고 '-인데'로 다음 절과 대비",
+          "tokenEnd": 11
+        },
+        {
+          "role": "술어 2b",
+          "englishPhrase": "and hasn't noticed me yet",
+          "koreanFunction": "줄리아가 화자를 무시함",
+          "instruction": "현재완료 부정 + yet을 '아직 ~않았어요'로 문미에 둔다",
+          "tokenEnd": 15
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "one of the first families",
+          "explanation": "one of the + 최상급/복수명사는 '가장 ~한 것들 중 하나'; first families는 '오래된 명문가'의 관용."
+        },
+        {
+          "expression": "hasn't noticed me yet",
+          "explanation": "현재완료(have+p.p.)에 yet을 쓰면 '지금까지도 아직 ~하지 않았다'는 뜻."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0011",
+      "structure": "주어1 + 동사 + 부사 , and 주어2 + 동사 + 목적어",
+      "steps": [
+        {
+          "role": "주어 1",
+          "englishPhrase": "They",
+          "koreanFunction": "샐리와 줄리아를 가리킴",
+          "instruction": "앞 문장 두 사람을 받는 대명사이므로 '그 둘은'으로 시작",
+          "tokenEnd": 1
+        },
+        {
+          "role": "술어 1",
+          "englishPhrase": "room together",
+          "koreanFunction": "두 사람이 함께 방 씀",
+          "instruction": "명사 room이 여기서는 동사('같은 방을 쓰다')임에 유의",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주어 2",
+          "englishPhrase": "the Senior and I",
+          "koreanFunction": "대조되는 두 번째 주어",
+          "instruction": "and로 이어진 새 절의 주어를 세운다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "술어 2",
+          "englishPhrase": "have singles",
+          "koreanFunction": "각자 1인실을 가짐",
+          "instruction": "single을 '1인실'로 보고 목적어+동사로 문장을 마무리",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "They room together",
+          "explanation": "room이 동사로 쓰이면 '함께 하숙/기숙하다, 방을 같이 쓰다'라는 뜻."
+        },
+        {
+          "expression": "the Senior and I have singles",
+          "explanation": "복수 주어 + have + 복수 목적어는 각자 하나씩 가진다는 분배 의미를 낼 수 있다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0012",
+      "structure": "부사 + 주어 + can't + 동사 ; 주어 + be + 보어 , but 주어 + 동사 + 목적어 + 부사구",
+      "steps": [
+        {
+          "role": "빈도부사",
+          "englishPhrase": "Usually",
+          "koreanFunction": "일반적 상황임을 표시",
+          "instruction": "'보통'을 문두에 두어 뒤 일반 규칙을 예고",
+          "tokenEnd": 0
+        },
+        {
+          "role": "주어+술어 1",
+          "englishPhrase": "Freshmen can't get singles",
+          "koreanFunction": "신입생은 1인실을 못 얻는다는 일반 규칙",
+          "instruction": "can't get을 '얻지 못해요'로 처리한 주절",
+          "tokenEnd": 4
+        },
+        {
+          "role": "보충 설명절",
+          "englishPhrase": "they are very scarce",
+          "koreanFunction": "1인실이 드문 이유",
+          "instruction": "세미콜론 뒤 they=singles; '드문데'로 다음 대조절과 연결",
+          "tokenEnd": 7
+        },
+        {
+          "role": "대조 주어",
+          "englishPhrase": "but I",
+          "koreanFunction": "규칙과 대비되는 화자",
+          "instruction": "but으로 예외를 도입하며 '저는'을 세운다",
+          "tokenEnd": 8
+        },
+        {
+          "role": "양보 부사구",
+          "englishPhrase": "without even asking",
+          "koreanFunction": "부탁조차 없었음을 강조",
+          "instruction": "without + -ing를 '부탁도 안 했는데'로 풀어 동사 앞에 둔다",
+          "tokenEnd": 11
+        },
+        {
+          "role": "술어 2",
+          "englishPhrase": "I got one",
+          "koreanFunction": "화자가 1인실을 얻음",
+          "instruction": "one=a single; 목적어 '하나'와 '얻었어요'로 마무리",
+          "tokenEnd": 13
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "without even asking",
+          "explanation": "without + 동명사는 '~하지 않고서'; even은 '~조차'라는 강조를 더한다."
+        },
+        {
+          "expression": "they are very scarce",
+          "explanation": "세미콜론은 밀접한 두 문장을 잇고, 여기 they는 앞의 singles를 가리킨다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0013",
+      "structure": "주어(I) + suppose + 종속절[주어(registrar) + didn't think + that절(가주어 it + be right + to부정사구)]",
+      "steps": [
+        {
+          "role": "주절 판단",
+          "englishPhrase": "I suppose ... didn't think it would be right",
+          "koreanFunction": "교무처장의 판단을 화자가 추측함",
+          "instruction": "I suppose는 문장 전체를 감싸는 추측 표현이고 registrar didn't think가 그 안의 실제 주어·동사임을 먼저 잡으세요.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "부정사 목적어(사람)",
+          "englishPhrase": "to ask a properly brought-up girl",
+          "koreanFunction": "부탁받는 대상인 여자아이를 수식어와 함께 제시",
+          "instruction": "properly brought-up는 girl을 꾸미는 과거분사 수식어이므로 '제대로 자란'을 여자아이 앞에 두세요.",
+          "tokenEnd": 3
+        },
+        {
+          "role": "함께할 대상",
+          "englishPhrase": "to room with a foundling",
+          "koreanFunction": "같은 방을 쓸 상대가 업둥이임을 밝힘",
+          "instruction": "room이 여기서 '한 방을 쓰다'라는 동사이고 with a foundling이 상대이므로 '업둥이와 같은 방을'로 묶으세요.",
+          "tokenEnd": 6
+        },
+        {
+          "role": "부정사 행위",
+          "englishPhrase": "ask ... to room",
+          "koreanFunction": "여자아이에게 방을 쓰라고 부탁하는 행위",
+          "instruction": "ask A to do 구조이므로 '쓰라고 부탁하는'을 대상과 상대 뒤에 배치해 명사절 주어로 만드세요.",
+          "tokenEnd": 8
+        },
+        {
+          "role": "that절 술어",
+          "englishPhrase": "it would be right",
+          "koreanFunction": "그 부탁이 옳은지에 대한 판단 내용",
+          "instruction": "it은 앞 부정사구를 받는 가주어이고 didn't think와 합쳐 '옳지 않다고'로 부정을 옮기세요.",
+          "tokenEnd": 11
+        },
+        {
+          "role": "주절 마무리",
+          "englishPhrase": "I suppose the registrar didn't think",
+          "koreanFunction": "교무처장이 그렇게 생각했을 거라는 화자의 추측",
+          "instruction": "마지막에 '생각한 것 같아요'로 didn't think와 I suppose를 함께 마무리해 requiredFinalTokenIndex에 맞추세요.",
+          "tokenEnd": 14
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "ask a girl to room with a foundling",
+          "explanation": "ask + 목적어 + to부정사: '~에게 …하라고 부탁하다'. 여기서 room은 '한 방을 함께 쓰다'라는 동사로 쓰였습니다."
+        },
+        {
+          "expression": "didn't think it would be right",
+          "explanation": "가주어 it이 뒤의 to부정사구를 대신하며, 부정어가 think에 붙어 '옳지 않다고 생각했다'처럼 의미가 종속절로 옮겨집니다(부정 이동)."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0014",
+      "structure": "도입 표현(You see) + there 구문(there are) + 주어(advantages)",
+      "steps": [
+        {
+          "role": "도입 표현",
+          "englishPhrase": "You see",
+          "koreanFunction": "상대의 이해를 구하며 말을 여는 삽입 어구",
+          "instruction": "문장 전체를 이끄는 회화적 도입부이므로 맨 앞에 두고, 뒤 내용을 '보다시피'로 자연스럽게 연결하세요.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "there 구문 + 주어",
+          "englishPhrase": "there are advantages",
+          "koreanFunction": "존재를 나타내는 there is/are 구문과 복수 주어",
+          "instruction": "there are는 위치가 아니라 '~이 있다'는 존재를 뜻하며, 진짜 주어 advantages가 뒤에 오므로 '이점도'를 먼저, '있네요'를 마지막에 배치하세요.",
+          "tokenEnd": 2
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "there are + 복수명사",
+          "explanation": "'~들이 있다'라는 존재를 표현하며, there는 형식상 자리만 채우고 실제 주어는 뒤의 명사(advantages)이다."
+        },
+        {
+          "expression": "You see",
+          "explanation": "'보다시피, 있잖아요'처럼 상대의 공감을 유도하는 구어체 삽입 표현으로, 문장 앞에 자유롭게 붙는다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0015",
+      "structure": "주어 + be동사 + 장소 전치사구 + with 부가구(동반)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "My room",
+          "koreanFunction": "문장의 주어, 화자의 방을 가리킴",
+          "instruction": "소유격 My가 room을 꾸미며 문장 맨 앞 주어로 옵니다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "장소 보어",
+          "englishPhrase": "is on the north-west corner",
+          "koreanFunction": "방의 위치를 be동사+전치사구로 설명",
+          "instruction": "be동사 뒤 on구가 위치를 나타내며 한국어에서는 '있고'로 이어집니다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "동반 부가구1",
+          "englishPhrase": "with two windows",
+          "koreanFunction": "방에 딸린 특징(창문 두 개)을 추가",
+          "instruction": "with는 '~을 갖추고'의 뜻으로 뒤에 명사구를 나열합니다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "동반 부가구2",
+          "englishPhrase": "and a view",
+          "koreanFunction": "with구에 등위로 묶인 두 번째 특징(전망)",
+          "instruction": "and로 windows와 view가 같은 with에 연결되어 마지막에 옵니다",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "on the north-west corner",
+          "explanation": "방향을 나타내는 복합 형용사 north-west가 corner를 수식하고, 위치는 전치사 on으로 표현합니다."
+        },
+        {
+          "expression": "with two windows and a view",
+          "explanation": "전치사 with가 '~이 딸린'이라는 부가 정보를 이끌며, and로 두 명사구를 병렬합니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0016",
+      "structure": "시간 부사절(After 주어 + 현재완료) + 가주어 it + 형용사 + 진주어(to부정사)",
+      "steps": [
+        {
+          "role": "시간 부사절",
+          "englishPhrase": "After you've lived in a ward for eighteen years",
+          "koreanFunction": "주절보다 앞선 경험의 배경과 기간을 제시",
+          "instruction": "After절을 먼저 해석하며 for eighteen years를 기간으로 앞세운다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "동반 부사구",
+          "englishPhrase": "with twenty room-mates",
+          "koreanFunction": "함께 지낸 대상을 나타내는 부수 상황",
+          "instruction": "with는 동반을 뜻하므로 '스무 명의 방 친구들과'로 살다에 붙인다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "부사절 동사",
+          "englishPhrase": "you've lived in a ward",
+          "koreanFunction": "오랜 기간 지속된 경험을 현재완료로 표현",
+          "instruction": "현재완료 have lived는 지금까지 이어진 경험이라 '살고 나면'으로 마무리한다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "진주어",
+          "englishPhrase": "to be alone",
+          "koreanFunction": "뒤로 미뤄진 실제 주어",
+          "instruction": "가주어 it이 가리키는 to be alone을 '혼자 있는 게'로 먼저 놓는다",
+          "tokenEnd": 12
+        },
+        {
+          "role": "주절 술어",
+          "englishPhrase": "it is restful",
+          "koreanFunction": "진주어에 대한 평가를 서술",
+          "instruction": "가주어 it은 따로 해석하지 않고 restful을 '편안하게 느껴져요'로 문장 끝에 둔다",
+          "tokenEnd": 14
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "it is restful to be alone",
+          "explanation": "it은 가주어, to be alone이 진주어다. '~하는 것은 …하다'로 해석한다."
+        },
+        {
+          "expression": "After you've lived ... for eighteen years",
+          "explanation": "After + 현재완료로 '~해 온 뒤에는'이라는 완료된 경험 조건을 나타낸다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0017",
+      "structure": "주어(This) + be동사 + 보어(the first chance) + 관계절(I've ever had) + to부정사 수식",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "This is",
+          "koreanFunction": "'이것'을 주어로 놓고 be동사로 보어와 연결",
+          "instruction": "영어는 주어가 문두에 오므로 '이건'을 먼저 세우고 뒤에 설명을 붙인다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "관계절 주어",
+          "englishPhrase": "I've ever had",
+          "koreanFunction": "chance를 꾸미는 관계절의 주어 '제가'",
+          "instruction": "chance를 수식하는 절이 한국어에서는 명사 앞으로 가므로 주어부터 배치",
+          "tokenEnd": 1
+        },
+        {
+          "role": "부사어",
+          "englishPhrase": "to get acquainted with Jerusha Abbott",
+          "koreanFunction": "'제루샤 애벗과 친해질'로 기회의 내용을 설명",
+          "instruction": "to부정사가 chance의 내용을 나타내므로 명사 앞 수식어로 옮긴다",
+          "tokenEnd": 6
+        },
+        {
+          "role": "보어",
+          "englishPhrase": "the first chance",
+          "koreanFunction": "'첫 번째 기회예요'로 문장의 보어",
+          "instruction": "영어 보어는 be동사 뒤지만 한국어에서는 문장 끝에 서술어로 놓는다",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "the first chance I've ever had",
+          "explanation": "최상급(first) 뒤 관계절은 목적격 관계대명사 that이 생략된 형태로 '~한 첫 번째'를 뜻한다"
+        },
+        {
+          "expression": "get acquainted with",
+          "explanation": "'~와 아는 사이가 되다, 친해지다'라는 뜻의 숙어 표현"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0018",
+      "structure": "주어(I) + 동사(think) + 목적절(I'm going to like her)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "I think",
+          "koreanFunction": "'저는'이 전체 문장의 주어",
+          "instruction": "주절 주어를 먼저 세우되 동사 think는 문장 끝 '같아요'로 처리됨을 염두에 둔다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "her",
+          "koreanFunction": "'그 아이를'로 like의 대상",
+          "instruction": "영어 목적어는 동사 뒤지만 한국어에서는 동사 앞에 놓는다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "목적절 동사",
+          "englishPhrase": "I'm going to like",
+          "koreanFunction": "'좋아하게 될'로 미래의 예상을 표현",
+          "instruction": "be going to는 예정·예측이므로 '~하게 될'로 옮겨 목적어 뒤에 둔다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "I think",
+          "koreanFunction": "'것 같아요'로 추측을 나타내는 서술어",
+          "instruction": "I think는 한국어에서 문장 끝 완곡 표현으로 자리한다",
+          "tokenEnd": 6
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "I think (that) ...",
+          "explanation": "that이 생략된 목적절 구문으로, 뒤 문장 전체가 think의 목적어"
+        },
+        {
+          "expression": "be going to",
+          "explanation": "근거 있는 예측이나 이미 정해진 예정을 나타내는 미래 표현"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0019",
+      "structure": "의문문: 조동사(Do) + 주어(you) + 동사(think) + 생략된 보어(you are)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "you",
+          "koreanFunction": "'아저씨도'로 질문의 대상",
+          "instruction": "Do you think의 you를 상대 호칭으로 옮기고 '도'로 앞 문장과 연결",
+          "tokenEnd": 0
+        },
+        {
+          "role": "보어",
+          "englishPhrase": "you are",
+          "koreanFunction": "'그럴'로 앞서 말한 like her를 대신",
+          "instruction": "are 뒤 going to like her가 생략됐으므로 '그럴'로 받는다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "Do you think",
+          "koreanFunction": "'것 같으세요?'로 의견을 묻는 서술어",
+          "instruction": "의문문의 think를 문장 끝 물음 형태로 옮긴다",
+          "tokenEnd": 3
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Do you think you are?",
+          "explanation": "뒤에 going to like her가 생략된 형태로, 반복을 피하려 be동사까지만 남긴 구문"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0020",
+      "structure": "요일 표시 명사 하나",
+      "steps": [
+        {
+          "role": "날짜",
+          "englishPhrase": "Tuesday",
+          "koreanFunction": "편지 작성 요일을 나타내는 '화요일'",
+          "instruction": "편지글 상단·하단의 날짜 표기로, 그대로 요일 명사만 놓는다",
+          "tokenEnd": 0
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Tuesday",
+          "explanation": "편지에서 요일만 단독으로 쓰면 '그 편지를 쓴 날'을 가리키는 관용적 표기"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0021",
+      "structure": "주어 + 현재진행형 동사 + 목적어, and + there is + 명사 + 관계절",
+      "steps": [
+        {
+          "role": "주절",
+          "englishPhrase": "They are organizing the Freshman basket-ball team",
+          "koreanFunction": "신입생 농구팀을 꾸리는 진행 중 상황을 제시",
+          "instruction": "'are organizing'은 현재진행형이라 '꾸리고 있는데'로, 목적어 팀 이름을 앞에 두세요",
+          "tokenEnd": 3
+        },
+        {
+          "role": "등위절",
+          "englishPhrase": "there's just a chance",
+          "koreanFunction": "가능성이 있다는 존재 표현",
+          "instruction": "there is 구문은 '있어요'로 풀되 'a chance(가능성이)'가 실제 주어임을 기억하세요",
+          "tokenEnd": 7
+        },
+        {
+          "role": "수식어",
+          "englishPhrase": "that I shall get in it",
+          "koreanFunction": "chance를 꾸미는 동격 that절, 내가 뽑힐 내용",
+          "instruction": "동격 that절은 명사 앞으로 와서 '제가 거기에 뽑힐'처럼 chance를 수식합니다",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "there's just a chance that ...",
+          "explanation": "there is + 명사 + 동격 that절: '~할 가능성이 있다'라는 존재 구문"
+        },
+        {
+          "expression": "I shall get in it",
+          "explanation": "1인칭 shall은 단순 미래로 will과 같은 뜻이며 여기선 '뽑힐 것이다'"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0022",
+      "structure": "주어 + be동사 + 보어, but + 보어 나열",
+      "steps": [
+        {
+          "role": "삽입어",
+          "englishPhrase": "of course",
+          "koreanFunction": "당연함을 나타내는 부사",
+          "instruction": "문장 전체를 꾸미는 삽입어라 맨 앞 '물론'으로 빼 두세요",
+          "tokenEnd": 0
+        },
+        {
+          "role": "주절",
+          "englishPhrase": "I'm little",
+          "koreanFunction": "화자가 몸집이 작다는 기본 서술",
+          "instruction": "주어 I와 be동사 보어 little을 묶어 '저는 몸집이 작지만'으로 처리",
+          "tokenEnd": 3
+        },
+        {
+          "role": "대조절",
+          "englishPhrase": "but terribly quick and wiry and tough",
+          "koreanFunction": "작지만 민첩·강인하다는 대조되는 보어들",
+          "instruction": "but 뒤 형용사 나열은 같은 be동사에 걸리며 'terribly'는 정도부사 '무척'",
+          "tokenEnd": 7
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "little ... but ... quick and wiry and tough",
+          "explanation": "be동사 보어를 but으로 대조하고 and로 여러 형용사를 연결"
+        },
+        {
+          "expression": "terribly quick",
+          "explanation": "terribly는 '무섭게'가 아니라 강조 부사로 '몹시, 무척'"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0023",
+      "structure": "While 시간부사절 + 주어 + can + 동사구 + and + 동사구",
+      "steps": [
+        {
+          "role": "시간절",
+          "englishPhrase": "While the others are hopping about in the air",
+          "koreanFunction": "다른 아이들이 뛰는 동안이라는 배경 시간",
+          "instruction": "While절은 배경이므로 먼저 놓고 'are hopping'은 진행, '동안'으로 마무리",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주어",
+          "englishPhrase": "I",
+          "koreanFunction": "주절의 행위자",
+          "instruction": "시간절 뒤 주절 주어 '저는'을 세워 대조를 드러내세요",
+          "tokenEnd": 5
+        },
+        {
+          "role": "동사구1",
+          "englishPhrase": "can dodge under their feet",
+          "koreanFunction": "발밑으로 파고드는 능력",
+          "instruction": "조동사 can은 두 동사에 함께 걸리며 'under their feet'를 먼저 번역",
+          "tokenEnd": 9
+        },
+        {
+          "role": "동사구2",
+          "englishPhrase": "and grab the ball",
+          "koreanFunction": "공을 낚아챈다는 두 번째 동작",
+          "instruction": "and로 이어진 두 번째 동사도 can 지배 아래이므로 '낚아챌 수 있어요'로 묶으세요",
+          "tokenEnd": 13
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "While ... are hopping",
+          "explanation": "While + 진행형: 두 동작이 동시에 일어남을 나타내는 시간·대조 부사절"
+        },
+        {
+          "expression": "can dodge ... and grab",
+          "explanation": "하나의 can이 and로 연결된 두 동사원형을 모두 지배"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0024",
+      "structure": "가주어 It + be + 보어 + 동명사, 이어서 with 분사구문 나열",
+      "steps": [
+        {
+          "role": "주절",
+          "englishPhrase": "It's loads of fun practising",
+          "koreanFunction": "연습이 매우 재미있다는 평가; It은 practising을 가리키는 가주어",
+          "instruction": "It's ... practising 구조에서 practising이 진짜 주어, '연습하는 건 재미있어요'",
+          "tokenEnd": 3
+        },
+        {
+          "role": "배경",
+          "englishPhrase": "out in the athletic field in the afternoon",
+          "koreanFunction": "오후 운동장이라는 장소·시간 배경",
+          "instruction": "장소·시간 부사구를 먼저 깔아 '오후에 운동장에 나가면'으로 연결",
+          "tokenEnd": 6
+        },
+        {
+          "role": "부대상황1",
+          "englishPhrase": "with the trees all red and yellow",
+          "koreanFunction": "나무가 붉고 노랗게 물든 상황",
+          "instruction": "with + 명사 + 형용사 부대상황 구문, '나무들은 온통 빨갛고 노랗게 물들어 있고'",
+          "tokenEnd": 12
+        },
+        {
+          "role": "부대상황2",
+          "englishPhrase": "and the air full of the smell of burning leaves",
+          "koreanFunction": "공기에 낙엽 타는 냄새가 가득한 상황",
+          "instruction": "같은 with에 걸리는 두 번째 구, 'burning leaves'는 '태우는 낙엽' 냄새",
+          "tokenEnd": 17
+        },
+        {
+          "role": "부대상황3",
+          "englishPhrase": "and everybody laughing and shouting",
+          "koreanFunction": "모두가 웃고 소리치는 상황",
+          "instruction": "with + 명사 + 현재분사, 동시 동작이라 '모두가 웃고 소리치죠'로 마무리",
+          "tokenEnd": 20
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "It's loads of fun practising",
+          "explanation": "It은 가주어, 동명사 practising이 진주어; loads of fun은 '무척 재미있는'"
+        },
+        {
+          "expression": "with the trees all red ..., the air full of ..., everybody laughing",
+          "explanation": "with + 명사 + 형용사/분사: 여러 부대상황을 나열하는 분사구문"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0025",
+      "structure": "주어 + be동사 + 최상급 보어(관계절 수식) + 대시 + 등위절(주어 + be동사 + 최상급)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "These",
+          "koreanFunction": "첫 절의 주어를 지시",
+          "instruction": "가까이 있는 대상을 가리키는 지시어이므로 문장 맨 앞에 두어 무엇에 대한 말인지 먼저 밝힌다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "관계절",
+          "englishPhrase": "I ever saw",
+          "koreanFunction": "girls를 꾸미는 관계절, 목적격 관계대명사 생략",
+          "instruction": "that이 생략된 관계절로 '내가 여태껏 본'이라는 수식이므로 보어 명사 앞에 배치한다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "보어",
+          "englishPhrase": "the happiest girls",
+          "koreanFunction": "주어 상태를 설명하는 최상급 보어",
+          "instruction": "be동사 뒤 최상급 보어이므로 '가장 행복한 여자애들'로 묶어 서술어 자리에 둔다",
+          "tokenEnd": 8
+        },
+        {
+          "role": "접속사",
+          "englishPhrase": "and",
+          "koreanFunction": "두 절을 대등하게 연결",
+          "instruction": "대시 뒤 새 절을 잇는 등위접속사이므로 두 번째 문장 앞에 두어 내용 추가를 표시한다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "주어+서술어",
+          "englishPhrase": "I am the happiest of all",
+          "koreanFunction": "둘째 절의 주어와 최상급 서술",
+          "instruction": "of all은 비교 범위를 뜻하므로 주어 뒤에 '그중에서', 그다음 최상급 서술 순으로 마무리한다",
+          "tokenEnd": 13
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "the happiest girls (that) I ever saw",
+          "explanation": "최상급 명사 뒤에 목적격 관계대명사가 생략된 관계절이 붙어 '지금껏 본 중 가장 ~한'이라는 의미를 만든다"
+        },
+        {
+          "expression": "the happiest of all",
+          "explanation": "「the+최상급+of+집단」 구조로 of all은 '모두 중에서'라는 비교 범위를 나타낸다"
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0026",
+      "structure": "주어 + 동사(meant to write) + 목적어(편지) + 관계절 수식 + 삽입된 부연절",
+      "steps": [
+        {
+          "role": "관계절",
+          "englishPhrase": "all the things I'm learning",
+          "koreanFunction": "'편지'가 담을 내용을 꾸미는 관계절",
+          "instruction": "'the things (that) I'm learning' 형태로 관계대명사가 생략된 절이며, 한국어에서는 명사 앞에서 먼저 풀어 준다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "동사구",
+          "englishPhrase": "tell you all",
+          "koreanFunction": "편지로 하려던 행동을 나타냄",
+          "instruction": "and로 이어진 to write와 (to) tell의 병렬 부정사인데, 여기서는 '전부 이야기하는'으로 편지를 수식하게 배치한다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "a long letter",
+          "koreanFunction": "write의 목적어",
+          "instruction": "앞의 수식어들이 모두 이 명사를 향하므로 수식어 다음에 놓는다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "I meant to write",
+          "koreanFunction": "문장의 주어+본동사, 과거의 의도",
+          "instruction": "'meant to + 동사원형'은 '~하려고 했다'는 이루지 못한 의도를 뜻하므로 문장 끝 서술어로 온다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "삽입절 주어",
+          "englishPhrase": "(Mrs.",
+          "koreanFunction": "괄호로 열리는 부연 설명의 주어 도입",
+          "instruction": "영어 원문이 괄호로 문장을 끊고 새 설명을 시작하므로 여기서부터 삽입절로 처리한다",
+          "tokenEnd": 11
+        },
+        {
+          "role": "삽입절 내포절",
+          "englishPhrase": "wants to know",
+          "koreanFunction": "리펫 부인이 전하는 내용: 아저씨의 바람",
+          "instruction": "뒤 문장에서 이어질 내용을 '아저씨가 알고 싶어 하신다고'라는 간접 인용으로 미리 배열한다",
+          "tokenEnd": 15
+        },
+        {
+          "role": "삽입절 동사",
+          "englishPhrase": "(Mrs.",
+          "koreanFunction": "인용을 매듭짓는 서술어",
+          "instruction": "한국어 답안은 '~했거든요'로 삽입절을 닫으며 이유·배경을 덧붙이는 어미를 쓴다",
+          "tokenEnd": 16
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "meant to write",
+          "explanation": "'mean to + 동사원형'의 과거형으로, 하려고 했으나 실제로는 못 한 의도를 나타낸다."
+        },
+        {
+          "expression": "write ... and tell you",
+          "explanation": "to write와 (to) tell이 and로 연결된 병렬 부정사구로, 두 번째 to는 생략되었다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0027",
+      "structure": "대조 접속사 + 절1(주어+동사) + and + 절2(시간부사구 + be due 구문)",
+      "steps": [
+        {
+          "role": "접속사",
+          "englishPhrase": "but",
+          "koreanFunction": "앞 내용과 대조를 이루며 문장을 전환",
+          "instruction": "but은 앞말과의 대비를 표시하므로 '그런데'로 문장 맨 앞에 둔다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "시간부사",
+          "englishPhrase": "has just rung",
+          "koreanFunction": "7교시 종이 방금 울린 완료 상황을 나타냄",
+          "instruction": "현재완료 has rung에 just가 붙어 '방금 ~했다'가 되므로 시점 표현을 먼저 놓는다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "주어",
+          "englishPhrase": "7th hour",
+          "koreanFunction": "첫 번째 절의 주어(종 울림의 주체)",
+          "instruction": "영어 주어 7th hour를 '7교시 종이'로 옮겨 동사 앞에 배치한다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "has just rung",
+          "koreanFunction": "첫 절의 서술어이자 뒤 절과 and로 연결",
+          "instruction": "동사를 '울렸고,'로 처리해 연결어미로 다음 절에 이어준다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "시간부사구",
+          "englishPhrase": "in ten minutes",
+          "koreanFunction": "두 번째 절의 마감 시점을 지정",
+          "instruction": "in + 시간은 '~후에'이므로 '10분 뒤면'으로 절 앞에 둔다",
+          "tokenEnd": 6
+        },
+        {
+          "role": "부사구",
+          "englishPhrase": "in gymnasium clothes",
+          "koreanFunction": "어떤 차림으로 가야 하는지 방식을 설명",
+          "instruction": "in + 옷은 착용 상태를 뜻하므로 '체육복 차림으로'를 장소 앞에 놓는다",
+          "tokenEnd": 8
+        },
+        {
+          "role": "장소+서술어",
+          "englishPhrase": "I'm due at the athletic field",
+          "koreanFunction": "운동장에 가 있어야 하는 의무를 나타냄",
+          "instruction": "be due at은 '~에 가 있어야 한다'는 예정·의무이므로 장소 뒤에 '가 있어야 해요.'로 마무리한다",
+          "tokenEnd": 12
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "has just rung",
+          "explanation": "현재완료에 just가 들어가 '방금 막 ~했다'라는 직전 완료를 표현한다."
+        },
+        {
+          "expression": "I'm due at the athletic field",
+          "explanation": "be due (at/to)는 '~에 가기로/하기로 예정되어 있다'는 의무·예정을 나타내는 표현이다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0028",
+      "structure": "부정 의문문(Don't you ~?) + 동사 hope + 목적어절(I'll get in the team)",
+      "steps": [
+        {
+          "role": "목적어절 주어",
+          "englishPhrase": "I'll",
+          "koreanFunction": "바라는 내용의 주어를 제시",
+          "instruction": "hope 뒤 that절의 숨은 주어 I를 먼저 세운다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "부사구",
+          "englishPhrase": "in the team",
+          "koreanFunction": "들어갈 대상을 표시",
+          "instruction": "get in the team의 도착점을 '팀에'로 놓는다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "목적어절 동사",
+          "englishPhrase": "get in",
+          "koreanFunction": "뽑혀 들어간다는 사건",
+          "instruction": "will get in을 한국어에서는 피동 '뽑히다'로 표현",
+          "tokenEnd": 2
+        },
+        {
+          "role": "본동사",
+          "englishPhrase": "hope",
+          "koreanFunction": "화자가 기대하는 마음",
+          "instruction": "목적어절을 다 놓은 뒤 주절 동사 '바라다'를 붙인다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "부정 의문 어미",
+          "englishPhrase": "Don't you",
+          "koreanFunction": "동의를 구하는 부정 의문",
+          "instruction": "Don't you ~?는 '~하지 않으세요?'로 문장 끝에서 처리",
+          "tokenEnd": 4
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Don't you hope ~?",
+          "explanation": "부정 의문문으로 상대의 동의나 공감을 기대하며 묻는 표현이다."
+        },
+        {
+          "expression": "hope (that) I'll get in",
+          "explanation": "hope 뒤에 that이 생략된 명사절이 오며, 미래 일에는 will을 쓴다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0029",
+      "structure": "맺음말 부사어 + 소유격 + 서명(이름)",
+      "steps": [
+        {
+          "role": "맺음말 표현",
+          "englishPhrase": "Yours always",
+          "koreanFunction": "편지를 마무리하는 상투적 인사말로 '언제나 당신의 사람'이라는 뜻",
+          "instruction": "편지 끝맺음 관용구임임을 알아차리고, always가 Yours를 꾸며 '언제나'가 먼저 오도록 배치하세요.",
+          "tokenEnd": 1
+        },
+        {
+          "role": "서명",
+          "englishPhrase": "Jerusha Abbott",
+          "koreanFunction": "편지를 쓴 사람의 이름을 밝히는 서명",
+          "instruction": "인사말 뒤에 보내는 이의 이름이 오는 영어 편지 형식이므로 이름을 마지막에 두고 이름 다음에 성을 놓으세요.",
+          "tokenEnd": 3
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Yours always",
+          "explanation": "편지 맺음말 관용 표현으로 Yours truly와 비슷하며 '언제나 당신의 (벗)'이라는 애정 어린 인사이다."
+        },
+        {
+          "expression": "Yours",
+          "explanation": "소유대명사로 여기서는 편지 쓴 이 자신을 가리키는 생략 표현이다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0030",
+      "structure": "약어(추신) + 삽입 시간 표기",
+      "steps": [
+        {
+          "role": "머리말",
+          "englishPhrase": "PS.",
+          "koreanFunction": "편지 본문 뒤에 덧붙이는 글임을 알리는 표시",
+          "instruction": "'postscript'의 약자로, 편지를 다 쓴 뒤 추가하는 말임을 나타내므로 맨 앞에 둔다.",
+          "tokenEnd": 0
+        },
+        {
+          "role": "삽입어구",
+          "englishPhrase": "(9 o'clock.)",
+          "koreanFunction": "추신을 쓴 시각을 괄호로 덧붙인 부가 정보",
+          "instruction": "괄호 안 시간 표기는 글을 쓴 때를 보충하는 독립 요소이므로 추신 표시 뒤에 놓는다.",
+          "tokenEnd": 1
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "PS. (= postscript)",
+          "explanation": "편지 서명 뒤에 잊은 내용을 덧붙일 때 쓰는 관용 약어이다."
+        },
+        {
+          "expression": "9 o'clock",
+          "explanation": "'o'clock'은 'of the clock'의 축약형으로 정각 시각을 말할 때 쓴다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0031",
+      "structure": "주어 + 부사(just) + 동사(poked) + 목적어(her head) + 장소 부사구(in at my door)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "Sallie McBride",
+          "koreanFunction": "행동의 주체를 나타냄",
+          "instruction": "문장 맨 앞의 인물이 주어이므로 해석을 그녀의 이름부터 시작하세요.",
+          "tokenEnd": 1
+        },
+        {
+          "role": "부사",
+          "englishPhrase": "just",
+          "koreanFunction": "방금 일어난 일임을 표시",
+          "instruction": "동사 앞의 just는 '방금'이라는 시간 부사로, 주어 뒤에 놓습니다.",
+          "tokenEnd": 2
+        },
+        {
+          "role": "장소 부사구",
+          "englishPhrase": "in at my door",
+          "koreanFunction": "머리를 들이민 위치를 설명",
+          "instruction": "영어에서는 동사 뒤에 오지만 한국어 어순상 목적어와 동사 앞에 장소를 둡니다.",
+          "tokenEnd": 4
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "her head",
+          "koreanFunction": "동사 poked의 대상",
+          "instruction": "'머리를'은 동사가 필요로 하는 목적어이므로 동사 바로 앞에 배치합니다.",
+          "tokenEnd": 5
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "poked",
+          "koreanFunction": "주어의 핵심 동작을 나타냄",
+          "instruction": "'쏙'으로 방식을 강조한 뒤 서술어 '들이밀었어요'로 문장을 마무리합니다.",
+          "tokenEnd": 7
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "poked her head in at my door",
+          "explanation": "'poke + 신체부위 + in/out'은 몸의 일부만 쑥 내밀거나 들이미는 동작을 나타내는 표현입니다."
+        },
+        {
+          "expression": "in at my door",
+          "explanation": "전치사 두 개(in, at)를 겹쳐 써서 '문 안쪽으로'라는 방향과 지점을 함께 표현합니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0032",
+      "structure": "주어(This) + be동사 + 보어절(what she said)",
+      "steps": [
+        {
+          "role": "보어절 주어",
+          "englishPhrase": "she",
+          "koreanFunction": "말한 행위의 주체를 지목",
+          "instruction": "관계절 'what she said' 안의 주어 she를 한국어 문장의 주어로 먼저 세운다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "지시 부사",
+          "englishPhrase": "This is",
+          "koreanFunction": "뒤에 이어질 인용 내용을 미리 가리킴",
+          "instruction": "주어 This가 가리키는 '다음의 말'을 '이렇게'로 바꿔 동사 앞에 둔다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "what she said",
+          "koreanFunction": "발화 행위를 나타내는 서술어",
+          "instruction": "관계절의 동사 said를 문장 끝 서술어로 놓아 한국어 어순을 완성한다",
+          "tokenEnd": 3
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "This is what she said",
+          "explanation": "'what'은 선행사를 포함하는 관계대명사로 '그녀가 말한 것'이라는 명사절을 이끌어 be동사의 보어가 된다."
+        },
+        {
+          "expression": "This is ...: 인용 예고 표현",
+          "explanation": "주어 This가 뒤따르는 실제 발화를 가리키며 콜론(:) 뒤에 직접 인용문이 온다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0033",
+      "structure": "주어 + be동사 + 형용사(so ~) + that 결과절",
+      "steps": [
+        {
+          "role": "주어+술어",
+          "englishPhrase": "I'm so homesick",
+          "koreanFunction": "화자가 집을 몹시 그리워하는 상태를 제시",
+          "instruction": "'so + 형용사'가 정도를 강조하므로 '집이 너무 그리워서'로 먼저 상태를 세운다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "결과 부사",
+          "englishPhrase": "simply",
+          "koreanFunction": "뒤의 부정을 강조",
+          "instruction": "'도저히'로 옮겨 can't의 불가능함을 강하게 만드는 자리",
+          "tokenEnd": 3
+        },
+        {
+          "role": "결과절 술어",
+          "englishPhrase": "can't stand it",
+          "koreanFunction": "그리움을 참을 수 없다는 결과",
+          "instruction": "'so...that' 구문의 결과이므로 '못 견디겠어'로 문장을 마무리한다",
+          "tokenEnd": 5
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "so + 형용사 + (that) + 절",
+          "explanation": "'너무 ~해서 그 결과 ~하다'라는 정도·결과 구문. 여기선 that이 생략되고 바로 결과절이 이어진다."
+        },
+        {
+          "expression": "can't stand it",
+          "explanation": "'stand'는 '참다, 견디다'의 뜻으로, can't와 함께 '도저히 견딜 수 없다'라는 관용 표현이다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0034",
+      "structure": "조동사 + 주어 + 동사 + 목적어 (의문문)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "you",
+          "koreanFunction": "질문의 대상인 '너'",
+          "instruction": "의문문이라 조동사 Do 뒤에 주어 you가 오며, 한국어에서는 '너도'로 시작한다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "that way",
+          "koreanFunction": "'그런 기분'을 가리키는 목적어",
+          "instruction": "feel의 대상 that way를 동사 앞에 두어 '그런 기분이'로 풀어준다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "Do you feel",
+          "koreanFunction": "'느끼다'라는 서술어를 의문형으로",
+          "instruction": "do 의문문의 본동사 feel을 문장 끝에서 '드니?'로 마무리한다",
+          "tokenEnd": 3
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Do you feel ...?",
+          "explanation": "일반동사 의문문은 조동사 do를 주어 앞에 두고 본동사는 원형으로 쓴다."
+        },
+        {
+          "expression": "feel that way",
+          "explanation": "'그런 식으로 느끼다'라는 뜻의 관용 표현으로 that way가 방식을 나타낸다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0035",
+      "structure": "주어 + 동사(+부사구) + 등위접속 said + 목적어(간접화법절)",
+      "steps": [
+        {
+          "role": "주어+동사",
+          "englishPhrase": "I smiled a little",
+          "koreanFunction": "주어와 첫 번째 동작을 제시",
+          "instruction": "문장의 주어 I와 동사 smiled를 먼저 잡고, a little은 정도를 나타내는 부사로 동사 앞에서 처리",
+          "tokenEnd": 2
+        },
+        {
+          "role": "등위동사+목적어",
+          "englishPhrase": "and said no",
+          "koreanFunction": "and로 이어진 두 번째 동사와 그 대답 내용",
+          "instruction": "and가 smiled와 said를 대등하게 연결함에 주목하고, said의 목적어인 no를 간접화법 '아니라고'로 옮김",
+          "tokenEnd": 4
+        },
+        {
+          "role": "인용절 주어",
+          "englishPhrase": "I thought",
+          "koreanFunction": "세미콜론 뒤 새 절의 주어와 사고 동사",
+          "instruction": "세미콜론은 관련된 두 문장을 잇는 부호이니, 뒤 절의 주어 I와 thought를 다시 세워 인용 내용을 준비",
+          "tokenEnd": 5
+        },
+        {
+          "role": "목적절",
+          "englishPhrase": "I could pull through",
+          "koreanFunction": "thought의 목적어가 되는 that절 내용",
+          "instruction": "thought 뒤 생략된 that절로, could pull through는 '견뎌낼 수 있을'이라는 가능 표현이며 문장 끝에서 '같다고요'로 마무리",
+          "tokenEnd": 10
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "and said no",
+          "explanation": "직접화법 대답 'No'를 간접화법으로 바꾼 형태로, 한국어에서는 '아니라고 했다'처럼 인용조사로 표현한다."
+        },
+        {
+          "expression": "I thought (that) I could pull through",
+          "explanation": "thought 뒤 접속사 that이 생략된 목적어절이며, could는 과거 시제 일치로 쓰인 가능의 조동사다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0036",
+      "structure": "부사구 + 주어 + 동사 + 보어(관계절 수식)",
+      "steps": [
+        {
+          "role": "부사구",
+          "englishPhrase": "At least",
+          "koreanFunction": "최소한의 사실을 강조",
+          "instruction": "문장 첫머리의 양보성 부사구로, 한국어에서도 맨 앞에 두어 전체 내용을 완화한다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "주어",
+          "englishPhrase": "homesickness",
+          "koreanFunction": "escaped된 대상이자 보어절의 화제",
+          "instruction": "영어 주어지만 한국어 답에서는 '향수병만큼은'으로 화제화되어 앞에 온다",
+          "tokenEnd": 1
+        },
+        {
+          "role": "관계절 주어",
+          "englishPhrase": "I've",
+          "koreanFunction": "that절 안에서 escape의 행위자",
+          "instruction": "관계절 'that I've escaped'의 주어이므로 수식받는 명사 '병' 앞에 배치한다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "관계절 동사",
+          "englishPhrase": "that I've escaped",
+          "koreanFunction": "one disease를 수식하는 관계절",
+          "instruction": "목적격 관계대명사 that이 disease를 받으며, 현재완료로 '피해 간' 경험을 나타낸다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "보어",
+          "englishPhrase": "is one disease",
+          "koreanFunction": "주어의 정체를 규정하는 주격보어",
+          "instruction": "be동사 보어로 문장 끝에 '병이에요'로 놓여 서술을 마무리한다",
+          "tokenEnd": 5
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "one disease that I've escaped",
+          "explanation": "목적격 관계대명사 that이 이끄는 절이 명사 disease를 뒤에서 수식한다. 한국어는 수식절이 명사 앞에 온다."
+        },
+        {
+          "expression": "I've escaped",
+          "explanation": "현재완료(have + 과거분사)로 지금까지 벗어나 있는 상태와 경험을 나타낸다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-002:sentence-0037",
+      "structure": "주어 + 동사 + 목적어(동명사구) + 부가의문문",
+      "steps": [
+        {
+          "role": "목적어",
+          "englishPhrase": "anybody being asylum-sick",
+          "koreanFunction": "들어본 내용, 고아원을 그리워하는 사람이 있다는 것",
+          "instruction": "of의 목적어인 동명사구로, being의 의미상 주어 anybody를 '사람이', asylum-sick을 '고아원을 그리워하는'으로 풀어 동사 앞에 먼저 배치하세요",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주어+동사",
+          "englishPhrase": "I never heard of",
+          "koreanFunction": "화자가 들어본 적이 없다는 핵심 서술",
+          "instruction": "never로 부정되는 주어-동사 관계를 목적어 뒤에 놓고, 한국어에서는 문미의 '들어본 적이 없어요'로 실현됨을 확인하세요",
+          "tokenEnd": 7
+        },
+        {
+          "role": "부가의문문",
+          "englishPhrase": "did you?",
+          "koreanFunction": "상대에게 같은 경험이 있는지 되묻는 확인 질문",
+          "instruction": "앞 문장이 조동사 없는 일반동사 과거이므로 did you로 받으며, '아저씨는 들어보셨어요?'처럼 문장 끝에 붙입니다",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "hear of + 목적어 + being + 형용사",
+          "explanation": "'~가 어떠하다는 말을 듣다'라는 뜻으로, being의 의미상 주어(anybody)와 상태(asylum-sick)가 함께 of의 목적어가 됩니다."
+        },
+        {
+          "expression": "..., did you?",
+          "explanation": "일반동사 과거 긍정문에 붙는 부가의문문으로, do의 과거형 did로 받아 상대의 동의를 구합니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    }
+  ]
+}

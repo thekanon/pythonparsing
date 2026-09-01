@@ -1,0 +1,304 @@
+{
+  "bookSlug": "daddy-long-legs",
+  "sectionSlug": "letter-007",
+  "provider": "claude-cli/sonnet",
+  "guides": [
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0001",
+      "structure": "명사 하나로 된 제목",
+      "steps": [
+        {
+          "role": "명사",
+          "englishPhrase": "Sunday",
+          "koreanFunction": "편지를 쓴 요일을 표시하는 제목",
+          "instruction": "완전한 문장이 아니라 날짜 표기처럼 요일 명사만 단독으로 쓴 경우임을 알아두세요.",
+          "tokenEnd": 0
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "Sunday",
+          "explanation": "요일 이름은 관사 없이 단독으로 써서 날짜·제목 역할을 할 수 있습니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0002",
+      "structure": "이유절(주어+동사+목적어) + 주절(주어+조동사+동사+목적어)",
+      "steps": [
+        {
+          "role": "이유절",
+          "englishPhrase": "I forgot to post this yesterday",
+          "koreanFunction": "뒤 행동의 이유가 되는 상황을 설명",
+          "instruction": "so 앞부분이 원인이므로 한국어에서 먼저 놓고 '~해서'로 연결하세요. yesterday는 시간 부사입니다.",
+          "tokenEnd": 4
+        },
+        {
+          "role": "주어+의지 표현",
+          "englishPhrase": "I will add",
+          "koreanFunction": "글쓴이가 앞으로 할 행동을 나타냄",
+          "instruction": "결과를 이끄는 so 다음의 will은 즉석에서 정한 의지를 뜻하므로 문장 끝 서술어로 옮기세요.",
+          "tokenEnd": 6
+        },
+        {
+          "role": "목적어",
+          "englishPhrase": "an indignant postscript",
+          "koreanFunction": "add의 대상이 되는 명사구",
+          "instruction": "형용사 indignant가 명사 postscript를 꾸미므로 '화가 난 추신'으로 묶어 서술어 앞에 두세요.",
+          "tokenEnd": 9
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "forgot to post",
+          "explanation": "forget + to부정사는 '해야 할 일을 하지 않았다'는 뜻입니다."
+        },
+        {
+          "expression": "so I will add",
+          "explanation": "등위접속사 so는 앞 내용의 결과를 이끕니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0003",
+      "structure": "주절(주어+동사+목적어) + and + 강조 의문절",
+      "steps": [
+        {
+          "role": "주절",
+          "englishPhrase": "We had a bishop this morning",
+          "koreanFunction": "오늘 있었던 일을 서술",
+          "instruction": "have는 '손님이 왔다'는 뜻으로, 시간 부사 this morning을 앞에 두고 '주교님이 오셨는데'로 옮기세요.",
+          "tokenEnd": 3
+        },
+        {
+          "role": "의문절 주어",
+          "englishPhrase": "HE",
+          "koreanFunction": "뒤 의문절에서 말한 주체",
+          "instruction": "and 뒤 대문자 강조 의문문의 주어이므로 '그분이'로 받아 이어가세요.",
+          "tokenEnd": 4
+        },
+        {
+          "role": "의문절 목적어+동사",
+          "englishPhrase": "WHAT DO YOU THINK HE SAID",
+          "koreanFunction": "독자에게 궁금증을 던지는 질문",
+          "instruction": "what은 said의 목적어이고 do you think가 삽입된 형태이므로 '무슨 말씀을 하셨는지 아세요?'로 재배열하세요.",
+          "tokenEnd": 8
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "had a bishop",
+          "explanation": "have는 손님·방문객을 '맞이하다'라는 뜻으로 쓰입니다."
+        },
+        {
+          "expression": "What do you think he said?",
+          "explanation": "do you think가 의문사 뒤에 삽입되어 간접적으로 답을 묻는 강조 의문문입니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0004",
+      "structure": "주어(수식어구 포함) + 동사 + 보어 + 동격 인용문",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "The most beneficent promise made us in the Bible",
+          "koreanFunction": "문장의 핵심 주어와 그 수식어",
+          "instruction": "made us in the Bible는 promise를 뒤에서 꾸미는 분사구이므로 '성경에서 우리에게 주어진 가장 자비로운 약속'으로 묶으세요.",
+          "tokenEnd": 5
+        },
+        {
+          "role": "동사+보어",
+          "englishPhrase": "is this",
+          "koreanFunction": "주어의 정체를 지시대명사로 가리킴",
+          "instruction": "be동사 뒤 this가 보어이며 뒤 인용문을 예고하므로 '이것입니다'로 놓으세요.",
+          "tokenEnd": 6
+        },
+        {
+          "role": "동격 인용문",
+          "englishPhrase": "The poor ye have always with you",
+          "koreanFunction": "this의 구체적 내용인 성경 구절",
+          "instruction": "this와 동격인 직접 인용이므로 뒤에 그대로 배열하세요. ye는 옛 형태의 you입니다.",
+          "tokenEnd": 12
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "promise made us in the Bible",
+          "explanation": "made는 과거분사로 promise를 수식하며 앞에 which was가 생략된 형태입니다."
+        },
+        {
+          "expression": "ye have always with you",
+          "explanation": "ye는 고어 주격 you, 목적어 the poor가 강조를 위해 앞으로 나온 도치입니다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0005",
+      "structure": "주어 + 수동태 동사 + 목적 부사구(in order to)",
+      "steps": [
+        {
+          "role": "주어",
+          "englishPhrase": "They",
+          "koreanFunction": "주어",
+          "instruction": "먼저 무엇이 놓였는지 주어를 제시한다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "목적어+보어",
+          "englishPhrase": "to keep us charitable",
+          "koreanFunction": "목적을 나타내는 to부정사의 목적어와 상태 보어",
+          "instruction": "in order to 뒤의 keep+목적어+형용사 구조를 먼저 풀어 목적을 밝힌다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "목적 표시",
+          "englishPhrase": "in order to",
+          "koreanFunction": "'~하기 위해'라는 목적을 명시",
+          "instruction": "목적 부사구임을 '위해'로 마무리해 이유를 분명히 한다",
+          "tokenEnd": 4
+        },
+        {
+          "role": "장소",
+          "englishPhrase": "here",
+          "koreanFunction": "놓인 장소를 나타내는 부사",
+          "instruction": "동사 앞에 장소 부사를 배치한다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "동사",
+          "englishPhrase": "were put",
+          "koreanFunction": "수동태 서술어, '놓였다'",
+          "instruction": "수동태이므로 행위자 없이 '놓인 것입니다'로 끝맺는다",
+          "tokenEnd": 7
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "in order to keep",
+          "explanation": "'in order to + 동사원형'은 목적을 강조하는 표현으로 '~하기 위하여'로 해석한다."
+        },
+        {
+          "expression": "were put (수동태)",
+          "explanation": "be동사+과거분사 형태의 수동태로, 행위자보다 대상에 초점을 둔다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0006",
+      "structure": "삽입어 + 주어 + 분사구문 보어(being + 명사구)",
+      "steps": [
+        {
+          "role": "삽입어",
+          "englishPhrase": "please observe",
+          "koreanFunction": "독자에게 주의를 환기하는 삽입 표현",
+          "instruction": "문장 앞에 삽입구를 두어 '보시다시피'로 어조를 잡는다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "주어",
+          "englishPhrase": "The poor",
+          "koreanFunction": "'the+형용사'로 가난한 사람들 전체를 가리키는 주어",
+          "instruction": "the+형용사가 복수 보통명사가 됨을 살려 '가난한 자들은'으로 놓는다",
+          "tokenEnd": 2
+        },
+        {
+          "role": "보어 수식",
+          "englishPhrase": "a sort of useful domestic",
+          "koreanFunction": "주어를 설명하는 명사구의 수식 부분",
+          "instruction": "명사 앞 수식어를 순서대로 쌓아 '일종의 쓸모 있는'을 만든다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "보어+서술",
+          "englishPhrase": "being a sort of useful domestic animal",
+          "koreanFunction": "분사 being이 이끄는 보어로 주어의 정체를 규정",
+          "instruction": "being 분사구문을 '~인 셈이에요'로 서술어처럼 마무리한다",
+          "tokenEnd": 7
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "The poor",
+          "explanation": "'the + 형용사'는 그런 성질을 가진 사람들 전체를 뜻하는 복수 명사로 쓰인다."
+        },
+        {
+          "expression": "being a sort of ... animal",
+          "explanation": "분사 being이 이끄는 독립적 설명 구문으로, 앞 문장에 대한 부연·이유를 나타낸다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    },
+    {
+      "sentenceId": "daddy-long-legs:letter-007:sentence-0007",
+      "structure": "가정법 과거완료 조건절(If + had p.p.) + 주절(should have p.p.)",
+      "steps": [
+        {
+          "role": "조건 주어",
+          "englishPhrase": "If I",
+          "koreanFunction": "가정법 조건절의 주어",
+          "instruction": "먼저 사실과 반대되는 조건의 주어를 제시한다",
+          "tokenEnd": 0
+        },
+        {
+          "role": "조건 보어",
+          "englishPhrase": "into such a perfect lady",
+          "koreanFunction": "자라난 결과 상태를 나타내는 보어",
+          "instruction": "grow into의 도달점을 '이렇게 완벽한 숙녀로'로 동사 앞에 놓는다",
+          "tokenEnd": 3
+        },
+        {
+          "role": "조건 동사",
+          "englishPhrase": "hadn't grown",
+          "koreanFunction": "가정법 과거완료 부정, 과거 사실의 반대",
+          "instruction": "had+p.p. 부정을 '자라지 않았더라면'으로 조건절을 닫는다",
+          "tokenEnd": 5
+        },
+        {
+          "role": "때 부사구",
+          "englishPhrase": "after service",
+          "koreanFunction": "주절 행동의 시점을 나타냄",
+          "instruction": "주절 동사 앞에 '예배가 끝나고'로 시간 배경을 둔다",
+          "tokenEnd": 7
+        },
+        {
+          "role": "주절 동작1",
+          "englishPhrase": "gone up after service",
+          "koreanFunction": "주절의 첫 번째 동작, 그에게 다가감",
+          "instruction": "should have gone up의 방향 동작을 '그분께 올라가'로 옮긴다",
+          "tokenEnd": 9
+        },
+        {
+          "role": "주절 목적어",
+          "englishPhrase": "what I thought",
+          "koreanFunction": "told의 직접목적어가 되는 명사절",
+          "instruction": "관계사절 what을 '제 생각을'로 축약해 동사 앞에 놓는다",
+          "tokenEnd": 11
+        },
+        {
+          "role": "주절 동사",
+          "englishPhrase": "should have gone up ... and told him",
+          "koreanFunction": "가정법 주절의 귀결, '말했을 것이다'",
+          "instruction": "should have p.p.를 '말했을 거예요'로 문장 전체를 마무리한다",
+          "tokenEnd": 13
+        }
+      ],
+      "grammarPoints": [
+        {
+          "expression": "If I hadn't grown ..., I should have gone ... and told",
+          "explanation": "가정법 과거완료: 'If+주어+had p.p.'에 'should/would have p.p.'로 과거 사실과 반대되는 상상을 말한다."
+        },
+        {
+          "expression": "grow into a perfect lady",
+          "explanation": "'grow into'는 자라서 어떤 상태·존재가 되다라는 뜻의 구동사이다."
+        }
+      ],
+      "provider": "claude-cli/sonnet"
+    }
+  ]
+}
