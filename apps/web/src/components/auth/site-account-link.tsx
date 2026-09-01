@@ -6,9 +6,7 @@ import { authClient } from "@/lib/auth-client";
 
 export function SiteAccountLink({ mobile = false }: { mobile?: boolean }) {
   const { data: session, isPending } = authClient.useSession();
-  const roles = session?.user.role
-    ?.split(",")
-    .map((role) => role.trim());
+  const roles = session?.user.role?.split(",").map((role) => role.trim());
   const isAdmin = roles?.includes("admin") ?? false;
   const href = isAdmin ? "/admin/reddit-topics" : "/settings";
   const label = isPending

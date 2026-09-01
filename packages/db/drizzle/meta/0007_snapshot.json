@@ -138,12 +138,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -306,12 +302,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -664,12 +656,8 @@
           "name": "article_revision_article_id_article_id_fk",
           "tableFrom": "article_revision",
           "tableTo": "article",
-          "columnsFrom": [
-            "article_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["article_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -791,12 +779,8 @@
           "name": "article_provider_key_content_source_provider_key_fk",
           "tableFrom": "article",
           "tableTo": "content_source",
-          "columnsFrom": [
-            "provider_key"
-          ],
-          "columnsTo": [
-            "provider_key"
-          ],
+          "columnsFrom": ["provider_key"],
+          "columnsTo": ["provider_key"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -995,12 +979,8 @@
           "name": "daily_lesson_article_revision_id_article_revision_id_fk",
           "tableFrom": "daily_lesson",
           "tableTo": "article_revision",
-          "columnsFrom": [
-            "article_revision_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["article_revision_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1108,12 +1088,8 @@
           "name": "lesson_token_revision_id_article_revision_id_fk",
           "tableFrom": "lesson_token",
           "tableTo": "article_revision",
-          "columnsFrom": [
-            "revision_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["revision_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1403,12 +1379,8 @@
           "name": "progress_merge_request_user_id_user_id_fk",
           "tableFrom": "progress_merge_request",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1539,12 +1511,8 @@
           "name": "stage_progress_user_id_user_id_fk",
           "tableFrom": "stage_progress",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1672,12 +1640,8 @@
           "name": "translation_report_reporter_user_id_user_id_fk",
           "tableFrom": "translation_report",
           "tableTo": "user",
-          "columnsFrom": [
-            "reporter_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["reporter_user_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1685,12 +1649,8 @@
           "name": "translation_report_revision_id_article_revision_id_fk",
           "tableFrom": "translation_report",
           "tableTo": "article_revision",
-          "columnsFrom": [
-            "revision_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["revision_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1698,12 +1658,8 @@
           "name": "translation_report_handled_by_user_id_fk",
           "tableFrom": "translation_report",
           "tableTo": "user",
-          "columnsFrom": [
-            "handled_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["handled_by"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1807,12 +1763,8 @@
           "name": "admin_audit_log_actor_id_user_id_fk",
           "tableFrom": "admin_audit_log",
           "tableTo": "user",
-          "columnsFrom": [
-            "actor_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["actor_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2018,12 +1970,8 @@
           "name": "ingestion_item_run_id_ingestion_run_id_fk",
           "tableFrom": "ingestion_item",
           "tableTo": "ingestion_run",
-          "columnsFrom": [
-            "run_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["run_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -2031,12 +1979,8 @@
           "name": "ingestion_item_revision_id_article_revision_id_fk",
           "tableFrom": "ingestion_item",
           "tableTo": "article_revision",
-          "columnsFrom": [
-            "revision_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["revision_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2181,12 +2125,8 @@
           "name": "ingestion_run_provider_key_content_source_provider_key_fk",
           "tableFrom": "ingestion_run",
           "tableTo": "content_source",
-          "columnsFrom": [
-            "provider_key"
-          ],
-          "columnsTo": [
-            "provider_key"
-          ],
+          "columnsFrom": ["provider_key"],
+          "columnsTo": ["provider_key"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2491,12 +2431,8 @@
           "name": "reddit_topic_run_id_reddit_topic_run_id_fk",
           "tableFrom": "reddit_topic",
           "tableTo": "reddit_topic_run",
-          "columnsFrom": [
-            "run_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["run_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2521,19 +2457,12 @@
     "public.audience_kind": {
       "name": "audience_kind",
       "schema": "public",
-      "values": [
-        "anonymous",
-        "authenticated"
-      ]
+      "values": ["anonymous", "authenticated"]
     },
     "public.backup_status": {
       "name": "backup_status",
       "schema": "public",
-      "values": [
-        "running",
-        "succeeded",
-        "failed"
-      ]
+      "values": ["running", "succeeded", "failed"]
     },
     "public.ingestion_item_status": {
       "name": "ingestion_item_status",
@@ -2553,57 +2482,32 @@
     "public.ingestion_run_status": {
       "name": "ingestion_run_status",
       "schema": "public",
-      "values": [
-        "running",
-        "succeeded",
-        "partial",
-        "failed"
-      ]
+      "values": ["running", "succeeded", "partial", "failed"]
     },
     "public.lesson_stage": {
       "name": "lesson_stage",
       "schema": "public",
-      "values": [
-        "title",
-        "excerpt"
-      ]
+      "values": ["title", "excerpt"]
     },
     "public.lesson_status": {
       "name": "lesson_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published",
-        "withdrawn"
-      ]
+      "values": ["draft", "published", "withdrawn"]
     },
     "public.reddit_topic_run_status": {
       "name": "reddit_topic_run_status",
       "schema": "public",
-      "values": [
-        "running",
-        "succeeded",
-        "failed"
-      ]
+      "values": ["running", "succeeded", "failed"]
     },
     "public.report_status": {
       "name": "report_status",
       "schema": "public",
-      "values": [
-        "open",
-        "resolved",
-        "dismissed"
-      ]
+      "values": ["open", "resolved", "dismissed"]
     },
     "public.report_type": {
       "name": "report_type",
       "schema": "public",
-      "values": [
-        "inaccurate",
-        "unnatural",
-        "incomplete",
-        "unsafe"
-      ]
+      "values": ["inaccurate", "unnatural", "incomplete", "unsafe"]
     },
     "public.revision_status": {
       "name": "revision_status",
@@ -2623,10 +2527,7 @@
     "public.user_role": {
       "name": "user_role",
       "schema": "public",
-      "values": [
-        "user",
-        "admin"
-      ]
+      "values": ["user", "admin"]
     }
   },
   "schemas": {},

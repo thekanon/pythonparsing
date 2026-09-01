@@ -293,8 +293,7 @@ export const PUBLIC_DOMAIN_BOOKS: readonly PublicDomainBook[] = [
         chapterKorean: "1장 · 3번째 구절",
         englishTitle: "How Many Miles",
         koreanTitle: "얼마나 멀리 떨어졌을까",
-        englishPassage:
-          "“I wonder how many miles I’ve fallen by this time?”",
+        englishPassage: "“I wonder how many miles I’ve fallen by this time?”",
         koreanTranslation: "“지금까지 몇 마일이나 떨어진 걸까?”",
         expressions: [
           { phrase: "I wonder", meaning: "~인지 궁금하다" },
@@ -364,8 +363,7 @@ export const PUBLIC_DOMAIN_BOOKS: readonly PublicDomainBook[] = [
         chapterKorean: "1장 · 1번째 구절",
         englishTitle: "A Hellish Sight",
         koreanTitle: "직접 보면 끔찍한 광경",
-        englishPassage:
-          "It sounds nothing to hear, but it was hellish to see.",
+        englishPassage: "It sounds nothing to hear, but it was hellish to see.",
         koreanTranslation:
           "말로 들으면 별것 아닌 듯하지만, 직접 보면 끔찍한 광경이었다.",
         expressions: [
@@ -406,8 +404,7 @@ export const PUBLIC_DOMAIN_BOOKS: readonly PublicDomainBook[] = [
         chapterKorean: "1장 · 4번째 구절",
         englishTitle: "The Place with the Door",
         koreanTitle: "그 문이 있는 곳",
-        englishPassage:
-          "“And you never asked about the—place with the door?”",
+        englishPassage: "“And you never asked about the—place with the door?”",
         koreanTranslation:
           "“그런데 그 문이 있는 곳에 대해서는 한 번도 묻지 않았나?”",
         expressions: [

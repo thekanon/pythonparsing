@@ -44,7 +44,9 @@ async function RedditLearningDigest() {
           weight="duotone"
           className="text-[var(--accent)]"
         />
-        <h2 className="mt-5 text-xl font-bold">학습 자료를 준비하고 있습니다.</h2>
+        <h2 className="mt-5 text-xl font-bold">
+          학습 자료를 준비하고 있습니다.
+        </h2>
         <p className="mt-3 max-w-xl leading-7 text-[var(--ink-soft)]">
           다음 수집에서 영문 지문 생성이 끝나면 이곳에 토픽별 학습 카드가
           표시됩니다.

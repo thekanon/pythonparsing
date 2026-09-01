@@ -67,10 +67,7 @@ try {
             typeof entry?.meaning === "string",
         )
         .map((entry) => [
-          entry.word
-            .normalize("NFKC")
-            .replaceAll("’", "'")
-            .toLowerCase(),
+          entry.word.normalize("NFKC").replaceAll("’", "'").toLowerCase(),
           entry.meaning.trim(),
         ]),
     );

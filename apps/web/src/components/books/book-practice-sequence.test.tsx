@@ -76,8 +76,12 @@ describe("BookPracticeSequence", () => {
     );
 
     expect(screen.getByText("완료 2/3, 복습 대상 2개")).toBeVisible();
-    expect(screen.getByRole("option", { name: /1 \/ 3 \(완료\)/u })).toBeVisible();
-    expect(screen.getByRole("option", { name: /2 \/ 3 \(오답\)/u })).toBeVisible();
+    expect(
+      screen.getByRole("option", { name: /1 \/ 3 \(완료\)/u }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("option", { name: /2 \/ 3 \(오답\)/u }),
+    ).toBeVisible();
     expect(
       screen.getByRole("option", { name: /3 \/ 3 \(완료, 복습 권장\)/u }),
     ).toBeVisible();

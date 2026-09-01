@@ -27,9 +27,7 @@ export async function POST(
   if (!findBookPracticeSentence(sentenceId)) {
     return Response.json({ error: "SENTENCE_NOT_FOUND" }, { status: 404 });
   }
-  if (
-    verifyAttemptProof(parsed.data.attemptProof, sentenceId, "excerpt") < 3
-  ) {
+  if (verifyAttemptProof(parsed.data.attemptProof, sentenceId, "excerpt") < 3) {
     return Response.json({ error: "ANSWER_LOCKED" }, { status: 403 });
   }
   const tokens = createBookPracticeTokens(sentenceId);

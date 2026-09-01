@@ -22,7 +22,6 @@ describe("Korean tokenization", () => {
   it("returns no tokens for whitespace-only input", () => {
     expect(tokenizeKorean(" \n ")).toEqual([]);
   });
-
 });
 
 describe("Fisher-Yates shuffle", () => {
@@ -73,11 +72,7 @@ describe("exact token-order grading", () => {
     const result = gradeTokenOrder(canonical, submitted);
 
     expect(
-      createTokenOrderHint(
-        canonical,
-        submitted,
-        result.incorrectPositions,
-      ),
+      createTokenOrderHint(canonical, submitted, result.incorrectPositions),
     ).toEqual({ position: 0, tokenId: "same-b" });
   });
 });

@@ -253,7 +253,8 @@ function parseAlice(source) {
   const sections = chapterMatches.map((match, index) => {
     const nextMatch = chapterMatches[index + 1];
     const sourceStart = (match.index ?? 0) + match[0].length;
-    const sourceEnd = nextMatch?.index ?? (storyEnd > 0 ? storyEnd : body.length);
+    const sourceEnd =
+      nextMatch?.index ?? (storyEnd > 0 ? storyEnd : body.length);
     return makeSection({
       bookSlug,
       slug: `chapter-${String(index + 1).padStart(2, "0")}`,
@@ -280,7 +281,8 @@ function parseJekyllAndHyde(source) {
   const headingMatches = JEKYLL_ENGLISH_TITLES.map((title) => {
     const marker = `\n${title}\n`;
     const index = body.indexOf(marker);
-    if (index < 0) throw new Error(`Jekyll and Hyde chapter not found: ${title}`);
+    if (index < 0)
+      throw new Error(`Jekyll and Hyde chapter not found: ${title}`);
     return { title, index: index + 1 };
   });
   if (

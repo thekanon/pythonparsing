@@ -76,11 +76,7 @@ export async function runDailyRedditTopics(
   }
 
   const community = parseRedditCommunity(source);
-  if (
-    !community ||
-    !env.CRON_SECRET ||
-    !env.REDDIT_SCRAPER_URL
-  ) {
+  if (!community || !env.CRON_SECRET || !env.REDDIT_SCRAPER_URL) {
     return {
       status: "disabled",
       topicCount: 0,
