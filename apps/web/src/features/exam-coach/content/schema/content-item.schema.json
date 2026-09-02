@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doo-study.local/schemas/information-processing-content-item-v1.json",
+  "title": "Information Processing Practical Coach Content Item",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "minItems": 1
+    },
+    "grading": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": { "enum": ["exact", "keywords", "sql"] },
+        "acceptedAnswers": { "$ref": "#/$defs/stringList" },
+        "requiredKeywords": { "$ref": "#/$defs/stringList" },
+        "requiredSqlClauses": { "$ref": "#/$defs/stringList" },
+        "forbiddenSqlTokens": { "$ref": "#/$defs/stringList" }
+      },
+      "required": ["strategy"],
+      "allOf": [
+        {
+          "if": {
+            "properties": { "strategy": { "const": "exact" } },
+            "required": ["strategy"]
+          },
+          "then": { "required": ["acceptedAnswers"] }
+        },
+        {
+          "if": {
+            "properties": { "strategy": { "const": "keywords" } },
+            "required": ["strategy"]
+          },
+          "then": { "required": ["requiredKeywords"] }
+        },
+        {
+          "if": {
+            "properties": { "strategy": { "const": "sql" } },
+            "required": ["strategy"]
+          },
+          "then": { "required": ["requiredSqlClauses"] }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": { "$ref": "#/$defs/nonEmptyString" },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "reviewedVersion": { "type": "integer", "minimum": 1 },
+        "checklist": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "answer": { "const": true },
+            "explanation": { "const": true },
+            "scope": { "const": true },
+            "acceptedAnswers": { "const": true },
+            "difficulty": { "const": true }
+          },
+          "required": [
+            "answer",
+            "explanation",
+            "scope",
+            "acceptedAnswers",
+            "difficulty"
+          ]
+        }
+      },
+      "required": ["reviewer", "reviewedAt", "reviewedVersion", "checklist"]
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": { "$ref": "#/$defs/nonEmptyString" },
+        "license": { "$ref": "#/$defs/nonEmptyString" },
+        "notes": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["source", "license", "notes"]
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "setId": { "$ref": "#/$defs/nonEmptyString" },
+        "pairId": { "$ref": "#/$defs/nonEmptyString" },
+        "form": { "enum": ["baseline", "followup"] }
+      },
+      "required": ["setId", "pairId", "form"]
+    }
+  },
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/nonEmptyString" },
+    "version": { "type": "integer", "minimum": 1 },
+    "officialYear": { "type": "integer", "minimum": 1 },
+    "domainId": {
+      "enum": [
+        "requirements",
+        "data-io",
+        "integration",
+        "server-programming",
+        "interface",
+        "screen-design",
+        "application-testing",
+        "sql",
+        "software-security",
+        "programming-language",
+        "sw-foundation",
+        "product-packaging"
+      ]
+    },
+    "conceptIds": { "$ref": "#/$defs/stringList" },
+    "prerequisites": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "objective": { "$ref": "#/$defs/nonEmptyString" },
+    "knowledgeType": {
+      "enum": [
+        "definition",
+        "comparison",
+        "procedure",
+        "code",
+        "sql",
+        "case",
+        "assessment"
+      ]
+    },
+    "prompt": { "$ref": "#/$defs/nonEmptyString" },
+    "answer": { "$ref": "#/$defs/nonEmptyString" },
+    "explanation": { "$ref": "#/$defs/nonEmptyString" },
+    "grading": { "$ref": "#/$defs/grading" },
+    "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "estimatedMinutes": { "type": "integer", "minimum": 1 },
+    "author": { "$ref": "#/$defs/nonEmptyString" },
+    "reviewStatus": {
+      "enum": ["draft", "reviewed", "suspended", "retired"]
+    },
+    "review": { "$ref": "#/$defs/review" },
+    "rights": { "$ref": "#/$defs/rights" },
+    "changeReason": { "$ref": "#/$defs/nonEmptyString" },
+    "memoryInheritance": { "enum": ["inherit", "reset", "undecided"] },
+    "assessment": { "$ref": "#/$defs/assessment" }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "officialYear",
+    "domainId",
+    "conceptIds",
+    "prerequisites",
+    "objective",
+    "knowledgeType",
+    "prompt",
+    "answer",
+    "explanation",
+    "grading",
+    "difficulty",
+    "estimatedMinutes",
+    "author",
+    "reviewStatus",
+    "rights",
+    "changeReason",
+    "memoryInheritance"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "reviewStatus": { "const": "reviewed" } },
+        "required": ["reviewStatus"]
+      },
+      "then": { "required": ["review"] }
+    },
+    {
+      "if": {
+        "properties": { "reviewStatus": { "const": "draft" } },
+        "required": ["reviewStatus"]
+      },
+      "then": { "not": { "required": ["review"] } }
+    }
+  ]
+}
