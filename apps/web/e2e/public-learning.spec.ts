@@ -10,6 +10,7 @@ test("public home and today pages have no serious or critical axe violations", a
     "/reddit",
     "/books",
     "/exam-coach/curriculum",
+    "/exam-coach/report",
   ]) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).analyze();
