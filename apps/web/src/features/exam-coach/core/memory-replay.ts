@@ -24,6 +24,7 @@ export function rebuildMemoryStateFromEvents(
   let state: MemoryState | null = null;
 
   for (const event of canonical) {
+    if (event.mode === "assessment") continue;
     if (event.cardId !== normalizedCardId || !event.firstSubmission) {
       continue;
     }
