@@ -14,14 +14,17 @@ export default function ExamCoachPage() {
   return (
     <>
       <ExamCoachGuestToday />
-      <div className="page-shell pt-0">
-        <Link
-          href="/exam-coach/followup"
-          className="button button-secondary"
-        >
+      <nav
+        className="page-shell flex flex-wrap gap-3 pt-0"
+        aria-label="정보처리기사 코치 메뉴"
+      >
+        <Link href="/exam-coach/curriculum" className="button button-secondary">
+          커리큘럼 보기
+        </Link>
+        <Link href="/exam-coach/followup" className="button button-secondary">
           종료 동형 진단과 비교 보기
         </Link>
-      </div>
+      </nav>
     </>
   );
 }
