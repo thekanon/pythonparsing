@@ -4,6 +4,8 @@ export * from "./diagnostics";
 export * from "./feedback-flow";
 export * from "./grading";
 export * from "./learning-engine";
+export * from "./local-data-reset";
+export * from "./local-profile";
 export * from "./local-store";
 export * from "./mastery";
 export * from "./memory-replay";
