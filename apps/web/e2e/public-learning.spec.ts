@@ -4,7 +4,13 @@ import { expect, test } from "@playwright/test";
 test("public home and today pages have no serious or critical axe violations", async ({
   page,
 }) => {
-  for (const path of ["/", "/today", "/reddit", "/books"]) {
+  for (const path of [
+    "/",
+    "/today",
+    "/reddit",
+    "/books",
+    "/exam-coach/curriculum",
+  ]) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).analyze();
     expect(
