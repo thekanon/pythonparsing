@@ -16,6 +16,58 @@ test("public home and today pages have no serious or critical axe violations", a
   }
 });
 
+test("an exam coach guest saves a plan and completes the baseline diagnostic", async ({
+  page,
+}) => {
+  await page.goto("/exam-coach");
+  await expect(
+    page.getByRole("heading", { name: "정보처리기사 실기 합격 코치" }),
+  ).toBeVisible();
+
+  await page.getByLabel("시험 예정일").fill("2026-12-20");
+  await page.getByLabel("하루 학습 가능 시간(분)").fill("60");
+  await page.getByRole("button", { name: "설정 저장" }).click();
+  await expect(
+    page.getByText("현재 설정: 2026-12-20까지 하루 60분"),
+  ).toBeVisible();
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(
+    accessibility.violations.filter(
+      (violation) =>
+        violation.impact === "serious" || violation.impact === "critical",
+    ),
+  ).toEqual([]);
+
+  await page.getByRole("button", { name: "기준선 진단 시작" }).click();
+  for (const answer of [
+    "SELECT name FROM employees WHERE dept = '개발';",
+    "SELECT customer_id, SUM(amount) AS total FROM orders GROUP BY customer_id;",
+    "SELECT users.name, tickets.title FROM users JOIN tickets ON users.id = tickets.user_id;",
+    "5",
+    "16",
+    "10",
+  ]) {
+    await page.getByLabel("답안").fill(answer);
+    await page
+      .getByRole("button", { name: /답안 제출 후 다음|진단 완료/u })
+      .click();
+  }
+
+  await expect(page.getByText("6 / 6")).toBeVisible();
+  const stored = await page.evaluate(() => ({
+    events: localStorage.getItem("exam-coach:v1:learning-events"),
+    runs: localStorage.getItem("exam-coach:v1:diagnostic-runs"),
+  }));
+  const persisted = `${stored.events}\n${stored.runs}`;
+  expect(persisted).not.toContain(
+    "SELECT name FROM employees WHERE dept = '개발';",
+  );
+  expect(persisted).not.toContain('"answer"');
+  expect(persisted).not.toContain('"explanation"');
+  expect(persisted).not.toContain('"prompt"');
+});
+
 test("a public-domain book card opens a word-order lesson", async ({
   page,
 }) => {
