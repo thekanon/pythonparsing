@@ -15,6 +15,11 @@
     "strategy": "exact",
     "acceptedAnswers": ["5"]
   },
+  "hints": {
+    "conceptClue": "if 조건식이 참인지 먼저 판단해 보세요.",
+    "structureHint": "조건이 참이면 중괄호 안의 x += 2가 한 번 실행됩니다.",
+    "specificHint": "초기값 3에 2를 더한 결과를 계산해 보세요."
+  },
   "difficulty": 1,
   "estimatedMinutes": 5,
   "author": "doo-study",

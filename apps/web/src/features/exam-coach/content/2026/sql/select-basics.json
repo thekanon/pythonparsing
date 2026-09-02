@@ -15,6 +15,11 @@
     "strategy": "exact",
     "acceptedAnswers": ["SELECT", "SELECT 절"]
   },
+  "hints": {
+    "conceptClue": "조회 결과에 어떤 열을 포함할지 지정하는 SQL 키워드를 떠올려 보세요.",
+    "structureHint": "SELECT ___ FROM ... 형태에서 가장 앞에 오는 절을 생각해 보세요.",
+    "specificHint": "영문 키워드는 S로 시작하며 조회할 열 목록 앞에 옵니다."
+  },
   "difficulty": 1,
   "estimatedMinutes": 5,
   "author": "doo-study",
