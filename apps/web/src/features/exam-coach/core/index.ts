@@ -8,5 +8,6 @@ export * from "./local-store";
 export * from "./mastery";
 export * from "./memory-replay";
 export * from "./official-scope";
+export * from "./sql-result";
 export * from "./today-queue";
 export * from "./diagnostic-results";
