@@ -391,3 +391,14 @@ FSRS 기억 일정이 아직 연결되지 않은 상태에서도 실제로 관�
 - 현재 진단 콘텐츠에 직접 연결되지 않은 assessment 이벤트나 다른 버전의 이벤트는 이 리포트의 개념 증거에 임의로 포함하지 않는다.
 - 리포트 어디에도 합격 확률을 만들지 않고 관찰된 증거와 데이터 부재를 분리해 표시한다.
 - 준비도 화면을 시작 메뉴와 axe 공개 화면 검사에 연결한다.
+
+### 6.17 FSRS dependency 변경 정책 확정
+
+실제 FSRS 어댑터 구현 전에 package/lockfile 변경 경로와 고정 버전을 먼저 확정했다.
+
+- `apps/web/package.json`에는 외부 dependency를 추가할 수 있지만 Web Git writer에서 `pnpm-lock.yaml` 패치를 실제 시도하면 보호 경로 오류로 거부된다.
+- 따라서 dependency 설치는 `pnpm-lock.yaml` 수정이 허용된 저장소 관리자 또는 일반 Git 작업 경로에서 package와 lockfile을 같은 PR로 반영해야 한다.
+- 구현체는 기존 프로토타입에서 검증했던 `ts-fsrs@5.4.1`로 고정한다. 최신 stable을 무조건 따라가지 않고 검증한 버전을 재현 가능하게 유지한다.
+- `ts-fsrs`는 `request_retention: 0.9`와 `maximum_interval`을 공식 파라미터로 제공하므로 현재 제품의 목표 기억률과 최대 interval 계약을 어댑터에서 직접 표현할 수 있다.
+- 관리자 변경 명령은 `pnpm --filter @newsorder/web add --save-exact ts-fsrs@5.4.1`로 고정한다.
+- package/lockfile 병합 뒤 `pnpm install --frozen-lockfile`과 전체 CI를 다시 통과한 상태에서만 F2 실제 어댑터 구현으로 넘어간다.

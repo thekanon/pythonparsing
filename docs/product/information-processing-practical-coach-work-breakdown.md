@@ -1,8 +1,8 @@
 # 정보처리기사 실기 합격 코치 현재 진행상황과 남은 작업 분할표
 
-- 기준 시각: 2026-09-02 20:21 KST
+- 기준 시각: 2026-09-02 21:10 KST
 - 기준 브랜치: `master`
-- 기준 커밋: `6720faa7443b0cab4b862e052c8927bcbec93d53`
+- 기준 커밋: `5a5db1551791a0eeeecd717ad3772a2f047d794b`
 - 목적: 현재 상태와 남은 작업을 작은 실행 단위로 나눠 다음 작업을 한 단계씩 구현·검증·병합할 수 있게 한다.
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
@@ -19,6 +19,7 @@
 | 게스트 시작/기준선 진단 | 완료 | `/exam-coach`, 시험일·하루 시간 설정, SQL·C 기준선 6문항, PR #22 |
 | 종료 동형 진단 | 완료 | `/exam-coach/followup`, 기준선 대비 정확도·시간·기술쌍 변화 비교, PR #24 |
 | 공식 커리큘럼 지도 | 완료 | `/exam-coach/curriculum`, 공식 12개 영역과 현재 SQL·C 범위 구분, PR #25 |
+| 준비도 리포트 | 완료 | `/exam-coach/report`, 진단 근거 기반 SQL·C 준비도와 데이터 부재 구분, PR #27 |
 | 준비도 코어 | 완료 | `MasteryEvidence`, 영역별 커버리지·회상·적용·평가·복습 부채 집계 계약 |
 | 정규 학습 세션 UI | 미구현 | 채점·도움·이벤트 코어는 있으나 실제 학습 화면과 오늘 큐 연결이 남음 |
 | 실제 FSRS | 차단 | 어댑터 경계는 있으나 유지보수되는 외부 FSRS 구현체가 package/lockfile에 아직 없음 |
@@ -62,6 +63,8 @@
 
 ## 2. 우선순위와 의존 관계
 
+> R0는 PR #27로 완료됐다. 위 1.2의 재기동 전 기록보다 아래 완료 체크와 현재 F1 상태를 우선한다.
+
 1. **R0 준비도 리포트 복원** — FSRS 없이 완료 가능
 2. **F1 FSRS 의존성 정책 해결** — 실제 기억 일정의 핵심 차단점
 3. **F2~F3 실제 FSRS + 이벤트 재생**
@@ -81,44 +84,56 @@ FSRS가 계속 차단돼도 R0, 콘텐츠 검수, SQL/C 콘텐츠 작성, 평가
 
 ### R0.1 코어
 
-- [ ] 기준선/종료 진단 문항 ID와 콘텐츠 버전을 개념 ID 목록에 결정적으로 연결
-- [ ] `assessment` 이벤트만 진단 근거로 받기
-- [ ] 알려지지 않은 콘텐츠 ID 또는 버전은 제외
-- [ ] 다중 개념 문항을 개념별 evidence ID로 확장
-- [ ] SQL·C 10개 개념을 준비도 분모로 고정
+- [x] 기준선/종료 진단 문항 ID와 콘텐츠 버전을 개념 ID 목록에 결정적으로 연결
+- [x] `assessment` 이벤트만 진단 근거로 받기
+- [x] 알려지지 않은 콘텐츠 ID 또는 버전은 제외
+- [x] 다중 개념 문항을 개념별 evidence ID로 확장
+- [x] SQL·C 10개 개념을 준비도 분모로 고정
 
 ### R0.2 UI
 
-- [ ] `/exam-coach/report`와 noindex metadata 추가
-- [ ] 시작 화면에 `준비도 리포트` 링크 추가
-- [ ] 근거가 있는 개념 수를 `N / 10`으로 표시
-- [ ] 최근 완료 진단의 실제 점수 표시
-- [ ] SQL/C 영역별 진단 근거 표시
-- [ ] 개념별 진단 근거 횟수와 최근 근거 표시
-- [ ] 독립 회상/적용 데이터가 없으면 `측정 없음`
-- [ ] FSRS가 없으면 복습 부채를 `FSRS 연결 후 측정`으로 표시
-- [ ] 합격 확률 또는 근거 없는 종합 점수를 만들지 않기
+- [x] `/exam-coach/report`와 noindex metadata 추가
+- [x] 시작 화면에 `준비도 리포트` 링크 추가
+- [x] 근거가 있는 개념 수를 `N / 10`으로 표시
+- [x] 최근 완료 진단의 실제 점수 표시
+- [x] SQL/C 영역별 진단 근거 표시
+- [x] 개념별 진단 근거 횟수와 최근 근거 표시
+- [x] 독립 회상/적용 데이터가 없으면 `측정 없음`
+- [x] FSRS가 없으면 복습 부채를 `FSRS 연결 후 측정`으로 표시
+- [x] 합격 확률 또는 근거 없는 종합 점수를 만들지 않기
 
 ### R0.3 테스트와 병합
 
-- [ ] 빈 데이터에서 `0%`가 아닌 `측정 없음` 확인
-- [ ] 기준선 이벤트에서 예상 개념만 근거가 생기는지 확인
-- [ ] 알려지지 않은 assessment ID/버전 제외 확인
-- [ ] 진단 점수를 concept evidence로 중복 집계하지 않는지 확인
-- [ ] `/exam-coach/report` axe serious/critical 0건
-- [ ] format/lint/unit/typecheck/Drizzle/build/Playwright 전체 통과
-- [ ] 최신 `master` 기준 PR 생성 및 squash merge
+- [x] 빈 데이터에서 `0%`가 아닌 `측정 없음` 확인
+- [x] 기준선 이벤트에서 예상 개념만 근거가 생기는지 확인
+- [x] 알려지지 않은 assessment ID/버전 제외 확인
+- [x] 진단 점수를 concept evidence로 중복 집계하지 않는지 확인
+- [x] `/exam-coach/report` axe serious/critical 0건
+- [x] format/lint/unit/typecheck/Drizzle/build/Playwright 전체 통과
+- [x] 최신 `master` 기준 PR 생성 및 squash merge — PR #27
 
 ## 4. F1 — FSRS 의존성 정책 해결
 
-- [ ] `apps/web` 외부 의존성 추가 시 package/lockfile 변경 경로 확인
-- [ ] Git writer의 `pnpm-lock.yaml` 변경 허용 여부 재확인
-- [ ] 불가능하면 저장소 관리자용 dependency 변경 절차 지정
-- [ ] 유지보수되는 FSRS 구현체와 고정 버전 선정
+- [x] `apps/web` 외부 의존성 추가 시 package/lockfile 변경 경로 확인
+- [x] Git writer의 `pnpm-lock.yaml` 변경 허용 여부 재확인
+- [x] 불가능하면 저장소 관리자용 dependency 변경 절차 지정
+- [x] 유지보수되는 FSRS 구현체와 고정 버전 선정 — `ts-fsrs@5.4.1`
 - [ ] 공급망 정책 통과 확인
-- [ ] 목표 기억률 `0.9` 지원 확인
+- [x] 목표 기억률 `0.9` 지원 확인 — `request_retention: 0.9`
 - [ ] package와 lockfile을 같은 변경으로 반영
 - [ ] clean install 뒤 lockfile 무변경 확인
+
+### F1 dependency 변경 절차
+
+FSRS 라이브러리 버전이 확정되면 Web Git writer가 아닌 저장소 관리자 또는 `pnpm-lock.yaml` 수정이 허용된 일반 Git 작업 경로에서 package와 lockfile을 하나의 변경으로 처리한다.
+
+1. 최신 `master`에서 작업 브랜치를 만든다.
+2. 저장소 루트에서 `pnpm --filter @newsorder/web add --save-exact ts-fsrs@5.4.1`을 실행한다.
+3. `apps/web/package.json`과 `pnpm-lock.yaml`이 같은 변경에 포함됐는지 확인하고 `pnpm install --frozen-lockfile`로 선언과 lockfile의 일치를 검증한다.
+4. 공급망 검사와 전체 CI를 통과시킨 뒤 package/lockfile 변경을 먼저 `master`에 병합한다.
+5. 이후 Web Git writer는 갱신된 `master`에서 F2 실제 어댑터 구현을 진행한다.
+
+package만 먼저 바꾸고 lockfile을 나중에 갱신하는 분할 변경은 허용하지 않는다.
 
 금지사항:
 
