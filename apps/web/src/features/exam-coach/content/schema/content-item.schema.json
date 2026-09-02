@@ -14,6 +14,16 @@
       "items": { "$ref": "#/$defs/nonEmptyString" },
       "minItems": 1
     },
+    "hints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "conceptClue": { "$ref": "#/$defs/nonEmptyString" },
+        "structureHint": { "$ref": "#/$defs/nonEmptyString" },
+        "specificHint": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["conceptClue", "structureHint", "specificHint"]
+    },
     "grading": {
       "type": "object",
       "additionalProperties": false,
@@ -140,6 +150,7 @@
     "answer": { "$ref": "#/$defs/nonEmptyString" },
     "explanation": { "$ref": "#/$defs/nonEmptyString" },
     "grading": { "$ref": "#/$defs/grading" },
+    "hints": { "$ref": "#/$defs/hints" },
     "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
     "estimatedMinutes": { "type": "integer", "minimum": 1 },
     "author": { "$ref": "#/$defs/nonEmptyString" },

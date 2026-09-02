@@ -83,6 +83,14 @@ export const assessmentMetadataSchema = z
   })
   .strict();
 
+export const progressiveHintsSchema = z
+  .object({
+    conceptClue: nonEmptyString,
+    structureHint: nonEmptyString,
+    specificHint: nonEmptyString,
+  })
+  .strict();
+
 export const contentItemSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -98,6 +106,7 @@ export const contentItemSchema = z
     answer: nonEmptyString,
     explanation: nonEmptyString,
     grading: gradingSchema,
+    hints: progressiveHintsSchema.optional(),
     difficulty: z.number().int().min(1).max(5),
     estimatedMinutes: z.number().int().positive(),
     author: nonEmptyString,
