@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { ExamCoachGuestToday } from "@/features/exam-coach/components/exam-coach-guest-today";
 
@@ -8,6 +9,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// prettier-ignore
 export default function ExamCoachPage() {
-  return <ExamCoachGuestToday />;
+  return (
+    <>
+      <ExamCoachGuestToday />
+      <div className="page-shell pt-0">
+        <Link
+          href="/exam-coach/followup"
+          className="button button-secondary"
+        >
+          종료 동형 진단과 비교 보기
+        </Link>
+      </div>
+    </>
+  );
 }

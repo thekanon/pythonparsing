@@ -16,7 +16,8 @@ test("public home and today pages have no serious or critical axe violations", a
   }
 });
 
-test("an exam coach guest saves a plan and completes the baseline diagnostic", async ({
+// prettier-ignore
+test("an exam coach guest completes baseline and followup diagnostics", async ({
   page,
 }) => {
   await page.goto("/exam-coach");
@@ -66,6 +67,51 @@ test("an exam coach guest saves a plan and completes the baseline diagnostic", a
   expect(persisted).not.toContain('"answer"');
   expect(persisted).not.toContain('"explanation"');
   expect(persisted).not.toContain('"prompt"');
+
+  await page
+    .getByRole("link", { name: "종료 동형 진단과 비교 보기" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "기준선과 종료 진단 비교" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "종료 동형 진단 시작" }).click();
+
+  for (const answer of [
+    "SELECT name FROM members WHERE team = 'QA';",
+    "SELECT product_id, SUM(quantity) AS total FROM sales GROUP BY product_id;",
+    "SELECT authors.name, books.title FROM authors JOIN books ON authors.id = books.author_id;",
+    "10",
+    "20",
+    "7",
+  ]) {
+    await page.getByLabel("답안").fill(answer);
+    await page
+      .getByRole("button", { name: /답안 제출 후 다음|종료 진단 완료/u })
+      .click();
+  }
+
+  await expect(
+    page.getByRole("heading", { name: "실제 측정 변화" }),
+  ).toBeVisible();
+  await expect(page.getByText("0%p")).toBeVisible();
+  await expect(page.getByText("정답 유지")).toHaveCount(6);
+
+  const followupAccessibility = await new AxeBuilder({ page }).analyze();
+  expect(
+    followupAccessibility.violations.filter(
+      (violation) =>
+        violation.impact === "serious" || violation.impact === "critical",
+    ),
+  ).toEqual([]);
+
+  const followupStored = await page.evaluate(() => ({
+    events: localStorage.getItem("exam-coach:v1:learning-events"),
+    runs: localStorage.getItem("exam-coach:v1:diagnostic-runs"),
+  }));
+  const followupPersisted = `${followupStored.events}\n${followupStored.runs}`;
+  expect(followupPersisted).not.toContain(
+    "SELECT name FROM members WHERE team = 'QA';",
+  );
 });
 
 test("a public-domain book card opens a word-order lesson", async ({
