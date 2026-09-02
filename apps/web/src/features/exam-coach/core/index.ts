@@ -1,6 +1,7 @@
 export * from "./content-schema";
 export * from "./diagnostic-sets";
 export * from "./diagnostics";
+export * from "./grading";
 export * from "./learning-engine";
 export * from "./local-store";
 export * from "./memory-replay";
