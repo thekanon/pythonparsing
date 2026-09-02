@@ -10,6 +10,7 @@ import {
   buildConceptMasterySummary,
   buildReadinessReport,
   canonicalizeMasteryEvidence,
+  masteryEvidenceForConceptsFromLearningEvent,
   masteryEvidenceFromLearningEvent,
   type ConceptCardMemory,
   type MasteryEvidence,
@@ -42,6 +43,23 @@ describe("exam coach mastery evidence", () => {
       correct: false,
       independent: false,
     });
+  });
+
+  it("expands one learning event across multiple concepts without id collisions", () => {
+    const evidence = masteryEvidenceForConceptsFromLearningEvent(
+      makeEvent(),
+      ["sql-select", "sql-where", "sql-select"],
+    );
+
+    expect(evidence.map((item) => item.evidenceId)).toEqual([
+      "event-1:sql-select",
+      "event-1:sql-where",
+    ]);
+    expect(evidence.map((item) => item.conceptId)).toEqual([
+      "sql-select",
+      "sql-where",
+    ]);
+    expect(canonicalizeMasteryEvidence(evidence)).toHaveLength(2);
   });
 
   it("deduplicates exact evidence retries and rejects conflicts", () => {

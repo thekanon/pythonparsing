@@ -107,17 +107,36 @@ export function masteryEvidenceFromLearningEvent(
 ): MasteryEvidence {
   const errors = validateLearningEvent(event);
   if (errors.length > 0) throw new Error(errors.join("; "));
+  const normalizedConceptId = normalizeId(conceptId, "conceptId");
 
   return {
-    evidenceId: event.eventId,
+    evidenceId: `${event.eventId}:${normalizedConceptId}`,
     occurredAt: event.occurredAt,
-    conceptId: normalizeId(conceptId, "conceptId"),
+    conceptId: normalizedConceptId,
     kind: event.mode,
     correct: event.correct,
     independent: event.firstSubmission && event.helpLevel === 0,
     responseTimeMs: event.responseTimeMs,
     sourceId: event.contentId,
   };
+}
+
+export function masteryEvidenceForConceptsFromLearningEvent(
+  event: LearningEvent,
+  conceptIds: readonly string[],
+): readonly MasteryEvidence[] {
+  const normalizedConceptIds = [
+    ...new Set(
+      conceptIds.map((conceptId) => normalizeId(conceptId, "conceptId")),
+    ),
+  ];
+  if (normalizedConceptIds.length === 0) {
+    throw new Error("at least one conceptId is required");
+  }
+
+  return normalizedConceptIds.map((conceptId) =>
+    masteryEvidenceFromLearningEvent(event, conceptId),
+  );
 }
 
 export function canonicalizeMasteryEvidence(
