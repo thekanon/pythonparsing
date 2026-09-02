@@ -5,6 +5,7 @@ export * from "./feedback-flow";
 export * from "./grading";
 export * from "./learning-engine";
 export * from "./local-store";
+export * from "./mastery";
 export * from "./memory-replay";
 export * from "./official-scope";
 export * from "./today-queue";
