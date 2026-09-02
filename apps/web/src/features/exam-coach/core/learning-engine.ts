@@ -174,6 +174,9 @@ export function toFsrsReviewInput(event: LearningEvent): FsrsReviewInput {
   if (!event.firstSubmission) {
     throw new Error("only the first submission can update memory scheduling");
   }
+  if (event.mode === "assessment") {
+    throw new Error("assessment events cannot update memory scheduling");
+  }
   const errors = validateLearningEvent(event);
   if (errors.length > 0) throw new Error(errors.join("; "));
   return { reviewedAt: event.occurredAt, rating: event.rating };
