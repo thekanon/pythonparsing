@@ -18,16 +18,26 @@ export interface NewQueueCandidate {
   curriculumOrder: number;
 }
 
+export interface ApplicationQueueCandidate {
+  activityId: string;
+  conceptId: string;
+  prerequisites: readonly string[];
+  estimatedMinutes: number;
+  importance: 1 | 2 | 3 | 4 | 5;
+  curriculumOrder: number;
+}
+
 export interface TodayQueueInput {
   now: string;
   timeBudgetMinutes: number;
   reviewCandidates: readonly ReviewQueueCandidate[];
   newCandidates: readonly NewQueueCandidate[];
+  applicationCandidates?: readonly ApplicationQueueCandidate[];
   masteredConceptIds: readonly string[];
 }
 
 export interface TodayQueueItem {
-  kind: "review" | "new";
+  kind: "review" | "new" | "application";
   cardId: string;
   conceptId: string;
   estimatedMinutes: number;
@@ -60,6 +70,13 @@ export function buildTodayQueue(input: TodayQueueInput): TodayQueue {
     )
     .sort(compareNewCandidates);
 
+  const unlockedApplications = (input.applicationCandidates ?? [])
+    .map(validateApplicationCandidate)
+    .filter((candidate) =>
+      candidate.prerequisites.every((conceptId) => mastered.has(conceptId)),
+    )
+    .sort(compareApplicationCandidates);
+
   const items: TodayQueueItem[] = [];
   let remainingMinutes = input.timeBudgetMinutes;
   let scheduledDueReviews = 0;
@@ -82,6 +99,17 @@ export function buildTodayQueue(input: TodayQueueInput): TodayQueue {
       items.push({
         kind: "new",
         cardId: candidate.cardId,
+        conceptId: candidate.conceptId,
+        estimatedMinutes: candidate.estimatedMinutes,
+      });
+      remainingMinutes -= candidate.estimatedMinutes;
+    }
+
+    for (const candidate of unlockedApplications) {
+      if (candidate.estimatedMinutes > remainingMinutes) continue;
+      items.push({
+        kind: "application",
+        cardId: candidate.activityId,
         conceptId: candidate.conceptId,
         estimatedMinutes: candidate.estimatedMinutes,
       });
@@ -126,6 +154,18 @@ function compareNewCandidates(
   return left.cardId.localeCompare(right.cardId);
 }
 
+function compareApplicationCandidates(
+  left: ApplicationQueueCandidate,
+  right: ApplicationQueueCandidate,
+): number {
+  const orderDifference = left.curriculumOrder - right.curriculumOrder;
+  if (orderDifference !== 0) return orderDifference;
+
+  const importanceDifference = right.importance - left.importance;
+  if (importanceDifference !== 0) return importanceDifference;
+  return left.activityId.localeCompare(right.activityId);
+}
+
 function validateReviewCandidate(
   candidate: ReviewQueueCandidate,
 ): ReviewQueueCandidate {
@@ -156,6 +196,22 @@ function validateNewCandidate(candidate: NewQueueCandidate): NewQueueCandidate {
   return {
     ...candidate,
     cardId,
+    conceptId,
+    prerequisites: candidate.prerequisites.map(normalizeId),
+  };
+}
+
+function validateApplicationCandidate(
+  candidate: ApplicationQueueCandidate,
+): ApplicationQueueCandidate {
+  const activityId = normalizeId(candidate.activityId);
+  const conceptId = normalizeId(candidate.conceptId);
+  assertPositiveInteger(candidate.estimatedMinutes, "estimatedMinutes");
+  assertPositiveInteger(candidate.curriculumOrder, "curriculumOrder");
+  assertImportance(candidate.importance);
+  return {
+    ...candidate,
+    activityId,
     conceptId,
     prerequisites: candidate.prerequisites.map(normalizeId),
   };
