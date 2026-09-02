@@ -1,9 +1,10 @@
 # 정보처리기사 실기 합격 코치 현재 진행상황과 남은 작업 분할표
 
-- 기준 시각: 2026-09-02 21:10 KST
+- 기준 시각: 2026-09-02 22:29 KST
 - 기준 브랜치: `master`
-- 기준 커밋: `5a5db1551791a0eeeecd717ad3772a2f047d794b`
+- 기준 커밋: `2b007a2c5b81980df60bab13175dad0eb715cbc0`
 - 목적: 현재 상태와 남은 작업을 작은 실행 단위로 나눠 다음 작업을 한 단계씩 구현·검증·병합할 수 있게 한다.
+- 현재 요약: [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 구축 순서: [실행 로드맵](./roadmap.md)
