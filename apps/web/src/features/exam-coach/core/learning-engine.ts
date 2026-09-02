@@ -135,6 +135,16 @@ export interface FsrsAdapter {
 export function validateLearningEvent(event: LearningEvent): string[] {
   const errors: string[] = [];
   if (!event.eventId.trim()) errors.push("eventId is required");
+  if (!event.learnerId.trim()) errors.push("learnerId is required");
+  if (!event.contentId.trim()) errors.push("contentId is required");
+  if (!event.cardId.trim()) errors.push("cardId is required");
+  if (!event.fsrsVersion.trim()) errors.push("fsrsVersion is required");
+  if (!Number.isInteger(event.contentVersion) || event.contentVersion < 1) {
+    errors.push("contentVersion must be a positive integer");
+  }
+  if (Number.isNaN(Date.parse(event.occurredAt))) {
+    errors.push("occurredAt must be a valid date-time");
+  }
   if (!event.correct && event.rating !== "Again") {
     errors.push("incorrect answers must be rated Again");
   }
