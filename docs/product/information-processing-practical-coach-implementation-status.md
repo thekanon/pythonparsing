@@ -6,6 +6,7 @@
 - 관련 ADR: [제품 분리](../adr/0001-build-a-separate-exam-coach-product.md), [FSRS](../adr/0002-use-personalized-fsrs-scheduling.md), [학습 이벤트 재생](../adr/0003-rebuild-memory-from-learning-events.md)
 - 현재 요약: [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)
 - 세부 작업 체크리스트: [현재 진행상황과 남은 작업 분할표](./information-processing-practical-coach-work-breakdown.md)
+- WebGPT 진행 회고: [WebGPT 시행착오 기록](./information-processing-practical-coach-webgpt-retrospective.md)
 
 ## 1. 이번 작업에서 확인한 구현 원칙
 
