@@ -1,19 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { type FormEvent, useEffect, useState } from "react";
 
 import {
   BASELINE_DIAGNOSTIC,
   appendLocalDiagnosticRun,
   appendLocalLearningEvent,
+  buildActualTodayPlan,
+  buildExamDatePlan,
   getOrCreateGuestId,
   loadLocalDiagnosticRuns,
+  loadLocalLearningEvents,
   loadLocalStudySettings,
   recordDiagnosticAttempt,
   resetAllLocalGuestData,
   saveLocalStudySettings,
   summarizeDiagnosticRun,
+  type ActualTodayPlan,
   type DiagnosticAttemptRecord,
+  type ExamDatePlan,
   type LocalDiagnosticRun,
   type LocalStudySettings,
 } from "@/features/exam-coach/core";
@@ -33,11 +39,39 @@ type Notice = {
   text: string;
 };
 
+function buildGuestPlans(
+  storage: Storage,
+  learnerId: string,
+  settings: LocalStudySettings,
+  now: Date,
+): { todayPlan: ActualTodayPlan; examDatePlan: ExamDatePlan } {
+  const events = loadLocalLearningEvents(storage, learnerId);
+  const nowIso = now.toISOString();
+
+  return {
+    todayPlan: buildActualTodayPlan({
+      events,
+      now: nowIso,
+      dailyMinutes: settings.dailyMinutes,
+    }),
+    examDatePlan: buildExamDatePlan({
+      events,
+      now: nowIso,
+      examDate: settings.examDate,
+      dailyMinutes: settings.dailyMinutes,
+      settingsUpdatedAt: settings.updatedAt,
+      timeZoneOffsetMinutes: -now.getTimezoneOffset(),
+    }),
+  };
+}
+
 // prettier-ignore
 export function ExamCoachGuestToday() {
   const [ready, setReady] = useState(false);
   const [learnerId, setLearnerId] = useState<string | null>(null);
   const [settings, setSettings] = useState<LocalStudySettings | null>(null);
+  const [todayPlan, setTodayPlan] = useState<ActualTodayPlan | null>(null);
+  const [examDatePlan, setExamDatePlan] = useState<ExamDatePlan | null>(null);
   const [runs, setRuns] = useState<readonly LocalDiagnosticRun[]>([]);
   const [examDate, setExamDate] = useState("");
   const [dailyMinutes, setDailyMinutes] = useState("45");
@@ -55,6 +89,17 @@ export function ExamCoachGuestToday() {
         if (saved) {
           setExamDate(saved.examDate);
           setDailyMinutes(String(saved.dailyMinutes));
+          const plans = buildGuestPlans(
+            window.localStorage,
+            id,
+            saved,
+            new Date(),
+          );
+          setTodayPlan(plans.todayPlan);
+          setExamDatePlan(plans.examDatePlan);
+        } else {
+          setTodayPlan(null);
+          setExamDatePlan(null);
         }
       } catch (error) {
         setNotice({ kind: "error", text: errorMessage(error) });
@@ -65,6 +110,35 @@ export function ExamCoachGuestToday() {
 
     return () => window.clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+    if (!learnerId || !settings) return;
+
+    const refreshPlans = () => {
+      try {
+        const plans = buildGuestPlans(
+          window.localStorage,
+          learnerId,
+          settings,
+          new Date(),
+        );
+        setTodayPlan(plans.todayPlan);
+        setExamDatePlan(plans.examDatePlan);
+      } catch (error) {
+        setNotice({ kind: "error", text: errorMessage(error) });
+      }
+    };
+    const refreshWhenVisible = () => {
+      if (document.visibilityState === "visible") refreshPlans();
+    };
+
+    window.addEventListener("focus", refreshPlans);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
+    return () => {
+      window.removeEventListener("focus", refreshPlans);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
+  }, [learnerId, settings]);
 
   const baseline = [...runs]
     .reverse()
@@ -90,6 +164,14 @@ export function ExamCoachGuestToday() {
         updatedAt: new Date().toISOString(),
       });
       setSettings(saved);
+      const plans = buildGuestPlans(
+        window.localStorage,
+        learnerId,
+        saved,
+        new Date(),
+      );
+      setTodayPlan(plans.todayPlan);
+      setExamDatePlan(plans.examDatePlan);
       setNotice({
         kind: "status",
         text: "학습 설정을 이 브라우저에 저장했습니다.",
@@ -176,6 +258,8 @@ export function ExamCoachGuestToday() {
     resetAllLocalGuestData(window.localStorage);
     setLearnerId(getOrCreateGuestId(window.localStorage));
     setSettings(null);
+    setTodayPlan(null);
+    setExamDatePlan(null);
     setRuns([]);
     setDiagnostic(null);
     setExamDate("");
@@ -387,17 +471,197 @@ export function ExamCoachGuestToday() {
         >
           오늘 계획
         </h2>
-        <p className="mt-3 max-w-2xl leading-7 text-[var(--ink-soft)]">
-          실제 만기 복습·신규·적용 큐는 검증된 FSRS 구현체 연결 후 이 화면에서
-          같은 시간 예산으로 계산합니다.
+        <p className="mt-3 max-w-3xl leading-7 text-[var(--ink-soft)]">
+          저장된 불변 학습 이벤트에서 FSRS 기억 상태를 다시 만들고, 만기 복습을
+          먼저 채운 뒤 선수지식이 충족된 검수 신규 콘텐츠를 남은 시간에 배치합니다.
         </p>
-        <p className="mt-5 font-mono text-3xl font-bold">
-          {settings ? settings.dailyMinutes : 0}분
-        </p>
+
         {!settings && (
-          <p className="mt-3 text-sm font-semibold text-[var(--danger)]">
+          <p className="mt-5 text-sm font-semibold text-[var(--danger)]">
             오늘 계획을 만들려면 먼저 학습 설정을 저장해 주세요.
           </p>
+        )}
+
+        {settings && todayPlan && (
+          <>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <TodayMetric label="사용" value={`${todayPlan.queue.usedMinutes}분`} />
+              <TodayMetric label="남음" value={`${todayPlan.queue.remainingMinutes}분`} />
+              <TodayMetric label="만기 복습" value={`${todayPlan.queue.dueReviewCount}건`} />
+              <TodayMetric
+                label="미뤄진 복습"
+                value={`${todayPlan.queue.deferredDueReviewCount}건`}
+              />
+            </div>
+
+            {todayPlan.queue.deferredDueReviewCount > 0 && (
+              <p className="mt-5 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-4 text-sm font-semibold leading-6">
+                오늘 시간 예산 {settings.dailyMinutes}분 안에 만기 복습을 모두 담지
+                못해 신규·적용 항목을 억제했습니다. 밀린 복습을 먼저 완료하면 다음
+                계산에서 신규 학습이 다시 열립니다.
+              </p>
+            )}
+
+            {todayPlan.items.length > 0 ? (
+              <ol className="mt-6 grid gap-3" aria-label="오늘 학습 큐">
+                {todayPlan.items.map((item) => (
+                  <li
+                    key={`${item.kind}:${item.cardId}`}
+                    className="rounded-xl border border-[var(--line)] p-5"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-bold text-[var(--accent)]">
+                          {todayKindLabel(item.kind)}
+                        </p>
+                        <p className="mt-1 text-lg font-bold">{item.conceptTitle}</p>
+                        <p className="mt-1 font-mono text-sm text-[var(--ink-soft)]">
+                          {item.cardId} · 예상 {item.estimatedMinutes}분
+                        </p>
+                      </div>
+                      {item.href && (
+                        <Link href={item.href} className="button button-secondary">
+                          학습 열기
+                        </Link>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="mt-6 rounded-xl bg-[var(--surface-muted)] p-5 text-sm leading-6 text-[var(--ink-soft)]">
+                현재 시간 예산과 선수지식 조건에 맞는 오늘 항목이 없습니다.
+              </p>
+            )}
+
+            <p className="mt-5 text-sm leading-6 text-[var(--ink-soft)]">
+              별도 검수 application 콘텐츠가 아직 없으므로 적용 활동은 임의로
+              만들지 않고 빈 상태로 유지합니다.
+            </p>
+          </>
+        )}
+      </section>
+
+      <section
+        className="surface-card mt-6 p-6 sm:p-8"
+        aria-labelledby="exam-date-plan-heading"
+      >
+        <h2
+          id="exam-date-plan-heading"
+          className="text-2xl font-bold tracking-[-0.03em]"
+        >
+          시험일까지 계획
+        </h2>
+        <p className="mt-3 max-w-3xl leading-7 text-[var(--ink-soft)]">
+          저장한 시험일·하루 학습 시간과 같은 불변 학습 이벤트를 기준으로 남은
+          시간, 현재 복습 부채, 검수 신규 학습량을 분리해 계산합니다. 이 값은 합격
+          확률이나 예상 점수가 아닙니다.
+        </p>
+
+        {!settings && (
+          <p className="mt-5 text-sm font-semibold text-[var(--danger)]">
+            시험일까지 계획을 만들려면 먼저 학습 설정을 저장해 주세요.
+          </p>
+        )}
+
+        {settings && examDatePlan && examDatePlan.status !== "ready" && (
+          <p
+            className="mt-5 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-4 text-sm font-semibold leading-6 text-[var(--danger)]"
+            role="alert"
+          >
+            {examDatePlan.message} 시험 예정일을 다시 저장해 주세요.
+          </p>
+        )}
+
+        {settings && examDatePlan?.status === "ready" && (
+          <>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <TodayMetric
+                label="남은 학습일"
+                value={examDatePlan.daysRemaining === 0 ? "D-Day" : `${examDatePlan.daysRemaining}일`}
+              />
+              <TodayMetric
+                label="총 가용 시간"
+                value={`${examDatePlan.totalAvailableMinutes}분`}
+              />
+              <TodayMetric
+                label="검수 콘텐츠 커버리지"
+                value={
+                  examDatePlan.reviewedCoveragePercent === null
+                    ? "측정 없음"
+                    : `${examDatePlan.studiedReviewedContentCount}/${examDatePlan.reviewedContentCount} · ${examDatePlan.reviewedCoveragePercent}%`
+                }
+              />
+              <TodayMetric
+                label="남은 검수 신규"
+                value={`${examDatePlan.remainingNewContentCount}개 · ${examDatePlan.remainingNewConceptCount}개념`}
+              />
+            </div>
+
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <TodayMetric
+                label="현재 due 복습 부채"
+                value={`${examDatePlan.dueReviewDebtCount}건 · ${examDatePlan.dueReviewDebtMinutes}분`}
+              />
+              <TodayMetric
+                label="복습 예산"
+                value={`${examDatePlan.reviewBudgetMinutes}분 · ${examDatePlan.reviewBudgetPercent}%`}
+              />
+              <TodayMetric
+                label="신규 예산"
+                value={`${examDatePlan.newLearningBudgetMinutes}분`}
+              />
+              <TodayMetric
+                label="미수행 추정"
+                value={`${examDatePlan.missedStudyDays}일`}
+              />
+            </div>
+
+            <p className="mt-5 text-sm leading-6 text-[var(--ink-soft)]">
+              미수행 일수는 별도 완료 체크를 꾸며내지 않고, 설정 저장 뒤 완전히 지난
+              날짜 중 assessment가 아닌 학습 이벤트가 없는 날만 로컬 기록으로
+              추정합니다. 현재 due 복습은 신규보다 먼저 배치하며 하루 상한을 넘는
+              부채는 다음 날로 넘깁니다.
+            </p>
+            <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
+              시험이 가까울수록 전체 가용 시간의 복습 예산 비중을 높입니다. 별도
+              검수 application 콘텐츠가 없으므로 적용 항목이나 점수를 임의로
+              만들어 넣지 않습니다.
+            </p>
+
+            {examDatePlan.preview.length > 0 ? (
+              <ol
+                className="mt-6 grid gap-3"
+                aria-label="시험일까지 다음 7일 계획 미리보기"
+              >
+                {examDatePlan.preview.map((day) => (
+                  <li
+                    key={day.date}
+                    className="rounded-xl border border-[var(--line)] p-5"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="font-bold">{day.label}</p>
+                        <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
+                          복습 예산 {day.reviewMinutes}분 · 신규 학습 {day.newLearningMinutes}분
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-[var(--ink-soft)]">
+                          {day.recoveryNote}
+                        </p>
+                      </div>
+                      <p className="font-mono text-sm font-bold text-[var(--accent)]">
+                        합계 {day.totalMinutes}/{settings.dailyMinutes}분
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="mt-6 rounded-xl bg-[var(--surface-muted)] p-5 text-sm leading-6 text-[var(--ink-soft)]">
+                시험일 당일이라 시험 전에 배치할 추가 학습일이 남아 있지 않습니다.
+              </p>
+            )}
+          </>
         )}
       </section>
 
@@ -414,8 +678,35 @@ export function ExamCoachGuestToday() {
   );
 }
 
+function TodayMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-[var(--surface-muted)] p-4">
+      <p className="text-xs font-bold text-[var(--ink-soft)]">{label}</p>
+      <p className="mt-1 font-mono text-2xl font-bold">{value}</p>
+    </div>
+  );
+}
+
+function todayKindLabel(kind: "review" | "new" | "application"): string {
+  switch (kind) {
+    case "review":
+      return "복습";
+    case "new":
+      return "신규";
+    case "application":
+      return "적용";
+  }
+}
+
 function errorMessage(error: unknown): string {
-  return error instanceof Error
-    ? error.message
-    : "알 수 없는 오류가 발생했습니다.";
+  if (!(error instanceof Error)) {
+    return "알 수 없는 오류가 발생했습니다.";
+  }
+  if (
+    error.message === "examDate must use YYYY-MM-DD" ||
+    error.message === "examDate must be a valid calendar date"
+  ) {
+    return "시험 예정일이 올바른 날짜가 아닙니다. 다시 저장해 주세요.";
+  }
+  return error.message;
 }
