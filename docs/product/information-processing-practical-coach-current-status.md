@@ -7,6 +7,7 @@
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 세부 체크리스트: [작업 분할표](./information-processing-practical-coach-work-breakdown.md)
 - 다음 구현 가이드: [D0·W1-W2·S1-S2·C1-C2 구현 가이드](./information-processing-practical-coach-next-implementation-guide.md)
+- WebGPT 진행 회고: [WebGPT 시행착오 기록](./information-processing-practical-coach-webgpt-retrospective.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 전체 구축 순서: [실행 로드맵](./roadmap.md)
 
