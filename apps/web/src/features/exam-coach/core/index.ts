@@ -1,3 +1,4 @@
+export * from "./content-catalog";
 export * from "./content-schema";
 export * from "./diagnostic-readiness";
 export * from "./diagnostic-sets";

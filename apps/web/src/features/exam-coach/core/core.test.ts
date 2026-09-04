@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import cSample from "../content/2026/c/control-flow.json";
-import sqlSample from "../content/2026/sql/select-basics.json";
 import committedSchema from "../content/schema/content-item.schema.json";
+import { LEARNING_CONTENT_CATALOG } from "./content-catalog";
 import {
   approveContent,
   createContentRevision,
@@ -39,6 +38,9 @@ function enumValues(value: unknown): unknown[] | undefined {
   const candidate = (value as { enum?: unknown }).enum;
   return Array.isArray(candidate) ? candidate : undefined;
 }
+
+const sqlSample = LEARNING_CONTENT_CATALOG["sql-select-basics"];
+const cSample = LEARNING_CONTENT_CATALOG["c-control-flow"];
 
 describe("information-processing practical coach core", () => {
   it("pins all 12 official 2026 domains to the checked Q-Net source", () => {

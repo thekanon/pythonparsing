@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import sqlSample from "../content/2026/sql/select-basics.json";
+import { LEARNING_CONTENT_CATALOG } from "./content-catalog";
 import { contentItemSchema, type ContentItem } from "./content-schema";
 import { gradeContentResponse, normalizeSql } from "./grading";
 
-const baseContent = contentItemSchema.parse(sqlSample);
+const baseContent = contentItemSchema.parse(
+  LEARNING_CONTENT_CATALOG["sql-select-basics"],
+);
 
 describe("exam coach grading", () => {
   it("normalizes exact answers without storing submitted text", () => {
