@@ -1,8 +1,8 @@
 # 정보처리기사 실기 합격 코치 현재 현황과 남은 작업
 
-- 기준 시각: 2026-09-04 14:35 KST
+- 기준 시각: 2026-09-04 15:25 KST
 - 기준 브랜치: `thekanon/shiner`
-- 기준 코드: `e90ee80` (`Implement exam coach FSRS adapter`) 기반 L1 작업 트리
+- 기준 코드: `1a6b01a` (`Finalize exam coach learning content catalog`)
 - 목적: 현재 작업 브랜치에서 코드와 테스트로 확인된 완료 범위와 앞으로 남은 구현을 한 문서에서 확인한다.
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 세부 체크리스트: [작업 분할표](./information-processing-practical-coach-work-breakdown.md)
@@ -133,9 +133,13 @@
 
 ## 3. 현재 핵심 차단점
 
-이 작업 브랜치 기준으로 기존 **FSRS dependency 차단점은 해소됐다.** 실제 `dueAt`, stability, difficulty와 다음 복습 상태를 코어에서 계산할 수 있다.
+이 작업 브랜치 기준으로 기존 **FSRS dependency 차단점은 해소됐다.** 실제 `dueAt`, stability, difficulty와 다음 복습 상태를 코어에서 계산할 수 있고, L1 콘텐츠 catalog도 `reviewed` 콘텐츠만 정규 신규 후보로 내보낸다.
 
-현재 남은 것은 외부 차단이 아니라 다음 제품 연결 작업이다.
+제품 구현의 다음 핵심 차단점은 **정규 학습 세션 UI와 실제 오늘 계획 UI 부재**다. 코어는 준비됐지만 사용자가 매일 문제를 풀고 그 이벤트로 FSRS memory state를 갱신하는 화면·저장 흐름은 아직 없다.
+
+검증 차단점은 전체 Playwright/axe gate다. L1에 직접 닿는 exam-coach diagnostic E2E는 통과했지만, 전체 `pnpm test:e2e`는 기존 public-learning/book/reddit/admin 흐름에서 실패한다. 첫 구체 실패는 `e2e/public-learning.spec.ts:293`의 word-order flow에서 `정확한 순서입니다.` 피드백이 보이지 않는 문제였고, 이후 여러 실패는 dev server `ERR_CONNECTION_REFUSED`로 이어졌다. 이 실패는 이번 L1 catalog 코드 경로 밖이지만, 전체 CI/merge 완료 증거로는 아직 사용할 수 없다.
+
+현재 남은 제품 연결 작업:
 
 - L2~L3 정규 학습 세션 UI와 FSRS 이벤트 저장 연결
 - Q1~Q3 저장 이벤트 기반 실제 due review/new/application 후보 조립
