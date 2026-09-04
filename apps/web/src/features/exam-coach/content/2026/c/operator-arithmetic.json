@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.operator.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-operator"],
+  "prerequisites": ["c-value-type"],
+  "objective": "C 정수 나눗셈과 나머지 연산 결과를 계산한다.",
+  "knowledgeType": "code",
+  "prompt": "다음 C 문장이 실행된 뒤 result의 값은?\n\nint result = 17 / 5 + 17 % 5;",
+  "answer": "5",
+  "explanation": "정수끼리의 17 / 5는 몫 3이고 17 % 5는 나머지 2이므로 result는 5가 된다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["5"]
+  },
+  "hints": {
+    "conceptClue": "/와 %가 정수 피연산자에 적용될 때의 결과를 따로 계산해 보세요.",
+    "structureHint": "17 / 5의 정수 몫과 17 % 5의 나머지를 더합니다.",
+    "specificHint": "몫은 3, 나머지는 2입니다."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 연산자 개념의 실행 결과 예측 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

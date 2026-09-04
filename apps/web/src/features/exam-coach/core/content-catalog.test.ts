@@ -12,7 +12,7 @@ import {
 } from "./content-catalog";
 import { validateContentItem, type ContentItem } from "./content-schema";
 import { gradeContentResponse } from "./grading";
-import { SQL_CONCEPTS } from "./learning-engine";
+import { C_CONCEPTS, SQL_CONCEPTS } from "./learning-engine";
 import { buildTodayQueue } from "./today-queue";
 
 describe("exam coach learning content catalog", () => {
@@ -28,9 +28,18 @@ describe("exam coach learning content catalog", () => {
       "sql-group-count",
       "sql-join-concept",
       "sql-join-orders-customers",
+      "c-value-type-meaning",
+      "c-value-type-assignment",
+      "c-operator-arithmetic",
+      "c-operator-remainder",
       "c-control-flow",
+      "c-control-flow-loop",
+      "c-array-index",
+      "c-array-sum",
+      "c-pointer-dereference",
+      "c-pointer-array-step",
     ]);
-    expect(listLearningContent()).toHaveLength(11);
+    expect(listLearningContent()).toHaveLength(20);
 
     for (const code of LEARNING_CONTENT_CODES) {
       const item = getLearningContent(code);
@@ -71,6 +80,36 @@ describe("exam coach learning content catalog", () => {
     }
   });
 
+  it("keeps at least two reviewed regular learning items for every C concept", () => {
+    const reviewedC = listReviewedLearningContent().filter(
+      (item) => item.domainId === "programming-language",
+    );
+
+    expect(reviewedC).toHaveLength(10);
+    expect(new Set(reviewedC.map((item) => item.grading.strategy))).toEqual(
+      new Set(["exact", "keywords"]),
+    );
+
+    for (const concept of C_CONCEPTS) {
+      const conceptItems = reviewedC.filter((item) =>
+        item.conceptIds.includes(concept.id),
+      );
+      expect(conceptItems.length, concept.id).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("grades every reviewed C canonical answer as correct", () => {
+    const reviewedC = listReviewedLearningContent().filter(
+      (item) => item.domainId === "programming-language",
+    );
+
+    for (const item of reviewedC) {
+      expect(gradeContentResponse(item, item.answer).correct, item.id).toBe(
+        true,
+      );
+    }
+  });
+
   it("keeps reviewed samples tied to a different reviewer and their exact content version", () => {
     for (const item of listLearningContent()) {
       expect(item.reviewStatus).toBe("reviewed");
@@ -90,11 +129,19 @@ describe("exam coach learning content catalog", () => {
 
   it("rejects catalog metadata that drifts from the official concept graph", () => {
     const sql = getLearningContent("sql-select-basics");
+    const cPointer = getLearningContent("c-pointer-dereference");
     const wrongPrerequisite = { ...sql, prerequisites: [] };
+    const wrongCPrerequisite = {
+      ...cPointer,
+      prerequisites: ["c-control-flow"],
+    };
     const wrongDomain = { ...sql, domainId: "programming-language" as const };
 
     expect(validateCatalogContentItem(wrongPrerequisite)).toContain(
       "sql.select.001: prerequisites must match concept graph (sql-table-row-column)",
+    );
+    expect(validateCatalogContentItem(wrongCPrerequisite)).toContain(
+      "c.pointer.001: prerequisites must match concept graph (c-array)",
     );
     expect(validateCatalogContentItem(wrongDomain)).toContain(
       "sql.select.001: concept sql-select belongs to sql, not programming-language",
@@ -143,6 +190,22 @@ describe("exam coach learning content catalog", () => {
     });
 
     expect(queue.items).toEqual([]);
+  });
+
+  it("includes reviewed C content but excludes draft C content from regular new-queue candidates", () => {
+    const reviewedC = getLearningContent("c-value-type-meaning");
+    const draftC = asDraft(getLearningContent("c-value-type-assignment"));
+    const candidates = buildRegularLearningNewQueueCandidates([
+      reviewedC,
+      draftC,
+    ]);
+
+    expect(candidates.map((candidate) => candidate.cardId)).toEqual([
+      reviewedC.id,
+    ]);
+    expect(candidates.some((candidate) => candidate.cardId === draftC.id)).toBe(
+      false,
+    );
   });
 
   it("constructs regular new-queue candidates from every reviewed catalog item", () => {

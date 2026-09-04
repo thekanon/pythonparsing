@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.value-type.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-value-type"],
+  "prerequisites": [],
+  "objective": "C의 정수형과 실수형 변수가 표현하는 값의 종류를 구분한다.",
+  "knowledgeType": "definition",
+  "prompt": "C에서 int형 변수와 double형 변수가 주로 저장하는 값의 종류를 각각 설명하라. 답에 '정수'와 '실수'를 포함하라.",
+  "answer": "int형 변수는 정수를 저장하고, double형 변수는 실수를 저장한다.",
+  "explanation": "int는 정수 값을 표현하는 정수형이고, double은 소수부를 포함할 수 있는 실수형이다.",
+  "grading": {
+    "strategy": "keywords",
+    "requiredKeywords": ["정수", "실수"]
+  },
+  "hints": {
+    "conceptClue": "자료형 이름이 어떤 종류의 값을 표현하는지 떠올려 보세요.",
+    "structureHint": "int와 double을 각각 값의 종류 하나와 연결해 설명하면 됩니다.",
+    "specificHint": "int에는 '정수', double에는 '실수'라는 핵심어를 연결해 보세요."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 값·변수·자료형 개념의 이해 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

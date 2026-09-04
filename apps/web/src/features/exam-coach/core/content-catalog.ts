@@ -1,4 +1,13 @@
+import cArrayIndexRaw from "../content/2026/c/array-index.json";
+import cArraySumRaw from "../content/2026/c/array-sum.json";
+import cControlFlowLoopRaw from "../content/2026/c/control-flow-loop.json";
 import cControlFlowRaw from "../content/2026/c/control-flow.json";
+import cOperatorArithmeticRaw from "../content/2026/c/operator-arithmetic.json";
+import cOperatorRemainderRaw from "../content/2026/c/operator-remainder.json";
+import cPointerArrayStepRaw from "../content/2026/c/pointer-array-step.json";
+import cPointerDereferenceRaw from "../content/2026/c/pointer-dereference.json";
+import cValueTypeAssignmentRaw from "../content/2026/c/value-type-assignment.json";
+import cValueTypeMeaningRaw from "../content/2026/c/value-type-meaning.json";
 import sqlEmployeesDatasetRaw from "../content/2026/sql/datasets/employees-v1.json";
 import sqlGroupClauseRaw from "../content/2026/sql/group-clause.json";
 import sqlGroupCountRaw from "../content/2026/sql/group-count.json";
@@ -32,7 +41,16 @@ export const LEARNING_CONTENT_CODES = [
   "sql-group-count",
   "sql-join-concept",
   "sql-join-orders-customers",
+  "c-value-type-meaning",
+  "c-value-type-assignment",
+  "c-operator-arithmetic",
+  "c-operator-remainder",
   "c-control-flow",
+  "c-control-flow-loop",
+  "c-array-index",
+  "c-array-sum",
+  "c-pointer-dereference",
+  "c-pointer-array-step",
 ] as const;
 
 export type LearningContentCode = (typeof LEARNING_CONTENT_CODES)[number];
@@ -72,7 +90,16 @@ export const LEARNING_CONTENT_CATALOG: Readonly<
   "sql-group-count": defineCatalogContent(sqlGroupCountRaw),
   "sql-join-concept": defineCatalogContent(sqlJoinConceptRaw),
   "sql-join-orders-customers": defineCatalogContent(sqlJoinOrdersCustomersRaw),
+  "c-value-type-meaning": defineCatalogContent(cValueTypeMeaningRaw),
+  "c-value-type-assignment": defineCatalogContent(cValueTypeAssignmentRaw),
+  "c-operator-arithmetic": defineCatalogContent(cOperatorArithmeticRaw),
+  "c-operator-remainder": defineCatalogContent(cOperatorRemainderRaw),
   "c-control-flow": defineCatalogContent(cControlFlowRaw),
+  "c-control-flow-loop": defineCatalogContent(cControlFlowLoopRaw),
+  "c-array-index": defineCatalogContent(cArrayIndexRaw),
+  "c-array-sum": defineCatalogContent(cArraySumRaw),
+  "c-pointer-dereference": defineCatalogContent(cPointerDereferenceRaw),
+  "c-pointer-array-step": defineCatalogContent(cPointerArrayStepRaw),
 };
 
 export function getLearningContent(code: LearningContentCode): ContentItem {

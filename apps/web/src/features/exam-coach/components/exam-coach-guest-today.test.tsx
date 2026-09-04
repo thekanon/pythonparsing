@@ -58,6 +58,7 @@ describe("ExamCoachGuestToday", () => {
     expect(
       screen.getByText(/sql\.table-row-column\.002 · 예상 5분/),
     ).toBeVisible();
+    expect(screen.getByText(/c\.value-type\.001 · 예상 4분/)).toBeVisible();
     expect(screen.getByText(/적용 활동은 임의로 만들지 않고 빈 상태/)).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "시험일까지 계획" }),
