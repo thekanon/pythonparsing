@@ -119,6 +119,7 @@ export interface MemoryState {
   stability: number;
   difficulty: number;
   fsrsVersion: string;
+  fsrsState?: unknown;
 }
 
 export interface FsrsReviewInput {

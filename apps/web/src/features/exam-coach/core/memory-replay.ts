@@ -33,14 +33,7 @@ export function rebuildMemoryStateFromEvents(
     validateAdapter(adapter, event.fsrsVersion);
 
     state = adapter.review(state, toFsrsReviewInput(event));
-    if (state.cardId !== normalizedCardId) {
-      throw new Error(
-        "FSRS adapter returned memory state for a different card",
-      );
-    }
-    if (state.fsrsVersion !== adapter.version) {
-      throw new Error("FSRS adapter returned memory state with wrong version");
-    }
+    validateMemoryState(state, normalizedCardId, adapter.version);
   }
 
   return state;
@@ -65,6 +58,28 @@ export function canonicalizeLearningEvents(
   }
 
   return [...byId.values()].sort(compareLearningEvents);
+}
+
+function validateMemoryState(
+  state: MemoryState,
+  expectedCardId: string,
+  expectedVersion: string,
+): void {
+  if (state.cardId !== expectedCardId) {
+    throw new Error("FSRS adapter returned memory state for a different card");
+  }
+  if (state.fsrsVersion !== expectedVersion) {
+    throw new Error("FSRS adapter returned memory state with wrong version");
+  }
+  if (Number.isNaN(Date.parse(state.dueAt))) {
+    throw new Error("FSRS adapter returned memory state with invalid dueAt");
+  }
+  if (!Number.isFinite(state.stability) || state.stability <= 0) {
+    throw new Error("FSRS adapter returned invalid stability");
+  }
+  if (!Number.isFinite(state.difficulty) || state.difficulty <= 0) {
+    throw new Error("FSRS adapter returned invalid difficulty");
+  }
 }
 
 function validateAdapter(adapter: FsrsAdapter, expectedVersion: string): void {

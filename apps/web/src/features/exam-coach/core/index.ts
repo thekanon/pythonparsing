@@ -3,6 +3,7 @@ export * from "./diagnostic-readiness";
 export * from "./diagnostic-sets";
 export * from "./diagnostics";
 export * from "./feedback-flow";
+export * from "./fsrs-adapter";
 export * from "./grading";
 export * from "./learning-engine";
 export * from "./local-data-reset";
