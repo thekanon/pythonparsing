@@ -16,4 +16,5 @@ export * from "./memory-replay";
 export * from "./official-scope";
 export * from "./today-plan";
 export * from "./today-queue";
+export * from "./weakness";
 export * from "./diagnostic-results";
