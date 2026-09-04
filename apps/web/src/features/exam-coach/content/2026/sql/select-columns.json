@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.select.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-select"],
+  "prerequisites": ["sql-table-row-column"],
+  "objective": "SELECT와 FROM을 사용해 필요한 열만 조회하는 기본 SQL을 작성한다.",
+  "knowledgeType": "sql",
+  "prompt": "employees 테이블에서 name과 department 열만 조회하는 SQL을 작성하라.",
+  "answer": "SELECT name, department FROM employees;",
+  "explanation": "SELECT 뒤에 조회할 열을 나열하고 FROM 뒤에 데이터를 읽을 테이블을 지정한다.",
+  "grading": {
+    "strategy": "sql",
+    "requiredSqlClauses": ["SELECT name, department", "FROM employees"]
+  },
+  "hints": {
+    "conceptClue": "조회할 열과 읽을 테이블을 지정하는 두 절을 떠올려 보세요.",
+    "structureHint": "SELECT 열1, 열2 FROM 테이블 형태로 작성합니다.",
+    "specificHint": "SELECT name, department 다음에 FROM employees를 이어 보세요."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL SELECT/FROM 개념의 적용 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

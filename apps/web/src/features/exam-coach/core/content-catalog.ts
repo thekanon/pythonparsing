@@ -1,5 +1,14 @@
 import cControlFlowRaw from "../content/2026/c/control-flow.json";
+import sqlGroupClauseRaw from "../content/2026/sql/group-clause.json";
+import sqlGroupCountRaw from "../content/2026/sql/group-count.json";
+import sqlJoinConceptRaw from "../content/2026/sql/join-concept.json";
+import sqlJoinOrdersCustomersRaw from "../content/2026/sql/join-orders-customers.json";
 import sqlSelectBasicsRaw from "../content/2026/sql/select-basics.json";
+import sqlSelectColumnsRaw from "../content/2026/sql/select-columns.json";
+import sqlTableRowColumnMeaningRaw from "../content/2026/sql/table-row-column-meaning.json";
+import sqlTableRowColumnRowRaw from "../content/2026/sql/table-row-column-row.json";
+import sqlWhereClauseRaw from "../content/2026/sql/where-clause.json";
+import sqlWhereFilterRaw from "../content/2026/sql/where-filter.json";
 import {
   contentItemSchema,
   validateContentItem,
@@ -9,7 +18,16 @@ import { C_CONCEPTS, SQL_CONCEPTS, type ConceptNode } from "./learning-engine";
 import type { NewQueueCandidate } from "./today-queue";
 
 export const LEARNING_CONTENT_CODES = [
+  "sql-table-row-column-row",
+  "sql-table-row-column-meaning",
   "sql-select-basics",
+  "sql-select-columns",
+  "sql-where-clause",
+  "sql-where-filter",
+  "sql-group-clause",
+  "sql-group-count",
+  "sql-join-concept",
+  "sql-join-orders-customers",
   "c-control-flow",
 ] as const;
 
@@ -30,7 +48,18 @@ const DEFAULT_NEW_CONTENT_IMPORTANCE = 3 as const;
 export const LEARNING_CONTENT_CATALOG: Readonly<
   Record<LearningContentCode, ContentItem>
 > = {
+  "sql-table-row-column-row": defineCatalogContent(sqlTableRowColumnRowRaw),
+  "sql-table-row-column-meaning": defineCatalogContent(
+    sqlTableRowColumnMeaningRaw,
+  ),
   "sql-select-basics": defineCatalogContent(sqlSelectBasicsRaw),
+  "sql-select-columns": defineCatalogContent(sqlSelectColumnsRaw),
+  "sql-where-clause": defineCatalogContent(sqlWhereClauseRaw),
+  "sql-where-filter": defineCatalogContent(sqlWhereFilterRaw),
+  "sql-group-clause": defineCatalogContent(sqlGroupClauseRaw),
+  "sql-group-count": defineCatalogContent(sqlGroupCountRaw),
+  "sql-join-concept": defineCatalogContent(sqlJoinConceptRaw),
+  "sql-join-orders-customers": defineCatalogContent(sqlJoinOrdersCustomersRaw),
   "c-control-flow": defineCatalogContent(cControlFlowRaw),
 };
 

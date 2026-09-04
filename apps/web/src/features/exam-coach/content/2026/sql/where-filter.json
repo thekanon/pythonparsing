@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.where.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-where"],
+  "prerequisites": ["sql-select"],
+  "objective": "WHERE 조건을 사용해 필요한 행만 조회하는 SQL을 작성한다.",
+  "knowledgeType": "sql",
+  "prompt": "employees 테이블에서 department가 '개발'인 행의 name 열만 조회하는 SQL을 작성하라.",
+  "answer": "SELECT name FROM employees WHERE department = '개발';",
+  "explanation": "SELECT로 name 열을 지정하고 FROM으로 employees를 선택한 뒤 WHERE에서 department가 '개발'인 행만 남긴다.",
+  "grading": {
+    "strategy": "sql",
+    "requiredSqlClauses": [
+      "SELECT name",
+      "FROM employees",
+      "WHERE department = '개발'"
+    ]
+  },
+  "hints": {
+    "conceptClue": "먼저 조회할 열과 테이블을 정한 뒤 행을 거르는 조건을 붙이세요.",
+    "structureHint": "SELECT ... FROM ... WHERE 열 = 값 형태로 작성합니다.",
+    "specificHint": "WHERE department = '개발' 조건을 사용해 보세요."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL WHERE 개념의 적용 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

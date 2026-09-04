@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.group.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-group"],
+  "prerequisites": ["sql-where"],
+  "objective": "GROUP BY와 집계 함수를 사용해 그룹별 건수를 구하는 SQL을 작성한다.",
+  "knowledgeType": "sql",
+  "prompt": "orders 테이블에서 customer_id별 주문 건수를 조회하는 SQL을 작성하라. 결과에는 customer_id와 COUNT(*)를 포함하라.",
+  "answer": "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id;",
+  "explanation": "customer_id를 기준으로 행을 그룹화하고 COUNT(*)로 각 그룹에 포함된 주문 행의 개수를 센다.",
+  "grading": {
+    "strategy": "sql",
+    "requiredSqlClauses": [
+      "SELECT customer_id, COUNT(*)",
+      "FROM orders",
+      "GROUP BY customer_id"
+    ]
+  },
+  "hints": {
+    "conceptClue": "같은 customer_id의 행을 먼저 한 그룹으로 묶어야 합니다.",
+    "structureHint": "SELECT 기준열, 집계함수 FROM 테이블 GROUP BY 기준열 형태로 작성합니다.",
+    "specificHint": "COUNT(*)와 GROUP BY customer_id를 함께 사용해 보세요."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL GROUP BY 개념의 적용 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

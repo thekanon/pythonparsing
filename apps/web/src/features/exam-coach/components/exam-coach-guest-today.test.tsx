@@ -53,7 +53,10 @@ describe("ExamCoachGuestToday", () => {
     render(<ExamCoachGuestToday />);
 
     expect(
-      await screen.findByText("현재 시간 예산과 선수지식 조건에 맞는 오늘 항목이 없습니다."),
+      await screen.findByText(/sql\.table-row-column\.001 · 예상 4분/),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/sql\.table-row-column\.002 · 예상 5분/),
     ).toBeVisible();
     expect(screen.getByText(/적용 활동은 임의로 만들지 않고 빈 상태/)).toBeVisible();
     expect(
@@ -84,10 +87,11 @@ describe("ExamCoachGuestToday", () => {
 
     expect(await screen.findByText(/sql\.select\.001 · 예상 5분/)).toBeVisible();
     expect(screen.getByText("복습")).toBeVisible();
-    expect(screen.getByRole("link", { name: "학습 열기" })).toHaveAttribute(
-      "href",
-      "/exam-coach/learn?unit=sql",
-    );
+    expect(
+      screen
+        .getAllByRole("link", { name: "학습 열기" })
+        .some((link) => link.getAttribute("href") === "/exam-coach/learn?unit=sql"),
+    ).toBe(true);
     expect(screen.getByText("1건")).toBeVisible();
     expect(await screen.findByText("1건 · 5분")).toBeVisible();
   });
