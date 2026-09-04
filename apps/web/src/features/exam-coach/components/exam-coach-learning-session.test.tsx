@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import ExamCoachLearningPage from "@/app/(public)/exam-coach/learn/page";
 import {
   LEARNING_CONTENT_CATALOG,
   TS_FSRS_VERSION,
@@ -10,6 +11,7 @@ import {
 import { ExamCoachLearningSession } from "./exam-coach-learning-session";
 
 const sqlSample = LEARNING_CONTENT_CATALOG["sql-select-basics"];
+const cSample = LEARNING_CONTENT_CATALOG["c-control-flow"];
 
 // prettier-ignore
 describe("ExamCoachLearningSession", () => {
@@ -174,6 +176,43 @@ describe("ExamCoachLearningSession", () => {
     expect(
       window.localStorage.getItem("exam-coach:v1:learning-events"),
     ).toBeNull();
+  });
+
+  it("prioritizes learn?content over unit and selects that exact reviewed card", async () => {
+    render(
+      await ExamCoachLearningPage({
+        searchParams: Promise.resolve({
+          content: cSample.id,
+          unit: "sql",
+        }),
+      }),
+    );
+
+    expect(screen.getByText(cSample.prompt)).toBeVisible();
+    expect(screen.queryByText(sqlSample.prompt)).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "C 학습 단위" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
+  it("renders an explicit unavailable state for unknown learn?content without falling back", async () => {
+    render(
+      await ExamCoachLearningPage({
+        searchParams: Promise.resolve({
+          content: "unknown.reviewed.content",
+          unit: "sql",
+        }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        name: "요청한 검수 콘텐츠를 사용할 수 없습니다.",
+      }),
+    ).toBeVisible();
+    expect(screen.queryByText(sqlSample.prompt)).not.toBeInTheDocument();
+    expect(screen.queryByText(cSample.prompt)).not.toBeInTheDocument();
   });
 });
 
