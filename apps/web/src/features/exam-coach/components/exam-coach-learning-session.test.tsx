@@ -18,6 +18,7 @@ const cSample = LEARNING_CONTENT_CATALOG["c-control-flow"];
 describe("ExamCoachLearningSession", () => {
   beforeEach(() => {
     window.localStorage.clear();
+    vi.restoreAllMocks();
   });
 
   it("keeps hints, answer, explanation, and grading result hidden before the first submit", async () => {
@@ -47,6 +48,107 @@ describe("ExamCoachLearningSession", () => {
     expect(screen.queryByText(sqlResultPredictionSample.answer)).not.toBeInTheDocument();
     expect(screen.queryByText(sqlResultPredictionSample.explanation)).not.toBeInTheDocument();
     expect(screen.queryByText("정답과 해설")).not.toBeInTheDocument();
+  });
+
+  it("keeps C execution controls, output, answer, and hints hidden until the first submit", async () => {
+    render(<ExamCoachLearningSession content={cSample} />);
+
+    await waitUntilReady();
+
+    expect(
+      screen.getByText(/C 코드 실행은 첫 답안 제출이 확정된 뒤에만 열립니다/),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "격리 샌드박스에서 실행" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("실행할 C 소스")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("C 실행 출력")).not.toBeInTheDocument();
+    expect(screen.queryByText(cSample.answer)).not.toBeInTheDocument();
+    expect(screen.queryByText(cSample.explanation)).not.toBeInTheDocument();
+    expect(screen.queryByText(cSample.hints!.conceptClue)).not.toBeInTheDocument();
+  });
+
+  it("runs C only after first submit without changing or persisting execution data in the learning event", async () => {
+    const source = "C2_SOURCE_MARKER";
+    const output = "C2_OUTPUT_MARKER\n";
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: true, status: "completed", output }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const user = userEvent.setup();
+    render(<ExamCoachLearningSession content={cSample} />);
+
+    await waitUntilReady();
+    await user.type(screen.getByLabelText("답안"), "5");
+    await user.click(screen.getByRole("button", { name: "첫 답안 제출" }));
+
+    expect(screen.getByRole("heading", { name: "C 코드 실행" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Good" })).toBeVisible();
+    await user.type(screen.getByLabelText("실행할 C 소스"), source);
+    await user.click(
+      screen.getByRole("button", { name: "격리 샌드박스에서 실행" }),
+    );
+
+    expect(await screen.findByText("실행 분류: 완료")).toBeVisible();
+    expect(screen.getByLabelText("C 실행 출력")).toHaveTextContent(
+      "C2_OUTPUT_MARKER",
+    );
+    expect(fetchSpy).toHaveBeenCalledWith(
+      "/api/exam-coach/c/run",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ source }),
+      }),
+    );
+    expect(
+      window.localStorage.getItem("exam-coach:v1:learning-events"),
+    ).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "Good" }));
+
+    const event = onlyStoredLearningEvent();
+    expect(event).toMatchObject({
+      contentId: cSample.id,
+      contentVersion: cSample.version,
+      correct: true,
+      rating: "Good",
+      helpLevel: 0,
+      firstSubmission: true,
+      fsrsVersion: TS_FSRS_VERSION,
+    });
+    const persisted = window.localStorage.getItem("exam-coach:v1:learning-events") ?? "";
+    expect(persisted).not.toContain("C2_SOURCE_MARKER");
+    expect(persisted).not.toContain("C2_OUTPUT_MARKER");
+    expect(persisted).not.toMatch(/"(source|stdout|stderr)"/u);
+  });
+
+  it("shows an honest sandbox-unavailable fallback after first submit", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: false, status: "sandbox-unavailable" }), {
+        status: 503,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const user = userEvent.setup();
+    render(<ExamCoachLearningSession content={cSample} />);
+
+    await waitUntilReady();
+    await user.type(screen.getByLabelText("답안"), "5");
+    await user.click(screen.getByRole("button", { name: "첫 답안 제출" }));
+    await user.type(screen.getByLabelText("실행할 C 소스"), "sandbox unavailable source");
+    await user.click(
+      screen.getByRole("button", { name: "격리 샌드박스에서 실행" }),
+    );
+
+    expect(
+      await screen.findByText("실행 분류: 샌드박스 사용 불가"),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/기존 설명·회상·교정 흐름은 그대로 계속할 수 있습니다/),
+    ).toBeVisible();
+    expect(screen.getByRole("button", { name: "Good" })).toBeVisible();
   });
 
   it("stores an independent correct first submit with the selected recall rating and refreshes FSRS", async () => {
