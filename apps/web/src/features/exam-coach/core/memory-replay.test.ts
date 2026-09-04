@@ -76,6 +76,35 @@ describe("exam coach memory replay", () => {
     ).toThrow(/version does not match event version/);
   });
 
+  it("resolves the recorded FSRS version for each replayed event", () => {
+    const resolvedVersions: string[] = [];
+    const resolveAdapter = (version: string) => {
+      resolvedVersions.push(version);
+      return makeAdapter(version, "card-1", []);
+    };
+
+    const state = rebuildMemoryStateFromEvents(
+      [
+        makeEvent({
+          eventId: "v2-review",
+          occurredAt: "2026-09-02T02:00:00.000Z",
+          fsrsVersion: "fake-v2",
+        }),
+        makeEvent({
+          eventId: "v1-review",
+          occurredAt: "2026-09-02T01:00:00.000Z",
+          fsrsVersion: "fake-v1",
+        }),
+      ],
+      "card-1",
+      resolveAdapter,
+    );
+
+    expect(resolvedVersions).toEqual(["fake-v1", "fake-v2"]);
+    expect(state?.fsrsVersion).toBe("fake-v2");
+    expect(state?.stability).toBe(2);
+  });
+
   it("rejects adapters that return state for another card", () => {
     const adapter: FsrsAdapter = {
       version: "fake-v1",

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import sqlSample from "../content/2026/sql/select-basics.json";
+import { LEARNING_CONTENT_CATALOG } from "./content-catalog";
 import {
   createLearningEventFromSession,
   revealNextHelp,
@@ -8,6 +8,8 @@ import {
   submitCorrection,
   submitFirstResponse,
 } from "./feedback-flow";
+
+const sqlSample = LEARNING_CONTENT_CATALOG["sql-select-basics"];
 
 // prettier-ignore
 describe("exam coach feedback flow", () => {

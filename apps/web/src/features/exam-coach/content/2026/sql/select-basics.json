@@ -23,7 +23,19 @@
   "difficulty": 1,
   "estimatedMinutes": 5,
   "author": "doo-study",
-  "reviewStatus": "draft",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T14:28:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
   "rights": {
     "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
     "license": "original",

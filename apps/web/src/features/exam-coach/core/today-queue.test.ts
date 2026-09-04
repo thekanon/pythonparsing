@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import type { MemoryState } from "./learning-engine";
 import {
   buildTodayQueue,
+  type ApplicationQueueCandidate,
   type NewQueueCandidate,
   type ReviewQueueCandidate,
 } from "./today-queue";
@@ -144,6 +145,88 @@ describe("exam coach today queue", () => {
     ]);
   });
 
+  it.each([
+    [15, ["review"]],
+    [45, ["review", "new", "application"]],
+    [60, ["review", "new", "application"]],
+  ] as const)(
+    "keeps the %i minute regression budget",
+    (budget, expectedKinds) => {
+      const queue = buildTodayQueue({
+        now: "2026-09-02T03:00:00.000Z",
+        timeBudgetMinutes: budget,
+        reviewCandidates: [
+          reviewCandidate("due-review", { estimatedMinutes: 10 }),
+        ],
+        newCandidates: [
+          newCandidate("new-card", "sql-where", ["sql-select"], {
+            estimatedMinutes: 15,
+          }),
+        ],
+        applicationCandidates: [
+          applicationCandidate("apply-card", "sql-where", ["sql-select"], {
+            estimatedMinutes: 20,
+          }),
+        ],
+        masteredConceptIds: ["sql-select"],
+      });
+
+      expect(queue.items.map((item) => item.kind)).toEqual(expectedKinds);
+      expect(queue.usedMinutes).toBeLessThanOrEqual(budget);
+      expect(queue.remainingMinutes).toBe(budget - queue.usedMinutes);
+    },
+  );
+
+  it("allows new learning after due review debt is completed", () => {
+    const blocked = buildTodayQueue({
+      now: "2026-09-02T03:00:00.000Z",
+      timeBudgetMinutes: 15,
+      reviewCandidates: [
+        reviewCandidate("too-long-review", { estimatedMinutes: 20 }),
+      ],
+      newCandidates: [newCandidate("new-card", "sql-where", ["sql-select"])],
+      masteredConceptIds: ["sql-select"],
+    });
+    const afterReviewCompletion = buildTodayQueue({
+      now: "2026-09-02T03:00:00.000Z",
+      timeBudgetMinutes: 15,
+      reviewCandidates: [],
+      newCandidates: [newCandidate("new-card", "sql-where", ["sql-select"])],
+      masteredConceptIds: ["sql-select"],
+    });
+
+    expect(blocked.items).toEqual([]);
+    expect(blocked.deferredDueReviewCount).toBe(1);
+    expect(afterReviewCompletion.items.map((item) => item.kind)).toEqual([
+      "new",
+    ]);
+  });
+
+  it("schedules application only after new learning when time remains", () => {
+    const queue = buildTodayQueue({
+      now: "2026-09-02T03:00:00.000Z",
+      timeBudgetMinutes: 20,
+      reviewCandidates: [],
+      newCandidates: [
+        newCandidate("new-card", "sql-where", ["sql-select"], {
+          estimatedMinutes: 5,
+        }),
+      ],
+      applicationCandidates: [
+        applicationCandidate("apply-card", "sql-where", ["sql-select"], {
+          estimatedMinutes: 10,
+        }),
+      ],
+      masteredConceptIds: ["sql-select"],
+    });
+
+    expect(queue.items.map((item) => item.kind)).toEqual([
+      "new",
+      "application",
+    ]);
+    expect(queue.usedMinutes).toBe(15);
+  });
+
   it("never exceeds the time budget", () => {
     const queue = buildTodayQueue({
       now: "2026-09-02T03:00:00.000Z",
@@ -213,6 +296,23 @@ function reviewCandidate(
     memoryRisk: 0.5,
     ...candidateOverrides,
     memory: candidateOverrides.memory ?? defaultMemory,
+  };
+}
+
+function applicationCandidate(
+  activityId: string,
+  conceptId: string,
+  prerequisites: readonly string[],
+  overrides: Partial<ApplicationQueueCandidate> = {},
+): ApplicationQueueCandidate {
+  return {
+    activityId,
+    conceptId,
+    prerequisites,
+    estimatedMinutes: 5,
+    importance: 3,
+    curriculumOrder: 1,
+    ...overrides,
   };
 }
 

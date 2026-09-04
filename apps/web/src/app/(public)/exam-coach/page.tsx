@@ -18,6 +18,9 @@ export default function ExamCoachPage() {
         className="page-shell flex flex-wrap gap-3 pt-0"
         aria-label="정보처리기사 코치 메뉴"
       >
+        <Link href="/exam-coach/learn" className="button button-primary">
+          정규 학습 시작
+        </Link>
         <Link href="/exam-coach/curriculum" className="button button-secondary">
           커리큘럼 보기
         </Link>
