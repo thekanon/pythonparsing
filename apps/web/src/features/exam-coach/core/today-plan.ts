@@ -24,10 +24,9 @@ import {
 
 const DEFAULT_IMPORTANCE = 3 as const;
 const CONCEPT_TITLE_BY_ID = new Map(
-  [...SQL_CONCEPTS, ...C_CONCEPTS].map((concept) => [
-    concept.id,
-    concept.title,
-  ] as const),
+  [...SQL_CONCEPTS, ...C_CONCEPTS].map(
+    (concept) => [concept.id, concept.title] as const,
+  ),
 );
 
 export interface TodayPlanDisplayItem extends TodayQueueItem {
@@ -53,7 +52,8 @@ export function buildActualTodayPlan(
   input: BuildActualTodayPlanInput,
 ): ActualTodayPlan {
   const nowTimestamp = Date.parse(input.now);
-  if (Number.isNaN(nowTimestamp)) throw new Error("now must be a valid date-time");
+  if (Number.isNaN(nowTimestamp))
+    throw new Error("now must be a valid date-time");
 
   const content = input.content ?? listLearningContent();
   const resolveAdapter = input.resolveAdapter ?? resolveTsFsrsAdapter;
@@ -99,7 +99,9 @@ export function buildActualTodayPlan(
     applicationCandidates: [],
     masteredConceptIds,
   });
-  const reviewedById = new Map(reviewed.map((item) => [item.id, item] as const));
+  const reviewedById = new Map(
+    reviewed.map((item) => [item.id, item] as const),
+  );
 
   return {
     queue,

@@ -7,10 +7,7 @@ import type {
   LearningEvent,
   MemoryState,
 } from "./learning-engine";
-import {
-  buildActualTodayPlan,
-  deriveMasteredConceptIds,
-} from "./today-plan";
+import { buildActualTodayPlan, deriveMasteredConceptIds } from "./today-plan";
 
 const sqlSample = LEARNING_CONTENT_CATALOG["sql-select-basics"];
 const prerequisiteSample = makePrerequisiteSample(sqlSample);
@@ -102,7 +99,9 @@ function fakeResolver(version: string, cardId: string): FsrsAdapter {
     review(_previous, input): MemoryState {
       return {
         cardId,
-        dueAt: new Date(Date.parse(input.reviewedAt) + 86_400_000).toISOString(),
+        dueAt: new Date(
+          Date.parse(input.reviewedAt) + 86_400_000,
+        ).toISOString(),
         stability: 2,
         difficulty: 5,
         fsrsVersion: version,
