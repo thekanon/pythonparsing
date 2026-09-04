@@ -8,6 +8,8 @@
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 구축 순서: [실행 로드맵](./roadmap.md)
+- 다음 구현 가이드: [D0·W1-W2·S1-S2·C1-C2 구현 가이드](./information-processing-practical-coach-next-implementation-guide.md)
+- 완료 여부의 단일 기준은 [현재 현황 문서](./information-processing-practical-coach-current-status.md)다. 아래 체크박스와 어긋나면 현재 현황 문서를 따른다.
 
 ## 1. 현재 상태
 

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.operator.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-operator"],
+  "prerequisites": ["c-value-type"],
+  "objective": "나머지 연산자를 사용해 짝수 판별 조건식을 완성한다.",
+  "knowledgeType": "code",
+  "prompt": "양의 정수 n이 짝수인지 확인하는 다음 C 조건식의 빈칸에 들어갈 연산자만 쓰라.\n\nif (n ___ 2 == 0)",
+  "answer": "%",
+  "explanation": "2로 나눈 나머지가 0인지 확인하려면 나머지 연산자 %를 사용한다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["%"]
+  },
+  "hints": {
+    "conceptClue": "나눗셈의 몫이 아니라 나머지를 구하는 연산자를 떠올려 보세요.",
+    "structureHint": "n을 2로 나눈 나머지가 0인지 비교하는 형태입니다.",
+    "specificHint": "C의 나머지 연산자는 %입니다."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 연산자 개념의 코드 완성 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

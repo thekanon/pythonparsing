@@ -228,6 +228,9 @@ export function ExamCoachReadinessReport() {
           <Link href="/exam-coach/followup" className="button button-secondary">
             진단 비교 보기
           </Link>
+          <Link href="/exam-coach/weakness" className="button button-secondary">
+            취약점 보드
+          </Link>
         </div>
       </section>
     </div>

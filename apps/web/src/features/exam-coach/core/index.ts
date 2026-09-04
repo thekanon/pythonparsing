@@ -1,3 +1,4 @@
+export * from "./c-execution";
 export * from "./content-catalog";
 export * from "./content-schema";
 export * from "./diagnostic-readiness";
@@ -16,4 +17,5 @@ export * from "./memory-replay";
 export * from "./official-scope";
 export * from "./today-plan";
 export * from "./today-queue";
+export * from "./weakness";
 export * from "./diagnostic-results";

@@ -1,16 +1,56 @@
+import cArrayIndexRaw from "../content/2026/c/array-index.json";
+import cArraySumRaw from "../content/2026/c/array-sum.json";
+import cControlFlowLoopRaw from "../content/2026/c/control-flow-loop.json";
 import cControlFlowRaw from "../content/2026/c/control-flow.json";
+import cOperatorArithmeticRaw from "../content/2026/c/operator-arithmetic.json";
+import cOperatorRemainderRaw from "../content/2026/c/operator-remainder.json";
+import cPointerArrayStepRaw from "../content/2026/c/pointer-array-step.json";
+import cPointerDereferenceRaw from "../content/2026/c/pointer-dereference.json";
+import cValueTypeAssignmentRaw from "../content/2026/c/value-type-assignment.json";
+import cValueTypeMeaningRaw from "../content/2026/c/value-type-meaning.json";
+import sqlEmployeesDatasetRaw from "../content/2026/sql/datasets/employees-v1.json";
+import sqlGroupClauseRaw from "../content/2026/sql/group-clause.json";
+import sqlGroupCountRaw from "../content/2026/sql/group-count.json";
+import sqlJoinConceptRaw from "../content/2026/sql/join-concept.json";
+import sqlJoinOrdersCustomersRaw from "../content/2026/sql/join-orders-customers.json";
 import sqlSelectBasicsRaw from "../content/2026/sql/select-basics.json";
+import sqlSelectColumnsRaw from "../content/2026/sql/select-columns.json";
+import sqlTableRowColumnMeaningRaw from "../content/2026/sql/table-row-column-meaning.json";
+import sqlTableRowColumnRowRaw from "../content/2026/sql/table-row-column-row.json";
+import sqlWhereClauseRaw from "../content/2026/sql/where-clause.json";
+import sqlWhereFilterRaw from "../content/2026/sql/where-filter.json";
 import {
   contentItemSchema,
+  sqlDatasetSchema,
   validateContentItem,
+  validateSqlDataset,
   type ContentItem,
+  type SqlDataset,
 } from "./content-schema";
 import { C_CONCEPTS, SQL_CONCEPTS, type ConceptNode } from "./learning-engine";
 import type { NewQueueCandidate } from "./today-queue";
 
 export const LEARNING_CONTENT_CODES = [
+  "sql-table-row-column-row",
+  "sql-table-row-column-meaning",
   "sql-select-basics",
+  "sql-select-columns",
+  "sql-where-clause",
+  "sql-where-filter",
+  "sql-group-clause",
+  "sql-group-count",
+  "sql-join-concept",
+  "sql-join-orders-customers",
+  "c-value-type-meaning",
+  "c-value-type-assignment",
+  "c-operator-arithmetic",
+  "c-operator-remainder",
   "c-control-flow",
+  "c-control-flow-loop",
+  "c-array-index",
+  "c-array-sum",
+  "c-pointer-dereference",
+  "c-pointer-array-step",
 ] as const;
 
 export type LearningContentCode = (typeof LEARNING_CONTENT_CODES)[number];
@@ -27,11 +67,39 @@ const CURRICULUM_ORDER_BY_CONCEPT_ID = new Map(
 );
 const DEFAULT_NEW_CONTENT_IMPORTANCE = 3 as const;
 
+const SQL_DATASETS = [defineSqlDataset(sqlEmployeesDatasetRaw)] as const;
+export const SQL_DATASET_CATALOG: ReadonlyMap<string, SqlDataset> = new Map(
+  SQL_DATASETS.map((dataset) => [dataset.datasetId, dataset] as const),
+);
+if (SQL_DATASET_CATALOG.size !== SQL_DATASETS.length) {
+  throw new Error("SQL dataset ids must be unique");
+}
+
 export const LEARNING_CONTENT_CATALOG: Readonly<
   Record<LearningContentCode, ContentItem>
 > = {
+  "sql-table-row-column-row": defineCatalogContent(sqlTableRowColumnRowRaw),
+  "sql-table-row-column-meaning": defineCatalogContent(
+    sqlTableRowColumnMeaningRaw,
+  ),
   "sql-select-basics": defineCatalogContent(sqlSelectBasicsRaw),
+  "sql-select-columns": defineCatalogContent(sqlSelectColumnsRaw),
+  "sql-where-clause": defineCatalogContent(sqlWhereClauseRaw),
+  "sql-where-filter": defineCatalogContent(sqlWhereFilterRaw),
+  "sql-group-clause": defineCatalogContent(sqlGroupClauseRaw),
+  "sql-group-count": defineCatalogContent(sqlGroupCountRaw),
+  "sql-join-concept": defineCatalogContent(sqlJoinConceptRaw),
+  "sql-join-orders-customers": defineCatalogContent(sqlJoinOrdersCustomersRaw),
+  "c-value-type-meaning": defineCatalogContent(cValueTypeMeaningRaw),
+  "c-value-type-assignment": defineCatalogContent(cValueTypeAssignmentRaw),
+  "c-operator-arithmetic": defineCatalogContent(cOperatorArithmeticRaw),
+  "c-operator-remainder": defineCatalogContent(cOperatorRemainderRaw),
   "c-control-flow": defineCatalogContent(cControlFlowRaw),
+  "c-control-flow-loop": defineCatalogContent(cControlFlowLoopRaw),
+  "c-array-index": defineCatalogContent(cArrayIndexRaw),
+  "c-array-sum": defineCatalogContent(cArraySumRaw),
+  "c-pointer-dereference": defineCatalogContent(cPointerDereferenceRaw),
+  "c-pointer-array-step": defineCatalogContent(cPointerArrayStepRaw),
 };
 
 export function getLearningContent(code: LearningContentCode): ContentItem {
@@ -58,6 +126,9 @@ export function validateCatalogContentItem(value: unknown): string[] {
   }
   if (!item.hints) {
     errors.push("regular learning catalog content requires progressive hints");
+  }
+  if (item.datasetId && !SQL_DATASET_CATALOG.has(item.datasetId)) {
+    errors.push(`${item.id}: unknown SQL dataset ${item.datasetId}`);
   }
 
   if (new Set(item.conceptIds).size !== item.conceptIds.length) {
@@ -130,6 +201,14 @@ export function buildRegularLearningNewQueueCandidates(
       curriculumOrder,
     };
   });
+}
+
+function defineSqlDataset(value: unknown): SqlDataset {
+  const errors = validateSqlDataset(value);
+  if (errors.length > 0) {
+    throw new Error(errors.join("; "));
+  }
+  return sqlDatasetSchema.parse(value);
 }
 
 function defineCatalogContent(value: unknown): ContentItem {

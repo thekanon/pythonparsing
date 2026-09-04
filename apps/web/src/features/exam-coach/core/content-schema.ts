@@ -46,6 +46,51 @@ export type MemoryInheritance = (typeof MEMORY_INHERITANCE_VALUES)[number];
 const nonEmptyString = z.string().trim().min(1);
 const nonEmptyStringArray = z.array(nonEmptyString).min(1);
 
+export const sqlResultCellSchema = z.union([
+  z.string(),
+  z.number().int(),
+  z.null(),
+]);
+
+export const sqlExpectedResultSchema = z
+  .object({
+    columns: nonEmptyStringArray,
+    rows: z.array(z.array(sqlResultCellSchema)),
+    ordered: z.boolean(),
+  })
+  .strict();
+
+export const sqlDatasetSchema = z
+  .object({
+    datasetId: nonEmptyString,
+    description: nonEmptyString,
+    tables: z
+      .array(
+        z
+          .object({
+            name: nonEmptyString,
+            columns: z
+              .array(
+                z
+                  .object({
+                    name: nonEmptyString,
+                    type: z.enum(["integer", "text"]),
+                  })
+                  .strict(),
+              )
+              .min(1),
+            rows: z.array(z.array(sqlResultCellSchema)),
+          })
+          .strict(),
+      )
+      .min(1),
+  })
+  .strict();
+
+export type SqlResultCell = z.infer<typeof sqlResultCellSchema>;
+export type SqlExpectedResult = z.infer<typeof sqlExpectedResultSchema>;
+export type SqlDataset = z.infer<typeof sqlDatasetSchema>;
+
 export const reviewChecklistSchema = z
   .object({
     answer: z.literal(true),
@@ -72,6 +117,7 @@ export const gradingSchema = z
     requiredKeywords: nonEmptyStringArray.optional(),
     requiredSqlClauses: nonEmptyStringArray.optional(),
     forbiddenSqlTokens: nonEmptyStringArray.optional(),
+    expectedResult: sqlExpectedResultSchema.optional(),
   })
   .strict();
 
@@ -105,6 +151,7 @@ export const contentItemSchema = z
     prompt: nonEmptyString,
     answer: nonEmptyString,
     explanation: nonEmptyString,
+    datasetId: nonEmptyString.optional(),
     grading: gradingSchema,
     hints: progressiveHintsSchema.optional(),
     difficulty: z.number().int().min(1).max(5),
@@ -170,10 +217,95 @@ export function validateContentItem(value: unknown): string[] {
   if (item.grading.strategy === "keywords" && !item.grading.requiredKeywords) {
     errors.push("keyword grading requires requiredKeywords");
   }
-  if (item.grading.strategy === "sql" && !item.grading.requiredSqlClauses) {
-    errors.push("sql grading requires requiredSqlClauses");
+  if (
+    item.grading.strategy === "sql" &&
+    !item.grading.requiredSqlClauses &&
+    !item.grading.expectedResult
+  ) {
+    errors.push("sql grading requires requiredSqlClauses or expectedResult");
+  }
+  if (item.grading.strategy !== "sql" && item.grading.expectedResult) {
+    errors.push("expectedResult is only supported for sql grading");
+  }
+  if (item.grading.expectedResult && !item.datasetId) {
+    errors.push("expectedResult grading requires datasetId");
+  }
+  if (item.datasetId && item.domainId !== "sql") {
+    errors.push("datasetId is only supported for sql content");
+  }
+  if (item.grading.expectedResult) {
+    errors.push(...validateSqlResultRows(item.grading.expectedResult));
   }
 
+  return errors;
+}
+
+export function validateSqlDataset(value: unknown): string[] {
+  const result = sqlDatasetSchema.safeParse(value);
+  if (!result.success) {
+    return result.error.issues.map((issue) => {
+      const path = issue.path.length > 0 ? `${issue.path.join(".")}: ` : "";
+      return `${path}${issue.message}`;
+    });
+  }
+
+  const dataset = result.data;
+  const errors: string[] = [];
+  if (
+    new Set(dataset.tables.map((table) => table.name)).size !==
+    dataset.tables.length
+  ) {
+    errors.push(`${dataset.datasetId}: table names must be unique`);
+  }
+
+  for (const table of dataset.tables) {
+    if (
+      new Set(table.columns.map((column) => column.name)).size !==
+      table.columns.length
+    ) {
+      errors.push(
+        `${dataset.datasetId}.${table.name}: column names must be unique`,
+      );
+    }
+
+    for (const [rowIndex, row] of table.rows.entries()) {
+      if (row.length !== table.columns.length) {
+        errors.push(
+          `${dataset.datasetId}.${table.name}: row ${rowIndex + 1} must have ${table.columns.length} values`,
+        );
+        continue;
+      }
+
+      for (const [columnIndex, valueAtColumn] of row.entries()) {
+        if (valueAtColumn === null) continue;
+        const column = table.columns[columnIndex];
+        if (!column) continue;
+        if (column.type === "integer" && typeof valueAtColumn !== "number") {
+          errors.push(
+            `${dataset.datasetId}.${table.name}: row ${rowIndex + 1} column ${column.name} must be integer or null`,
+          );
+        }
+        if (column.type === "text" && typeof valueAtColumn !== "string") {
+          errors.push(
+            `${dataset.datasetId}.${table.name}: row ${rowIndex + 1} column ${column.name} must be text or null`,
+          );
+        }
+      }
+    }
+  }
+
+  return [...new Set(errors)];
+}
+
+function validateSqlResultRows(result: SqlExpectedResult): string[] {
+  const errors: string[] = [];
+  for (const [rowIndex, row] of result.rows.entries()) {
+    if (row.length !== result.columns.length) {
+      errors.push(
+        `expectedResult.rows.${rowIndex}: expected ${result.columns.length} values`,
+      );
+    }
+  }
   return errors;
 }
 

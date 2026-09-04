@@ -8,6 +8,7 @@ import {
   appendLocalLearningEvent,
   createLearningEventFromSession,
   getOrCreateGuestId,
+  isCExecutionResponse,
   loadLocalLearningEvents,
   rebuildMemoryStateFromEvents,
   resolveTsFsrsAdapter,
@@ -15,6 +16,8 @@ import {
   startPracticeSession,
   submitCorrection,
   submitFirstResponse,
+  type CExecutionResponse,
+  type CExecutionStatus,
   type ContentItem,
   type FsrsRating,
   type HelpDisclosure,
@@ -49,6 +52,9 @@ export function ExamCoachLearningSession({
   const [completedEvent, setCompletedEvent] = useState<LearningEvent | null>(null);
   const [memoryState, setMemoryState] = useState<MemoryState | null>(null);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const [cSource, setCSource] = useState("");
+  const [cExecution, setCExecution] = useState<CExecutionResponse | null>(null);
+  const [cExecutionPending, setCExecutionPending] = useState(false);
   const startedAtRef = useRef(0);
   const finalizedRef = useRef(false);
 
@@ -167,6 +173,30 @@ export function ExamCoachLearningSession({
     persistSessionEvent(session, rating);
   }
 
+  async function runCSource() {
+    if (!firstSubmission || content.domainId !== "programming-language") return;
+    if (!cSource.trim() || cExecutionPending) return;
+
+    setCExecutionPending(true);
+    setCExecution(null);
+    try {
+      const response = await fetch("/api/exam-coach/c/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source: cSource }),
+      });
+      const payload: unknown = await response.json();
+      if (!isCExecutionResponse(payload)) {
+        throw new Error("invalid C execution response");
+      }
+      setCExecution(payload);
+    } catch {
+      setCExecution({ ok: false, status: "sandbox-unavailable" });
+    } finally {
+      setCExecutionPending(false);
+    }
+  }
+
   function persistSessionEvent(
     sessionToPersist: PracticeSession,
     requestedRating: FsrsRating,
@@ -275,6 +305,13 @@ export function ExamCoachLearningSession({
           </div>
         )}
 
+        {content.domainId === "programming-language" && !firstSubmission && (
+          <div className="mt-5 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-4 text-sm leading-6 text-[var(--ink-soft)]">
+            C 코드 실행은 첫 답안 제출이 확정된 뒤에만 열립니다. 첫 제출 전에는
+            실행 결과나 기대 출력을 보여 주지 않습니다.
+          </div>
+        )}
+
         {phase === "answering" && (
           <form className="mt-7" onSubmit={submitFirst}>
             <label htmlFor="learning-response" className="block font-bold">
@@ -304,6 +341,61 @@ export function ExamCoachLearningSession({
               첫 답안 제출
             </button>
           </form>
+        )}
+
+        {content.domainId === "programming-language" && firstSubmission && (
+          <section
+            className="mt-7 rounded-xl border border-[var(--line)] p-5"
+            aria-labelledby="c-execution-heading"
+          >
+            <h3 id="c-execution-heading" className="text-lg font-bold">
+              C 코드 실행
+            </h3>
+            <p className="mt-2 leading-7 text-[var(--ink-soft)]">
+              실행은 격리된 일회성 샌드박스에서만 시도합니다. 실행 결과는 교정
+              피드백일 뿐 첫 제출의 정오·회상 등급·FSRS 일정을 바꾸지 않으며,
+              C 소스와 stdout/stderr 원문은 학습 이벤트나 localStorage에 저장하지
+              않습니다.
+            </p>
+            <label htmlFor="c-execution-source" className="mt-5 block font-bold">
+              실행할 C 소스
+            </label>
+            <textarea
+              id="c-execution-source"
+              value={cSource}
+              onChange={(event) => setCSource(event.target.value)}
+              rows={9}
+              spellCheck={false}
+              className="mt-3 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface)] p-4 font-mono leading-7 text-[var(--ink)]"
+            />
+            <button
+              type="button"
+              className="button button-secondary mt-4"
+              onClick={() => void runCSource()}
+              disabled={!cSource.trim() || cExecutionPending}
+            >
+              {cExecutionPending ? "격리 실행 중…" : "격리 샌드박스에서 실행"}
+            </button>
+
+            {cExecution && (
+              <div className="mt-5" role="status" aria-live="polite">
+                <p className="font-bold">
+                  실행 분류: {cExecutionStatusLabel(cExecution.status)}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[var(--ink-soft)]">
+                  {cExecutionFallback(cExecution.status)}
+                </p>
+                {cExecution.output && (
+                  <pre
+                    className="mt-4 max-h-72 overflow-auto whitespace-pre-wrap rounded-xl bg-[var(--surface-muted)] p-4 text-sm leading-6"
+                    aria-label="C 실행 출력"
+                  >
+                    {cExecution.output}
+                  </pre>
+                )}
+              </div>
+            )}
+          </section>
         )}
 
         {phase === "rating" && (
@@ -489,6 +581,53 @@ function helpLabel(level: HelpDisclosure["level"]): string {
     case 4:
       return "해설·정답";
   }
+}
+
+function cExecutionStatusLabel(status: CExecutionStatus): string {
+  switch (status) {
+    case "completed":
+      return "완료";
+    case "compile-error":
+      return "컴파일 오류";
+    case "runtime-error":
+      return "실행 오류";
+    case "wall-time-limit":
+      return "시간 제한 초과";
+    case "cpu-limit":
+      return "CPU 제한 초과";
+    case "memory-limit":
+      return "메모리 제한 초과";
+    case "output-limit":
+      return "출력 제한 초과";
+    case "process-limit":
+      return "프로세스 제한 초과";
+    case "fd-limit":
+      return "파일 디스크립터 제한 초과";
+    case "disk-limit":
+      return "쓰기 제한 초과";
+    case "sandbox-unavailable":
+      return "샌드박스 사용 불가";
+    case "sandbox-error":
+      return "샌드박스 오류";
+    case "source-too-large":
+      return "소스 크기 제한 초과";
+  }
+}
+
+function cExecutionFallback(status: CExecutionStatus): string {
+  if (status === "completed") {
+    return "표시된 출력은 현재 세션에서만 사용됩니다.";
+  }
+  if (status === "compile-error" || status === "runtime-error") {
+    return "프로그램의 컴파일·실행 결과이며 첫 제출의 정오 판정을 변경하지 않습니다.";
+  }
+  if (status === "sandbox-unavailable" || status === "sandbox-error") {
+    return "실행기를 사용할 수 없습니다. 기존 설명·회상·교정 흐름은 그대로 계속할 수 있습니다.";
+  }
+  if (status === "source-too-large") {
+    return "C 소스가 32 KiB 제한을 넘었습니다. 더 작은 예제로 줄인 뒤 다시 시도해 주세요.";
+  }
+  return "보안 자원 제한으로 실행을 중단했습니다. 제한 초과만으로 첫 제출을 오답 처리하지 않습니다.";
 }
 
 function formatDateTime(value: string): string {

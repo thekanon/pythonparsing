@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.join.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-join"],
+  "prerequisites": ["sql-select"],
+  "objective": "JOIN과 ON 조건을 사용해 두 테이블의 관련 행을 결합하는 SQL을 작성한다.",
+  "knowledgeType": "sql",
+  "prompt": "orders 테이블의 customer_id가 customers 테이블의 id를 참조한다고 할 때, 주문 id와 고객 name을 함께 조회하는 SQL을 작성하라.",
+  "answer": "SELECT orders.id, customers.name FROM orders JOIN customers ON orders.customer_id = customers.id;",
+  "explanation": "orders와 customers를 JOIN하고 orders.customer_id와 customers.id가 같은 행을 ON 조건으로 연결하면 주문 id와 고객 이름을 함께 조회할 수 있다.",
+  "grading": {
+    "strategy": "sql",
+    "requiredSqlClauses": [
+      "SELECT orders.id, customers.name",
+      "FROM orders",
+      "JOIN customers",
+      "ON orders.customer_id = customers.id"
+    ]
+  },
+  "hints": {
+    "conceptClue": "먼저 기준 테이블을 정하고, 관련 테이블을 연결할 키를 찾으세요.",
+    "structureHint": "SELECT ... FROM orders JOIN customers ON 연결조건 형태로 작성합니다.",
+    "specificHint": "ON orders.customer_id = customers.id 조건을 사용해 보세요."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 7,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL JOIN 개념의 적용 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}
