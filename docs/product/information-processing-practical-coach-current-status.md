@@ -1,11 +1,12 @@
 # 정보처리기사 실기 합격 코치 현재 현황과 남은 작업
 
 - 기준 시각: 2026-09-04 17:36 KST
-- 기준 브랜치: `thekanon/shiner`
-- 기준 코드: `1a6b01a` (`Finalize exam coach learning content catalog`)
-- 목적: 현재 작업 브랜치에서 코드와 테스트로 확인된 완료 범위와 앞으로 남은 구현을 한 문서에서 확인한다.
+- 기준 브랜치: `master`
+- 기준 코드: `a7d401b` (`Add information processing practical coach learning flow (#30)`)
+- 목적: `master`에 병합된 코드와 테스트로 확인된 완료 범위와 앞으로 남은 구현을 한 문서에서 확인한다.
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 세부 체크리스트: [작업 분할표](./information-processing-practical-coach-work-breakdown.md)
+- 다음 구현 가이드: [D0·W1-W2·S1-S2·C1-C2 구현 가이드](./information-processing-practical-coach-next-implementation-guide.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 전체 구축 순서: [실행 로드맵](./roadmap.md)
 
@@ -165,7 +166,7 @@
 - [ ] `ts-fsrs@5.4.1` 공급망 정책 통과가 별도 PR/CI 기록으로 확인됐는지 검증
 - [x] `apps/web/package.json`과 `pnpm-lock.yaml`에 `ts-fsrs@5.4.1`을 함께 반영
 - [x] `pnpm install --frozen-lockfile` 후 lockfile 추가 변경이 없는지 확인
-- [ ] 전체 CI 통과와 `master` 병합 여부 확인
+- [x] 전체 CI 통과와 `master` 병합 여부 확인 — PR #30이 `a7d401b`로 squash merge
 
 ### 4.2 F2 — 실제 FSRS 어댑터
 
