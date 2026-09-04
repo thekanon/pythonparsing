@@ -1,8 +1,17 @@
 import { describe, expect, it } from "vitest";
 
 import { LEARNING_CONTENT_CATALOG } from "./content-catalog";
-import { contentItemSchema, type ContentItem } from "./content-schema";
-import { gradeContentResponse, normalizeSql } from "./grading";
+import {
+  contentItemSchema,
+  type ContentItem,
+  type SqlExpectedResult,
+} from "./content-schema";
+import {
+  compareSqlResultTables,
+  gradeContentResponse,
+  normalizeSql,
+  parseSqlResultTable,
+} from "./grading";
 
 const baseContent = contentItemSchema.parse(
   LEARNING_CONTENT_CATALOG["sql-select-basics"],
@@ -17,6 +26,7 @@ describe("exam coach grading", () => {
       correct: true,
       missingRequirements: [],
       forbiddenMatches: [],
+      errorKinds: [],
     });
     expect(result).not.toHaveProperty("submittedResponse");
   });
@@ -69,8 +79,140 @@ describe("exam coach grading", () => {
 
     expect(wrongValue.correct).toBe(false);
     expect(wrongValue.missingRequirements).toEqual(["WHERE dept = '개발'"]);
+    expect(wrongValue.errorKinds).toEqual(["condition"]);
     expect(mutation.correct).toBe(false);
     expect(mutation.forbiddenMatches).toEqual(["UPDATE"]);
+    expect(mutation.errorKinds).toEqual(["forbidden"]);
+  });
+
+  it("classifies missing SQL scope, join, and aggregate requirements", () => {
+    const scope = gradeContentResponse(
+      withGrading({
+        strategy: "sql",
+        requiredSqlClauses: ["SELECT name", "FROM employees"],
+      }),
+      "SELECT name",
+    );
+    const join = gradeContentResponse(
+      withGrading({
+        strategy: "sql",
+        requiredSqlClauses: [
+          "SELECT orders.id",
+          "FROM orders",
+          "JOIN customers",
+          "ON orders.customer_id = customers.id",
+        ],
+      }),
+      "SELECT orders.id FROM orders",
+    );
+    const aggregate = gradeContentResponse(
+      withGrading({
+        strategy: "sql",
+        requiredSqlClauses: [
+          "SELECT customer_id, COUNT(*)",
+          "FROM orders",
+          "GROUP BY customer_id",
+        ],
+      }),
+      "SELECT customer_id FROM orders",
+    );
+
+    expect(scope.errorKinds).toEqual(["scope"]);
+    expect(join.errorKinds).toEqual(["join"]);
+    expect(aggregate.errorKinds).toEqual(["aggregate"]);
+  });
+
+  it("compares unordered result rows as a multiset and preserves duplicate counts", () => {
+    const expected: SqlExpectedResult = {
+      columns: ["name", "count"],
+      rows: [
+        ["개발", 2],
+        ["기획", 1],
+        ["개발", 2],
+      ],
+      ordered: false,
+    };
+    const reordered = parseSqlResultTable(
+      '{"columns":["name","count"],"rows":[["개발","2"],["개발",2],["기획",1]]}',
+    );
+    const missingDuplicate = parseSqlResultTable(
+      '{"columns":["name","count"],"rows":[["개발",2],["기획",1]]}',
+    );
+
+    expect(reordered).not.toBeNull();
+    expect(compareSqlResultTables(expected, reordered!).equivalent).toBe(true);
+    expect(missingDuplicate).not.toBeNull();
+    expect(compareSqlResultTables(expected, missingDuplicate!).equivalent).toBe(
+      false,
+    );
+  });
+
+  it("fails ordered result comparison when row order changes", () => {
+    const expected: SqlExpectedResult = {
+      columns: ["id"],
+      rows: [[1], [2]],
+      ordered: true,
+    };
+    const actual = parseSqlResultTable('{"columns":["id"],"rows":[[2],[1]]}');
+
+    expect(actual).not.toBeNull();
+    expect(compareSqlResultTables(expected, actual!)).toEqual({
+      equivalent: false,
+      mismatch: "rows",
+    });
+  });
+
+  it("fails on column order mismatch and compares null as a value", () => {
+    const expected: SqlExpectedResult = {
+      columns: ["id", "department"],
+      rows: [[4, null]],
+      ordered: false,
+    };
+    const wrongColumns = parseSqlResultTable(
+      '{"columns":["department","id"],"rows":[[null,4]]}',
+    );
+    const sameNull = parseSqlResultTable(
+      '{"columns":["id","department"],"rows":[["4",null]]}',
+    );
+
+    expect(wrongColumns).not.toBeNull();
+    expect(compareSqlResultTables(expected, wrongColumns!)).toEqual({
+      equivalent: false,
+      mismatch: "columns",
+    });
+    expect(sameNull).not.toBeNull();
+    expect(compareSqlResultTables(expected, sameNull!).equivalent).toBe(true);
+  });
+
+  it("grades expected result tables and classifies parse and table mismatches", () => {
+    const item = withGrading({
+      strategy: "sql",
+      expectedResult: {
+        columns: ["name"],
+        rows: [["김민수"], ["박지훈"]],
+        ordered: false,
+      },
+    });
+
+    const correct = gradeContentResponse(
+      item,
+      '{"columns":["name"],"rows":[["박지훈"],["김민수"]]}',
+    );
+    const syntax = gradeContentResponse(item, "name=김민수");
+    const wrongColumns = gradeContentResponse(
+      item,
+      '{"columns":["employee_name"],"rows":[["김민수"],["박지훈"]]}',
+    );
+    const wrongRows = gradeContentResponse(
+      item,
+      '{"columns":["name"],"rows":[["김민수"]]}',
+    );
+
+    expect(correct.correct).toBe(true);
+    expect(correct.errorKinds).toEqual([]);
+    expect(syntax.errorKinds).toEqual(["syntax"]);
+    expect(wrongColumns.errorKinds).toEqual(["scope"]);
+    expect(wrongRows.errorKinds).toEqual(["condition"]);
   });
 
   it("matches forbidden SQL only as executable tokens", () => {
@@ -122,5 +264,10 @@ function sqlContent(): ContentItem {
 }
 
 function withGrading(grading: ContentItem["grading"]): ContentItem {
-  return { ...baseContent, id: `test.${grading.strategy}`, grading };
+  return {
+    ...baseContent,
+    id: `test.${grading.strategy}`,
+    ...(grading.expectedResult ? { datasetId: "sql-test-v1" } : {}),
+    grading,
+  };
 }

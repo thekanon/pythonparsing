@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   LEARNING_CONTENT_CATALOG,
   LEARNING_CONTENT_CODES,
+  SQL_DATASET_CATALOG,
   buildRegularLearningNewQueueCandidates,
   getLearningContent,
   listLearningContent,
@@ -97,6 +98,28 @@ describe("exam coach learning content catalog", () => {
     );
     expect(validateCatalogContentItem(wrongDomain)).toContain(
       "sql.select.001: concept sql-select belongs to sql, not programming-language",
+    );
+  });
+
+  it("resolves checked-in SQL datasets and rejects unknown dataset references", () => {
+    const resultPrediction = getLearningContent("sql-where-filter");
+
+    expect(resultPrediction.datasetId).toBe("sql-employees-v1");
+    expect(resultPrediction.grading.expectedResult).toEqual({
+      columns: ["name"],
+      rows: [["김민수"], ["박지훈"]],
+      ordered: false,
+    });
+    expect(SQL_DATASET_CATALOG.get("sql-employees-v1")?.tables[0]?.name).toBe(
+      "employees",
+    );
+
+    const unknownDataset = {
+      ...resultPrediction,
+      datasetId: "sql-missing-v1",
+    };
+    expect(validateCatalogContentItem(unknownDataset)).toContain(
+      "sql.where.002: unknown SQL dataset sql-missing-v1",
     );
   });
 

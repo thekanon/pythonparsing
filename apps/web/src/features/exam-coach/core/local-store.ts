@@ -1,7 +1,9 @@
 import {
   FSRS_RATINGS,
+  SQL_ERROR_KINDS,
   appendLearningEvent,
   type LearningEvent,
+  type SqlErrorKind,
   validateLearningEvent,
 } from "./learning-engine";
 
@@ -163,6 +165,9 @@ function parseLearningEvent(value: unknown): LearningEvent {
     mode: parseLearningMode(value.mode),
     firstSubmission: requireBoolean(value.firstSubmission, "firstSubmission"),
     fsrsVersion: requireString(value.fsrsVersion, "fsrsVersion"),
+    ...(value.errorKinds === undefined
+      ? {}
+      : { errorKinds: parseErrorKinds(value.errorKinds) }),
   };
 
   const errors = validateLearningEvent(event);
@@ -208,7 +213,29 @@ function compareLearningEvents(
 }
 
 function sameLearningEvent(left: LearningEvent, right: LearningEvent): boolean {
-  return JSON.stringify(left) === JSON.stringify(right);
+  return (
+    JSON.stringify(canonicalLearningEvent(left)) ===
+    JSON.stringify(canonicalLearningEvent(right))
+  );
+}
+
+function canonicalLearningEvent(event: LearningEvent): Record<string, unknown> {
+  return {
+    eventId: event.eventId,
+    occurredAt: event.occurredAt,
+    learnerId: event.learnerId,
+    contentId: event.contentId,
+    contentVersion: event.contentVersion,
+    cardId: event.cardId,
+    correct: event.correct,
+    rating: event.rating,
+    responseTimeMs: event.responseTimeMs,
+    helpLevel: event.helpLevel,
+    mode: event.mode,
+    firstSubmission: event.firstSubmission,
+    fsrsVersion: event.fsrsVersion,
+    errorKinds: event.errorKinds ?? [],
+  };
 }
 
 function parseRating(value: unknown): LearningEvent["rating"] {
@@ -229,6 +256,20 @@ function parseLearningMode(value: unknown): LearningEvent["mode"] {
     return value as LearningEvent["mode"];
   }
   return invalidField("mode");
+}
+
+function parseErrorKinds(value: unknown): readonly SqlErrorKind[] {
+  if (
+    !Array.isArray(value) ||
+    value.some(
+      (errorKind) =>
+        typeof errorKind !== "string" ||
+        !SQL_ERROR_KINDS.some((allowed) => allowed === errorKind),
+    )
+  ) {
+    return invalidField("errorKinds");
+  }
+  return value as SqlErrorKind[];
 }
 
 function parseHelpLevel(value: unknown): LearningEvent["helpLevel"] {

@@ -11,6 +11,7 @@ import {
 import { ExamCoachLearningSession } from "./exam-coach-learning-session";
 
 const sqlSample = LEARNING_CONTENT_CATALOG["sql-select-basics"];
+const sqlResultPredictionSample = LEARNING_CONTENT_CATALOG["sql-where-filter"];
 const cSample = LEARNING_CONTENT_CATALOG["c-control-flow"];
 
 // prettier-ignore
@@ -35,6 +36,17 @@ describe("ExamCoachLearningSession", () => {
     expect(screen.queryByText(sqlSample.hints!.specificHint)).not.toBeInTheDocument();
     expect(screen.queryByText(/첫 제출 정답/)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Hard" })).not.toBeInTheDocument();
+  });
+
+  it("keeps expected SQL result metadata hidden before the first submit", async () => {
+    render(<ExamCoachLearningSession content={sqlResultPredictionSample} />);
+
+    await waitUntilReady();
+
+    expect(screen.getByText(sqlResultPredictionSample.prompt)).toBeVisible();
+    expect(screen.queryByText(sqlResultPredictionSample.answer)).not.toBeInTheDocument();
+    expect(screen.queryByText(sqlResultPredictionSample.explanation)).not.toBeInTheDocument();
+    expect(screen.queryByText("정답과 해설")).not.toBeInTheDocument();
   });
 
   it("stores an independent correct first submit with the selected recall rating and refreshes FSRS", async () => {

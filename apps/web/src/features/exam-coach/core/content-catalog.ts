@@ -1,4 +1,5 @@
 import cControlFlowRaw from "../content/2026/c/control-flow.json";
+import sqlEmployeesDatasetRaw from "../content/2026/sql/datasets/employees-v1.json";
 import sqlGroupClauseRaw from "../content/2026/sql/group-clause.json";
 import sqlGroupCountRaw from "../content/2026/sql/group-count.json";
 import sqlJoinConceptRaw from "../content/2026/sql/join-concept.json";
@@ -11,8 +12,11 @@ import sqlWhereClauseRaw from "../content/2026/sql/where-clause.json";
 import sqlWhereFilterRaw from "../content/2026/sql/where-filter.json";
 import {
   contentItemSchema,
+  sqlDatasetSchema,
   validateContentItem,
+  validateSqlDataset,
   type ContentItem,
+  type SqlDataset,
 } from "./content-schema";
 import { C_CONCEPTS, SQL_CONCEPTS, type ConceptNode } from "./learning-engine";
 import type { NewQueueCandidate } from "./today-queue";
@@ -44,6 +48,14 @@ const CURRICULUM_ORDER_BY_CONCEPT_ID = new Map(
   LEARNING_CONCEPTS.map((concept, index) => [concept.id, index + 1] as const),
 );
 const DEFAULT_NEW_CONTENT_IMPORTANCE = 3 as const;
+
+const SQL_DATASETS = [defineSqlDataset(sqlEmployeesDatasetRaw)] as const;
+export const SQL_DATASET_CATALOG: ReadonlyMap<string, SqlDataset> = new Map(
+  SQL_DATASETS.map((dataset) => [dataset.datasetId, dataset] as const),
+);
+if (SQL_DATASET_CATALOG.size !== SQL_DATASETS.length) {
+  throw new Error("SQL dataset ids must be unique");
+}
 
 export const LEARNING_CONTENT_CATALOG: Readonly<
   Record<LearningContentCode, ContentItem>
@@ -87,6 +99,9 @@ export function validateCatalogContentItem(value: unknown): string[] {
   }
   if (!item.hints) {
     errors.push("regular learning catalog content requires progressive hints");
+  }
+  if (item.datasetId && !SQL_DATASET_CATALOG.has(item.datasetId)) {
+    errors.push(`${item.id}: unknown SQL dataset ${item.datasetId}`);
   }
 
   if (new Set(item.conceptIds).size !== item.conceptIds.length) {
@@ -159,6 +174,14 @@ export function buildRegularLearningNewQueueCandidates(
       curriculumOrder,
     };
   });
+}
+
+function defineSqlDataset(value: unknown): SqlDataset {
+  const errors = validateSqlDataset(value);
+  if (errors.length > 0) {
+    throw new Error(errors.join("; "));
+  }
+  return sqlDatasetSchema.parse(value);
 }
 
 function defineCatalogContent(value: unknown): ContentItem {
