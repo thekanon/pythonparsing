@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -84,9 +84,10 @@ describe("ExamCoachGuestToday", () => {
       fsrsVersion: TS_FSRS_VERSION,
     };
     appendLocalLearningEvent(window.localStorage, learnerId, learningEvent);
-    window.dispatchEvent(new Event("focus"));
-
-    expect(await screen.findByText(/sql\.select\.001 · 예상 5분/)).toBeVisible();
+    await waitFor(() => {
+      window.dispatchEvent(new Event("focus"));
+      expect(screen.getByText(/sql\.select\.001 · 예상 5분/)).toBeVisible();
+    });
     expect(screen.getByText("복습")).toBeVisible();
     expect(
       screen
