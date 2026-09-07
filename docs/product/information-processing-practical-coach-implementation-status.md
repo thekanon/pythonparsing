@@ -2,6 +2,7 @@
 
 - 기록일: 2026-09-02
 - 상태: 독립 앱 프로토타입은 되돌렸고, 후속 도메인 코어·콘텐츠 스키마·검수 계약은 기존 웹 workspace 안에 분리해 재구현한 상태
+- 문서 성격: 과거 구현 진행 기록이며, 최신 완료·잔여 상태의 기준은 [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)이다.
 - 기준 문서: [제품 기획서](./information-processing-practical-coach.md), [실행 로드맵](./roadmap.md)
 - 관련 ADR: [제품 분리](../adr/0001-build-a-separate-exam-coach-product.md), [FSRS](../adr/0002-use-personalized-fsrs-scheduling.md), [학습 이벤트 재생](../adr/0003-rebuild-memory-from-learning-events.md)
 - 현재 요약: [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)
@@ -404,3 +405,189 @@ FSRS 기억 일정이 아직 연결되지 않은 상태에서도 실제로 관�
 - `ts-fsrs`는 `request_retention: 0.9`와 `maximum_interval`을 공식 파라미터로 제공하므로 현재 제품의 목표 기억률과 최대 interval 계약을 어댑터에서 직접 표현할 수 있다.
 - 관리자 변경 명령은 `pnpm --filter @newsorder/web add --save-exact ts-fsrs@5.4.1`로 고정한다.
 - package/lockfile 병합 뒤 `pnpm install --frozen-lockfile`과 전체 CI를 다시 통과한 상태에서만 F2 실제 어댑터 구현으로 넘어간다.
+
+## 7. 2026-09-07 F3 브라우저 확인과 E1 주간 평가 작업 트리
+
+> 이 절은 `thekanon/exam-coach-next-implementation` 작업 트리에서 확인한
+> 미커밋·미병합 진행 기록이다. `origin/master` 완료 상태로 해석하지 않는다.
+
+### 7.1 기준과 범위
+
+- 최신 완료·잔여 판단은
+  `information-processing-practical-coach-current-status.md`를 우선했다.
+- `information-processing-practical-coach-work-breakdown.md`의 의존 순서에 따라
+  F3 브라우저 새로고침 smoke를 먼저 확인하고, 다음 로컬 구현 가능 범위인 E1
+  주간 SQL/C 미니 테스트만 구현했다.
+- O1~~O5, M1~~M6, 운영 C Sandbox smoke, SQL 실행 엔진, 4주·8주 결과 분석은 이
+  작업 범위에 포함하지 않았다.
+- 기존 미커밋 README·제품·운영 문서 변경과 F3 E2E 코드는 보존했다.
+
+### 7.2 F3 브라우저 memory state smoke
+
+기존 작업 트리에 있던 Playwright smoke를 실제로 실행해 다음을 확인했다.
+
+- `/exam-coach/learn?unit=sql`에서 `sql.select.001`을 독립 정답·`Hard`로 완료한다.
+- 불변 학습 이벤트와 guest/learner envelope를 저장한다.
+- 고정 시각을 7분 이동한 뒤 `/exam-coach`에서 카드가 만기 복습으로 표시된다.
+- `page.reload()` 전후 만기 복습 수, 큐 항목 표시, 저장 이벤트 projection이
+  동일하다.
+- Chromium desktop과 mobile 프로젝트에서 모두 통과했다.
+
+### 7.3 E1 고정 주간 평가 세트
+
+`weekly.sql-c.2026.v1` 식별자의 25분 고정 평가 세트를 추가했다.
+
+- SQL: 테이블·행·열, SELECT/FROM, WHERE, GROUP BY, JOIN
+- C: 값·자료형, 연산자, 제어 흐름, 배열, 포인터
+- 총 10문항이며 각 개념을 정확히 한 번씩 다룬다.
+- 평가 세트 validator가 20~30분 범위, item 시간 합계, SQL/C 전체 개념의 1회
+  커버리지를 확인한다.
+- 기존 콘텐츠 Zod 계약과 committed JSON Schema의 assessment form에 `weekly`를
+  동기화했다.
+
+### 7.4 결과·저장·FSRS 격리
+
+- 기존 규칙 기반 채점과 `recordDiagnosticAttempt`를 재사용한다.
+- 완료 요약에 세트 ID, 예상/응시 문항 수, 정답 수, 정확도, 총 응답시간,
+  pair 결과와 개념별 시도/정답 수를 저장한다.
+- 기존 `exam-coach:v1:diagnostic-runs` envelope에 완료된 주간 실행을 저장한다.
+- 완료되지 않은 실행은 확정 run으로 저장하지 않는다.
+- 동일 `runId`·동일 payload는 멱등 처리하고 다른 payload 충돌과 cross-learner
+  읽기를 거부한다.
+- 제출 답안 원문, prompt, answer, explanation은 이벤트나 완료 요약에 저장하지
+  않는다.
+- 모든 주간 문항 이벤트는 `mode: "assessment"`이며 memory replay에서 건너뛰고
+  직접 FSRS adapter도 호출하지 않는다.
+
+### 7.5 사용자 흐름
+
+- `/exam-coach/weekly` noindex route와 홈 메뉴 진입 링크를 추가했다.
+- 평가 중에는 정답·힌트·문항별 채점 결과를 공개하지 않는다.
+- 10문항을 모두 제출한 뒤에만 점수, 응시 수, 총 응답시간, 개념별 결과를
+  표시한다.
+- 기존 완료 기록이 있으면 최근 결과를 보여주고 재응시할 수 있다.
+
+### 7.6 검증 결과
+
+- 집중 Vitest: 5 files, 21 tests 통과
+- 전체 web Vitest: 49 files, 214 tests 통과
+- `pnpm --filter @newsorder/web lint` 통과
+- `pnpm --filter @newsorder/web typecheck` 통과
+- `pnpm --filter @newsorder/web build` 통과, `/exam-coach/weekly` 정적 route 확인
+- F3 + E1 집중 Playwright: desktop/mobile 합계 4 tests 통과
+- E1 완료 화면 axe serious/critical 위반 0건
+
+비차단 관찰 사항:
+
+- Node `24.20.0`에서 저장소 고정 요구 `24.19.0`과의 engine warning이 발생했다.
+- Playwright web server가 기존 `/exam-coach/learn` searchParams의 blocking
+  prerender 경고를 출력했지만 집중 smoke와 production build는 통과했다.
+- 전체 Playwright suite와 원격 CI는 아직 실행하지 않았다.
+
+### 7.7 WebGPT 상태
+
+새 prompt를 제출하지 않고 같은 작업이 소유한 기존 Oracle run
+`20260906T031015Z-56150294babf`, slug `oracle-pythonpars-56150294ba`의 exact recovery만
+시도했다. 진단 결과는 `post-submit-provider-incomplete`,
+`safe_for_fresh_run: false`였고, live recovery dry-run은 정확한 Chrome identity
+receipt가 없어 `BROWSER_IDENTITY_RECEIPT_REQUIRED`로 실패했다. 중복 제출 금지
+계약에 따라 새 WebGPT 실행을 만들지 않았고 E1 구현과 검증은 로컬에서
+계속했다.
+
+### 7.8 남은 마감
+
+- 전체 Playwright gate 실행
+- 현재 작업 트리 전체 diff 검토
+- 기존 사용자 문서 변경과 E1 코드를 함께 확정할지 범위 결정
+- 커밋·push·PR·병합 여부 결정
+- 실제 주간 데이터 축적, 4주차 정책 확정, 8주차 종료 평가와 회상률 분석
+
+## 8. 2026-09-07 평가 세션 리팩토링 (미커밋·미병합)
+
+F3/E1이 있는 기존 작업 트리를 보존한 채 기준선·종료·주간 평가의 공통
+제출 흐름을 리팩토링했다. 현재 현황·작업 분할표의 병합 완료 체크박스는
+변경하지 않았다.
+
+### 8.1 변경 범위와 계약
+
+- `components/use-diagnostic-session.ts`에 세 화면의 세션 타입, 시작·답안
+  입력·채점·이벤트 저장·완료 요약 저장·초기화를 모았다.
+- `exam-coach-guest-today.tsx`, `exam-coach-followup-diagnostic.tsx`,
+  `exam-coach-weekly-assessment.tsx`는 공통 훅을 사용하며 화면별 시작 조건,
+  결과 표시와 알림을 유지한다.
+- 마지막 이벤트 저장 후 완료 요약 저장이 실패하면, 이전 구현은 재시도 때
+  새 이벤트 ID와 응답시간을 만들었다. 이제 첫 채점 결과·이벤트 ID·완료 시각을
+  메모리에 유지하고 동일 payload로 재시도한다. 입력란은 비우고 잠그며
+  `저장 다시 시도`를 제공한다.
+- 기존 `exam-coach:v1:*` 키, schema version, 완료 요약 형식, 멱등·충돌·
+  learner 경계, 기존 form별 fsrsVersion 값을 유지했다. 모든 평가 이벤트는
+  계속 assessment이며 FSRS adapter를 호출하지 않는다.
+- 재시도 대기 상태는 메모리에만 둔다. 새로고침을 넘는 미완료 평가 복구나
+  두 localStorage 키의 원자적 트랜잭션을 새로 보장하지 않는다.
+- 답안 원문·문항·정답·해설을 저장하지 않고, 모든 문항 완료 후에만 결과를
+  표시하는 계약을 유지한다. 새 의존성·저장 마이그레이션은 없다.
+
+### 8.2 검증
+
+- `use-diagnostic-session.test.ts`: 세 form 각각 이벤트 저장 실패, 완료 요약
+  저장 실패, 요약 저장 직후 오류를 재현했다. 재시도에서 새 ID를 만들지 않고
+  원래 이벤트를 유지하며 결과 1건만 저장됨을 검증했다. 빈 답안 거부,
+  초기화, 개인정보 비저장, assessment/FSRS 격리도 검증했다.
+- 집중 Vitest: 4 files / 21 tests 통과.
+- 전체 web Vitest: 50 files / 226 tests 통과.
+- 전체 format, workspace lint, TypeScript, Drizzle metadata 검사 통과.
+- DB 통합 테스트 5개는 테스트 DB 미설정으로 skipped이며 통과로 집계하지 않는다.
+- Node `24.19.0`, pnpm `11.24.0`에서 fixture production build 통과.
+  최초 빌드는 도구의 60초 실행 제한에 걸려, 실행 제한을 늘려 완료를 확인했다.
+- 기본 개발 서버 Playwright는 25 passed / 3 failed였다. 실패는 기존 영어 학습의
+  페이지 이동·정답 조회가 5초 안에 끝나지 않은 경우이며, trace에서 Next 개발
+  서버 재컴파일과 응답 대기를 확인했다. 실패 재검사는 2 passed / 1 failed였다.
+  단일 worker 전체 실행은 MCP 504로 출력 수신이 끊겼고 종료 후 다른 페이지
+  이동 실패 1건이 기록되어 있어 전체 통과로 집계하지 않는다.
+- 같은 테스트·assertion·5초 조건·3 workers를 유지하고 이미 빌드한 앱을
+  `next start`로 실행한 검증에서는 Chromium desktop 14/14, mobile 14/14가
+  모두 통과했다. F3 새로고침, 기준선/종료/주간 평가, 전체 기존 영어 학습,
+  axe serious/critical 0건을 포함한다.
+- production 검증은 gitignored
+  `.codex-tmp/exam-coach-refactor/playwright.production.config.ts`에서 기존
+  Playwright 설정을 가져와 서버 명령·작업 경로만 바꿨다. 기본 테스트 설정과
+  검증 조건은 수정하지 않았다.
+
+### 8.3 남은 블로커
+
+- 개발 서버 기반 기본 Playwright gate의 초기 컴파일 지연·불안정성은 남아 있다.
+  production 검증 통과를 원격 CI 통과로 간주하지 않는다.
+- 테스트 DB를 사용한 통합 검사와 원격 CI, 커밋·push·PR·병합은 미수행이다.
+- 기존 Oracle run의 `BROWSER_IDENTITY_RECEIPT_REQUIRED` 상태는 이 작업에서
+  재검증·복구하지 않았고 새 WebGPT 제출도 하지 않았다.
+- 운영 C Sandbox 성공 smoke, 실제 4주·8주 개인 검증, O1~~O5와 M1~~M6는
+  기존 잔여 작업으로 유지한다.
+
+## 9. 2026-09-07 최신 master 통합과 전체 게이트 복구
+
+이전 8절의 검증은 당시 작업 브랜치의 코드에 대한 결과다. 후속 확인에서
+해당 브랜치가 문서의 기준인 `origin/master@73e7d5b`보다 뒤에 있음을 확인했다.
+기존 작업을 `b7bc1b8`로 보존하고 `c202e5e`에서 최신 master를 통합했다.
+주간 평가와 취약점 메뉴를 모두 유지하고, 문서 충돌은 더 최신인 작업 기록과
+기존 체크박스 의미를 보존해 해결했다.
+
+- 기본 Playwright 서버를 `next dev`에서 `next start`로 바꿨다.
+  Next.js의 설치된 Playwright 가이드가 권장하는 production 코드 검사이며,
+  assertion과 5초 기대 제한은 그대로 유지했다. README에 build 선행 조건을
+  명시했다. CI는 기존부터 build 이후 E2E를 실행하므로 workflow 변경은 없다.
+- 확장 catalog에서 SQL 영역의 첫 카드가 바뀌어 F3 테스트가 다른 문항에
+  SELECT를 제출하는 통합 오류를 발견했다. 검증 대상 카드인
+  `/exam-coach/learn?content=sql.select.001`을 직접 열도록 수정했다.
+- frozen lockfile install, format, workspace lint, TypeScript, Drizzle
+  metadata, production dependency audit, fixture production build 통과.
+- 최신 통합 코드의 전체 web Vitest: 54 files / 274 tests 통과.
+- 별도 임시 PostgreSQL 17에서 실제 DB 통합 테스트 5개 통과.
+  기존 서비스 DB나 볼륨은 사용하지 않았다.
+- 기본 `pnpm test:e2e`: desktop/mobile 28개 모두 통과, axe serious/critical
+  위반 0건. 이제 별도 production 임시 설정 없이 재현된다.
+- Vercel OIDC 환경변수의 존재와 만료 여부만 확인했으며 토큰 값은 출력하지
+  않았다. 토큰이 만료돼 운영 C Sandbox 성공 검증에는 서버 인증 갱신이 필요하다.
+- 기존 Oracle 실행은 이 작업이 생성한 실행이 아니므로 인수하거나 재제출하지
+  않는다. 실제 4주·8주 학습 효과 검증과 O/M 후속 기능도 이 게이트 통과로
+  완료 처리하지 않는다.
+- 원격 CI와 PR 병합 결과는 후속 GitHub 기록을 따른다.

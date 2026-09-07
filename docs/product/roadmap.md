@@ -8,6 +8,8 @@
 
 관련 문서: [제품 기획서](./information-processing-practical-coach.md) · [도메인 용어집](../../CONTEXT.md)
 
+실제 완료·잔여 상태는 [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)을 기준으로 한다. 이 문서는 단계 설계와 개인 검증 계획을 보존한다.
+
 ## 1. 일정 해석
 
 12~~16주는 제품을 개인 학습에 사용할 수 있게 만드는 **구축 기간**이다. 기억 유지와 실전 전이는 시간이 지나야 측정할 수 있으므로, 구축 완료 뒤 별도 8주 개인 검증을 진행한다. 최초 판단까지의 총 기간은 약 20~~24주다.

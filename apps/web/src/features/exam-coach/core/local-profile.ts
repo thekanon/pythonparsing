@@ -1,4 +1,7 @@
-import type { DiagnosticRunSummary } from "./diagnostic-results";
+import type {
+  DiagnosticConceptResult,
+  DiagnosticRunSummary,
+} from "./diagnostic-results";
 import type { StorageLike } from "./local-store";
 
 export const EXAM_COACH_PROFILE_STORAGE_KEYS = {
@@ -193,7 +196,7 @@ function validateDiagnosticSummary(value: unknown): DiagnosticRunSummary {
   }
 
   const form = value.form;
-  if (form !== "baseline" && form !== "followup") {
+  if (form !== "baseline" && form !== "followup" && form !== "weekly") {
     throw new Error("diagnostic summary form is invalid");
   }
 
@@ -254,17 +257,78 @@ function validateDiagnosticSummary(value: unknown): DiagnosticRunSummary {
     throw new Error("diagnostic pair results do not match correctCount");
   }
 
-  return {
+  const base = {
     setId: requireString(value.setId, "setId"),
-    form,
     expectedItemCount,
     attemptedItemCount,
     correctCount,
     accuracy: value.accuracy,
     totalResponseTimeMs,
-    completed: true,
+    completed: true as const,
     pairResults,
   };
+
+  if (form === "weekly") {
+    if (
+      !Array.isArray(value.conceptResults) ||
+      value.conceptResults.length < 1
+    ) {
+      throw new Error("weekly conceptResults are required");
+    }
+    const conceptIds = new Set<string>();
+    const conceptResults = value.conceptResults.map<DiagnosticConceptResult>(
+      (result) => {
+        if (!isRecord(result)) {
+          throw new Error("weekly concept result is invalid");
+        }
+        const conceptId = requireString(result.conceptId, "conceptId");
+        if (conceptIds.has(conceptId)) {
+          throw new Error("weekly conceptId must be unique");
+        }
+        conceptIds.add(conceptId);
+        const domainId = result.domainId;
+        if (domainId !== "sql" && domainId !== "programming-language") {
+          throw new Error("weekly concept domainId is invalid");
+        }
+        const conceptAttemptedItemCount = requirePositiveInteger(
+          result.attemptedItemCount,
+          "concept attemptedItemCount",
+        );
+        const conceptCorrectCount = requireNonNegativeInteger(
+          result.correctCount,
+          "concept correctCount",
+        );
+        if (conceptCorrectCount > conceptAttemptedItemCount) {
+          throw new Error(
+            "weekly concept correctCount exceeds attemptedItemCount",
+          );
+        }
+        return {
+          conceptId,
+          domainId,
+          attemptedItemCount: conceptAttemptedItemCount,
+          correctCount: conceptCorrectCount,
+        };
+      },
+    );
+
+    if (
+      conceptResults.reduce(
+        (total, result) => total + result.attemptedItemCount,
+        0,
+      ) !== attemptedItemCount ||
+      conceptResults.reduce(
+        (total, result) => total + result.correctCount,
+        0,
+      ) !== correctCount
+    ) {
+      throw new Error("weekly concept results do not match summary counts");
+    }
+
+    return { ...base, form, conceptResults };
+  }
+
+  return { ...base, form };
 }
 
 function validateExamDate(value: string): string {

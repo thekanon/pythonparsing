@@ -5,34 +5,23 @@ import { type FormEvent, useEffect, useState } from "react";
 
 import {
   BASELINE_DIAGNOSTIC,
-  appendLocalDiagnosticRun,
-  appendLocalLearningEvent,
   buildActualTodayPlan,
   buildExamDatePlan,
   getOrCreateGuestId,
   loadLocalDiagnosticRuns,
   loadLocalLearningEvents,
   loadLocalStudySettings,
-  recordDiagnosticAttempt,
   resetAllLocalGuestData,
   saveLocalStudySettings,
-  summarizeDiagnosticRun,
   type ActualTodayPlan,
-  type DiagnosticAttemptRecord,
   type ExamDatePlan,
   type LocalDiagnosticRun,
   type LocalStudySettings,
 } from "@/features/exam-coach/core";
 
-const FSRS_VERSION = "pending-adapter";
+import { useDiagnosticSession } from "./use-diagnostic-session";
 
-interface DiagnosticSession {
-  index: number;
-  attempts: readonly DiagnosticAttemptRecord[];
-  response: string;
-  startedAt: number;
-  runId: string;
-}
+const FSRS_VERSION = "pending-adapter";
 
 type Notice = {
   kind: "error" | "status";
@@ -75,7 +64,8 @@ export function ExamCoachGuestToday() {
   const [runs, setRuns] = useState<readonly LocalDiagnosticRun[]>([]);
   const [examDate, setExamDate] = useState("");
   const [dailyMinutes, setDailyMinutes] = useState("45");
-  const [diagnostic, setDiagnostic] = useState<DiagnosticSession | null>(null);
+  const assessment = useDiagnosticSession(BASELINE_DIAGNOSTIC, FSRS_VERSION);
+  const { session: diagnostic } = assessment;
   const [notice, setNotice] = useState<Notice | null>(null);
 
   useEffect(() => {
@@ -183,72 +173,24 @@ export function ExamCoachGuestToday() {
 
   function startDiagnostic() {
     if (!learnerId) return;
-
     setNotice(null);
-    setDiagnostic({
-      index: 0,
-      attempts: [],
-      response: "",
-      startedAt: performance.now(),
-      runId: `baseline-${crypto.randomUUID()}`,
-    });
+    assessment.start();
   }
 
   function submitDiagnostic(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!learnerId || !diagnostic) return;
-
-    const item = BASELINE_DIAGNOSTIC.items[diagnostic.index];
-    if (!item) {
-      setNotice({ kind: "error", text: "진단 문항을 불러오지 못했습니다." });
-      return;
-    }
-    if (!diagnostic.response.trim()) {
-      setNotice({ kind: "error", text: "답안을 입력한 뒤 제출해 주세요." });
-      return;
-    }
-
     try {
-      const attempt = recordDiagnosticAttempt(item, diagnostic.response, {
-        eventId: `event-${crypto.randomUUID()}`,
-        learnerId,
-        occurredAt: new Date().toISOString(),
-        responseTimeMs: Math.max(
-          0,
-          Math.round(performance.now() - diagnostic.startedAt),
-        ),
-        fsrsVersion: FSRS_VERSION,
-      });
-      appendLocalLearningEvent(window.localStorage, learnerId, attempt.event);
-      const attempts = [...diagnostic.attempts, attempt];
-
-      if (diagnostic.index + 1 === BASELINE_DIAGNOSTIC.items.length) {
-        const summary = summarizeDiagnosticRun(BASELINE_DIAGNOSTIC, attempts);
-        setRuns(
-          appendLocalDiagnosticRun(
-            window.localStorage,
-            learnerId,
-            diagnostic.runId,
-            new Date().toISOString(),
-            summary,
-          ),
-        );
-        setDiagnostic(null);
+      const completedRuns = assessment.submit(learnerId);
+      if (completedRuns) {
+        setRuns(completedRuns);
         setNotice({
           kind: "status",
           text: "기준선 진단을 완료했습니다. 제출 답안 원문은 저장하지 않았습니다.",
         });
-        return;
+      } else {
+        setNotice(null);
       }
-
-      setDiagnostic({
-        ...diagnostic,
-        index: diagnostic.index + 1,
-        attempts,
-        response: "",
-        startedAt: performance.now(),
-      });
-      setNotice(null);
     } catch (error) {
       setNotice({ kind: "error", text: errorMessage(error) });
     }
@@ -261,7 +203,7 @@ export function ExamCoachGuestToday() {
     setTodayPlan(null);
     setExamDatePlan(null);
     setRuns([]);
-    setDiagnostic(null);
+    assessment.reset();
     setExamDate("");
     setDailyMinutes("45");
     setNotice({
@@ -316,8 +258,9 @@ export function ExamCoachGuestToday() {
             <textarea
               id="diagnostic-response"
               value={diagnostic.response}
+              disabled={Boolean(diagnostic.pending)}
               onChange={(event) =>
-                setDiagnostic({ ...diagnostic, response: event.target.value })
+                assessment.setResponse(event.target.value)
               }
               rows={5}
               autoFocus
@@ -340,7 +283,7 @@ export function ExamCoachGuestToday() {
               </p>
             )}
             <button type="submit" className="button button-primary mt-6">
-              {last ? "진단 완료" : "답안 제출 후 다음"}
+              {diagnostic.pending ? "저장 다시 시도" : last ? "진단 완료" : "답안 제출 후 다음"}
             </button>
           </form>
         </section>

@@ -5,16 +5,13 @@ import { type FormEvent, useEffect, useState } from "react";
 
 import {
   FOLLOWUP_DIAGNOSTIC,
-  appendLocalDiagnosticRun,
-  appendLocalLearningEvent,
   compareDiagnosticRuns,
   getOrCreateGuestId,
   loadLocalDiagnosticRuns,
-  recordDiagnosticAttempt,
-  summarizeDiagnosticRun,
-  type DiagnosticAttemptRecord,
   type LocalDiagnosticRun,
 } from "@/features/exam-coach/core";
+
+import { useDiagnosticSession } from "./use-diagnostic-session";
 
 const FSRS_VERSION = "pending-adapter";
 
@@ -27,14 +24,6 @@ const PAIR_LABELS: Readonly<Record<string, string>> = {
   "c-pointer": "C 포인터",
 };
 
-interface FollowupSession {
-  index: number;
-  attempts: readonly DiagnosticAttemptRecord[];
-  response: string;
-  startedAt: number;
-  runId: string;
-}
-
 type Notice = {
   kind: "error" | "status";
   text: string;
@@ -45,7 +34,8 @@ export function ExamCoachFollowupDiagnostic() {
   const [ready, setReady] = useState(false);
   const [learnerId, setLearnerId] = useState<string | null>(null);
   const [runs, setRuns] = useState<readonly LocalDiagnosticRun[]>([]);
-  const [session, setSession] = useState<FollowupSession | null>(null);
+  const assessment = useDiagnosticSession(FOLLOWUP_DIAGNOSTIC, FSRS_VERSION);
+  const { session } = assessment;
   const [notice, setNotice] = useState<Notice | null>(null);
 
   useEffect(() => {
@@ -80,72 +70,24 @@ export function ExamCoachFollowupDiagnostic() {
 
   function startFollowup() {
     if (!learnerId || !baseline) return;
-
     setNotice(null);
-    setSession({
-      index: 0,
-      attempts: [],
-      response: "",
-      startedAt: performance.now(),
-      runId: `followup-${crypto.randomUUID()}`,
-    });
+    assessment.start();
   }
 
   function submitFollowup(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!learnerId || !session) return;
-
-    const item = FOLLOWUP_DIAGNOSTIC.items[session.index];
-    if (!item) {
-      setNotice({ kind: "error", text: "종료 진단 문항을 불러오지 못했습니다." });
-      return;
-    }
-    if (!session.response.trim()) {
-      setNotice({ kind: "error", text: "답안을 입력한 뒤 제출해 주세요." });
-      return;
-    }
-
     try {
-      const attempt = recordDiagnosticAttempt(item, session.response, {
-        eventId: `event-${crypto.randomUUID()}`,
-        learnerId,
-        occurredAt: new Date().toISOString(),
-        responseTimeMs: Math.max(
-          0,
-          Math.round(performance.now() - session.startedAt),
-        ),
-        fsrsVersion: FSRS_VERSION,
-      });
-      appendLocalLearningEvent(window.localStorage, learnerId, attempt.event);
-      const attempts = [...session.attempts, attempt];
-
-      if (session.index + 1 === FOLLOWUP_DIAGNOSTIC.items.length) {
-        const summary = summarizeDiagnosticRun(FOLLOWUP_DIAGNOSTIC, attempts);
-        setRuns(
-          appendLocalDiagnosticRun(
-            window.localStorage,
-            learnerId,
-            session.runId,
-            new Date().toISOString(),
-            summary,
-          ),
-        );
-        setSession(null);
+      const completedRuns = assessment.submit(learnerId);
+      if (completedRuns) {
+        setRuns(completedRuns);
         setNotice({
           kind: "status",
           text: "종료 동형 진단을 완료했습니다. 기준선과 비교 결과를 확인할 수 있습니다.",
         });
-        return;
+      } else {
+        setNotice(null);
       }
-
-      setSession({
-        ...session,
-        index: session.index + 1,
-        attempts,
-        response: "",
-        startedAt: performance.now(),
-      });
-      setNotice(null);
     } catch (error) {
       setNotice({ kind: "error", text: errorMessage(error) });
     }
@@ -197,8 +139,9 @@ export function ExamCoachFollowupDiagnostic() {
             <textarea
               id="followup-response"
               value={session.response}
+              disabled={Boolean(session.pending)}
               onChange={(event) =>
-                setSession({ ...session, response: event.target.value })
+                assessment.setResponse(event.target.value)
               }
               rows={5}
               autoFocus
@@ -220,7 +163,7 @@ export function ExamCoachFollowupDiagnostic() {
               </p>
             )}
             <button type="submit" className="button button-primary mt-6">
-              {last ? "종료 진단 완료" : "답안 제출 후 다음"}
+              {session.pending ? "저장 다시 시도" : last ? "종료 진단 완료" : "답안 제출 후 다음"}
             </button>
           </form>
         </section>

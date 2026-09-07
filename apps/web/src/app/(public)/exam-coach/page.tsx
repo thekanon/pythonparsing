@@ -27,6 +27,9 @@ export default function ExamCoachPage() {
         <Link href="/exam-coach/report" className="button button-secondary">
           준비도 리포트
         </Link>
+        <Link href="/exam-coach/weekly" className="button button-secondary">
+          주간 미니 테스트
+        </Link>
         <Link href="/exam-coach/weakness" className="button button-secondary">
           취약점 보드
         </Link>

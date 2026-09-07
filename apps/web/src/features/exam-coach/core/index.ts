@@ -19,3 +19,4 @@ export * from "./today-plan";
 export * from "./today-queue";
 export * from "./weakness";
 export * from "./diagnostic-results";
+export * from "./weekly-assessment";

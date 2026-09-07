@@ -14,7 +14,7 @@ export default defineConfig({
     { name: "mobile", use: { ...devices["Pixel 7"] } },
   ],
   webServer: {
-    command: "pnpm exec next dev --port 3107",
+    command: "pnpm exec next start --port 3107",
     url: "http://localhost:3107",
     reuseExistingServer: false,
     timeout: 120_000,
