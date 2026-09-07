@@ -30,6 +30,9 @@ export default function ExamCoachPage() {
         <Link href="/exam-coach/weekly" className="button button-secondary">
           주간 미니 테스트
         </Link>
+        <Link href="/exam-coach/weakness" className="button button-secondary">
+          취약점 보드
+        </Link>
         <Link href="/exam-coach/followup" className="button button-secondary">
           종료 동형 진단과 비교 보기
         </Link>

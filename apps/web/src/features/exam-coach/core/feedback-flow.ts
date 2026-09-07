@@ -189,6 +189,9 @@ export function createLearningEventFromSession(
     mode: context.mode,
     firstSubmission: true,
     fsrsVersion: context.fsrsVersion,
+    ...(firstSubmission.result.errorKinds.length > 0
+      ? { errorKinds: firstSubmission.result.errorKinds }
+      : {}),
   };
 
   const errors = validateLearningEvent(event);

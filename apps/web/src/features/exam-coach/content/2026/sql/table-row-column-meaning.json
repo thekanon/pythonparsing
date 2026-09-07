@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.table-row-column.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-table-row-column"],
+  "prerequisites": [],
+  "objective": "관계형 테이블의 행과 열이 각각 무엇을 의미하는지 설명한다.",
+  "knowledgeType": "sql",
+  "prompt": "관계형 테이블에서 행과 열의 의미를 각각 설명하라. 답에는 '레코드'와 '속성'이라는 말을 포함하라.",
+  "answer": "행은 하나의 레코드를 나타내고, 열은 그 레코드의 속성을 나타낸다.",
+  "explanation": "관계형 테이블에서 각 행은 한 개체의 레코드이고, 각 열은 모든 레코드가 공유하는 속성의 종류를 나타낸다.",
+  "grading": {
+    "strategy": "keywords",
+    "requiredKeywords": ["레코드", "속성"]
+  },
+  "hints": {
+    "conceptClue": "한 줄 전체와 세로로 같은 종류의 값이 모이는 부분을 구분해 보세요.",
+    "structureHint": "행은 한 개체 단위, 열은 그 개체를 설명하는 항목 단위로 생각하면 됩니다.",
+    "specificHint": "행은 레코드, 열은 속성이라는 두 핵심어를 사용해 설명해 보세요."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL 테이블·행·열 개념의 이해 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

@@ -1,0 +1,20 @@
+{
+  "datasetId": "sql-employees-v1",
+  "description": "SQL result prediction practice dataset with fixed deterministic row order.",
+  "tables": [
+    {
+      "name": "employees",
+      "columns": [
+        { "name": "id", "type": "integer" },
+        { "name": "name", "type": "text" },
+        { "name": "department", "type": "text" }
+      ],
+      "rows": [
+        [1, "김민수", "개발"],
+        [2, "이서연", "기획"],
+        [3, "박지훈", "개발"],
+        [4, "정하늘", null]
+      ]
+    }
+  ]
+}

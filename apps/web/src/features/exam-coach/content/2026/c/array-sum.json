@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.array.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-array"],
+  "prerequisites": ["c-control-flow"],
+  "objective": "반복문으로 C 배열 원소를 순회하며 누적한 결과를 추적한다.",
+  "knowledgeType": "code",
+  "prompt": "다음 C 코드 실행 뒤 sum의 값은?\n\nint values[4] = {1, 2, 3, 4};\nint sum = 0;\nfor (int i = 0; i < 4; i++) {\n  sum += values[i];\n}",
+  "answer": "10",
+  "explanation": "i가 0부터 3까지 변하면서 배열의 네 원소 1, 2, 3, 4가 모두 한 번씩 더해져 sum은 10이 된다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["10"]
+  },
+  "hints": {
+    "conceptClue": "반복문이 접근하는 배열 인덱스 범위를 먼저 적어 보세요.",
+    "structureHint": "values[0]부터 values[3]까지가 차례로 sum에 더해집니다.",
+    "specificHint": "1 + 2 + 3 + 4를 계산해 보세요."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 배열 개념의 순회 상태 추적 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

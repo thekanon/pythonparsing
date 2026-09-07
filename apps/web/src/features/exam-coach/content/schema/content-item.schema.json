@@ -32,7 +32,29 @@
         "acceptedAnswers": { "$ref": "#/$defs/stringList" },
         "requiredKeywords": { "$ref": "#/$defs/stringList" },
         "requiredSqlClauses": { "$ref": "#/$defs/stringList" },
-        "forbiddenSqlTokens": { "$ref": "#/$defs/stringList" }
+        "forbiddenSqlTokens": { "$ref": "#/$defs/stringList" },
+        "expectedResult": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "columns": { "$ref": "#/$defs/stringList" },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "type": "integer" },
+                    { "type": "null" }
+                  ]
+                }
+              }
+            },
+            "ordered": { "type": "boolean" }
+          },
+          "required": ["columns", "rows", "ordered"]
+        }
       },
       "required": ["strategy"],
       "allOf": [
@@ -55,7 +77,12 @@
             "properties": { "strategy": { "const": "sql" } },
             "required": ["strategy"]
           },
-          "then": { "required": ["requiredSqlClauses"] }
+          "then": {
+            "anyOf": [
+              { "required": ["requiredSqlClauses"] },
+              { "required": ["expectedResult"] }
+            ]
+          }
         }
       ]
     },
@@ -149,6 +176,7 @@
     "prompt": { "$ref": "#/$defs/nonEmptyString" },
     "answer": { "$ref": "#/$defs/nonEmptyString" },
     "explanation": { "$ref": "#/$defs/nonEmptyString" },
+    "datasetId": { "$ref": "#/$defs/nonEmptyString" },
     "grading": { "$ref": "#/$defs/grading" },
     "hints": { "$ref": "#/$defs/hints" },
     "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.where.002",
+  "version": 2,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-where"],
+  "prerequisites": ["sql-select"],
+  "objective": "고정 읽기 전용 데이터셋에서 WHERE 조건을 적용한 조회 결과를 예측한다.",
+  "knowledgeType": "sql",
+  "prompt": "읽기 전용 데이터셋 sql-employees-v1의 employees 테이블(id, name, department) 행은 (1, '김민수', '개발'), (2, '이서연', '기획'), (3, '박지훈', '개발'), (4, '정하늘', NULL)로 고정되어 있다. SELECT name FROM employees WHERE department = '개발'; 의 결과를 {\"columns\":[\"name\"],\"rows\":[[\"값\"], ...]} JSON 형식으로 예측하라. ORDER BY가 없으므로 행 순서는 채점하지 않는다.",
+  "answer": "{\"columns\":[\"name\"],\"rows\":[[\"김민수\"],[\"박지훈\"]]}",
+  "explanation": "WHERE department = '개발' 조건에 맞는 두 행만 남긴 뒤 SELECT name으로 name 열만 결과에 포함한다. ORDER BY가 없으므로 두 결과 행의 제출 순서는 정답 판정에 영향을 주지 않는다.",
+  "datasetId": "sql-employees-v1",
+  "grading": {
+    "strategy": "sql",
+    "expectedResult": {
+      "columns": ["name"],
+      "rows": [["김민수"], ["박지훈"]],
+      "ordered": false
+    }
+  },
+  "hints": {
+    "conceptClue": "WHERE 조건을 만족하는 원본 행만 먼저 남긴다고 생각해 보세요.",
+    "structureHint": "department 값이 '개발'인 행을 고른 뒤 SELECT에 지정된 name 열만 결과표에 적습니다.",
+    "specificHint": "1번과 3번 행의 name 값만 columns가 name인 결과표에 넣어 보세요."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-s2-review",
+    "reviewedAt": "2026-09-04T19:58:00+09:00",
+    "reviewedVersion": 2,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "S2 고정 데이터셋 기반 WHERE 결과 예측 채점 통합",
+  "memoryInheritance": "reset"
+}

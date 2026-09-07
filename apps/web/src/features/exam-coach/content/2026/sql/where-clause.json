@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.where.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-where"],
+  "prerequisites": ["sql-select"],
+  "objective": "조회 대상 행을 조건으로 제한하는 WHERE 절의 역할을 회상한다.",
+  "knowledgeType": "sql",
+  "prompt": "SELECT 문에서 조건을 만족하는 행만 조회하도록 제한할 때 사용하는 절은 무엇인가?",
+  "answer": "WHERE 절",
+  "explanation": "WHERE 절은 지정한 조건을 만족하는 행만 조회 대상에 포함한다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["WHERE", "WHERE 절"]
+  },
+  "hints": {
+    "conceptClue": "조회할 열을 정한 뒤, 행을 조건으로 거르는 절을 떠올려 보세요.",
+    "structureHint": "SELECT ... FROM ... ___ 조건 형태에서 빈칸에 들어갈 절입니다.",
+    "specificHint": "영문 키워드는 W로 시작합니다."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL WHERE 개념의 회상 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

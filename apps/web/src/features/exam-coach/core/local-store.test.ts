@@ -56,6 +56,61 @@ describe("exam coach guest local event store", () => {
     expect(raw).not.toContain("SELECT secret");
   });
 
+  it("reads schemaVersion 1 events that predate optional errorKinds", () => {
+    const storage = new MemoryStorage();
+    const learnerId = "guest-a";
+    storage.setItem(
+      EXAM_COACH_STORAGE_KEYS.learningEvents,
+      JSON.stringify({
+        schemaVersion: 1,
+        learnerId,
+        events: [makeEvent()],
+      }),
+    );
+
+    const [event] = loadLocalLearningEvents(storage, learnerId);
+    expect(event).toBeDefined();
+    expect(event).not.toHaveProperty("errorKinds");
+
+    const idempotent = appendLocalLearningEvent(
+      storage,
+      learnerId,
+      makeEvent({ errorKinds: [] }),
+    );
+    expect(idempotent).toHaveLength(1);
+  });
+
+  it("persists SQL error kinds without storing submitted answer text", () => {
+    const storage = new MemoryStorage();
+    const learnerId = "guest-a";
+
+    appendLocalLearningEvent(
+      storage,
+      learnerId,
+      makeEvent({ correct: false, rating: "Again", errorKinds: ["condition"] }),
+    );
+
+    expect(loadLocalLearningEvents(storage, learnerId)[0]?.errorKinds).toEqual([
+      "condition",
+    ]);
+    const raw = storage.getItem(EXAM_COACH_STORAGE_KEYS.learningEvents) ?? "";
+    expect(raw).toContain('"errorKinds":["condition"]');
+    expect(raw).not.toContain("SELECT secret");
+  });
+
+  it("rejects unknown SQL error kind labels", () => {
+    const storage = new MemoryStorage();
+    const learnerId = "guest-a";
+
+    expect(() =>
+      appendLocalLearningEvent(
+        storage,
+        learnerId,
+        makeEvent({ errorKinds: ["made-up"] as never }),
+      ),
+    ).toThrow(/known SQL error kind/);
+  });
+
   it("replays persisted events in occurredAt order", () => {
     const storage = new MemoryStorage();
     const learnerId = "guest-a";

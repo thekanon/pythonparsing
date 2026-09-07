@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.pointer.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-pointer"],
+  "prerequisites": ["c-array"],
+  "objective": "포인터의 역참조를 통한 원본 변수 값 변경을 추적한다.",
+  "knowledgeType": "code",
+  "prompt": "다음 C 코드 실행 뒤 n의 값은?\n\nint n = 6;\nint *p = &n;\n*p = *p + 3;",
+  "answer": "9",
+  "explanation": "p는 n의 주소를 가리키므로 *p는 n 자체에 접근한다. 따라서 *p에 3을 더해 다시 저장하면 n은 9가 된다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["9"]
+  },
+  "hints": {
+    "conceptClue": "&는 주소를 얻고 *는 그 주소가 가리키는 값을 읽거나 바꿉니다.",
+    "structureHint": "p가 &n을 저장했으므로 *p와 n은 같은 저장 공간의 값을 가리킵니다.",
+    "specificHint": "현재 n의 값 6에 3을 더한 값이 n에 다시 저장됩니다."
+  },
+  "difficulty": 2,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 포인터 개념의 역참조 상태 추적 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

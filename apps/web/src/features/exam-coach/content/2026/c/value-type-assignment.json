@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.value-type.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-value-type"],
+  "prerequisites": [],
+  "objective": "정수 변수의 대입 결과를 실행 없이 추적한다.",
+  "knowledgeType": "code",
+  "prompt": "다음 C 코드 실행 뒤 a와 b의 값을 `a b` 순서로 쓰라.\n\nint a = 4;\nint b = a;\nb = 9;",
+  "answer": "4 9",
+  "explanation": "b를 선언할 때 a의 현재 값 4가 복사된다. 이후 b에 9를 대입해도 a의 값은 4로 유지된다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["4 9"]
+  },
+  "hints": {
+    "conceptClue": "대입문은 오른쪽의 현재 값을 왼쪽 변수에 저장합니다.",
+    "structureHint": "b = a가 실행된 뒤 a와 b는 별도의 정수 변수입니다.",
+    "specificHint": "마지막 문장은 b만 9로 바꾸므로 a는 4인 채로 남습니다."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 값·변수·자료형 개념의 상태 추적 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

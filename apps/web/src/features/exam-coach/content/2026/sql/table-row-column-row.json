@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.table-row-column.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-table-row-column"],
+  "prerequisites": [],
+  "objective": "관계형 테이블에서 행이 하나의 레코드를 나타낸다는 점을 회상한다.",
+  "knowledgeType": "sql",
+  "prompt": "관계형 데이터베이스의 테이블에서 한 개체에 대한 값들을 가로로 묶은 한 줄을 무엇이라고 하는가?",
+  "answer": "행",
+  "explanation": "테이블의 행(row)은 한 개체에 대한 값들의 묶음으로, 하나의 레코드를 나타낸다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["행", "row"]
+  },
+  "hints": {
+    "conceptClue": "테이블은 행과 열로 구성됩니다. 한 개체의 값 묶음이 어느 방향인지 떠올려 보세요.",
+    "structureHint": "열은 속성을 나타내고, 여러 열의 값을 한 개체 단위로 묶는 것은 다른 요소입니다.",
+    "specificHint": "영어로는 row라고 부릅니다."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 4,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL 테이블·행·열 개념의 회상 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

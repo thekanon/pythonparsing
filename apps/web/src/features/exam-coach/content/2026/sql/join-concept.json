@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "sql.join.001",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "sql",
+  "conceptIds": ["sql-join"],
+  "prerequisites": ["sql-select"],
+  "objective": "JOIN이 여러 테이블의 관련 행을 조건으로 결합한다는 점을 설명한다.",
+  "knowledgeType": "sql",
+  "prompt": "SQL의 JOIN이 하는 역할을 설명하라. 답에는 '테이블'과 '조건'이라는 말을 포함하라.",
+  "answer": "JOIN은 관련된 여러 테이블의 행을 지정한 조건에 따라 결합한다.",
+  "explanation": "JOIN은 서로 다른 테이블의 관련 행을 ON 같은 결합 조건으로 연결해 하나의 조회 결과에서 함께 다룰 수 있게 한다.",
+  "grading": {
+    "strategy": "keywords",
+    "requiredKeywords": ["테이블", "조건"]
+  },
+  "hints": {
+    "conceptClue": "한 테이블만 조회하는 경우와 달리 여러 데이터 원본을 연결하는 상황을 떠올려 보세요.",
+    "structureHint": "무엇을 서로 연결하는지와 어떤 기준으로 연결하는지를 함께 설명하면 됩니다.",
+    "specificHint": "테이블을 조건에 따라 결합한다고 표현해 보세요."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-l1-review",
+    "reviewedAt": "2026-09-04T19:44:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 SQL 응용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "SQL JOIN 개념의 이해 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

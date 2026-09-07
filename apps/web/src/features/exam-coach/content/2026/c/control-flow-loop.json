@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "c.control-flow.002",
+  "version": 1,
+  "officialYear": 2026,
+  "domainId": "programming-language",
+  "conceptIds": ["c-control-flow"],
+  "prerequisites": ["c-operator"],
+  "objective": "C for 반복문의 실행 횟수와 누적 결과를 실행 없이 추론한다.",
+  "knowledgeType": "code",
+  "prompt": "다음 C 코드 실행 뒤 sum의 값은?\n\nint sum = 0;\nfor (int i = 1; i <= 4; i++) {\n  sum += i;\n}",
+  "answer": "10",
+  "explanation": "i가 1, 2, 3, 4일 때 본문이 실행되므로 sum에는 1+2+3+4가 누적되어 10이 된다.",
+  "grading": {
+    "strategy": "exact",
+    "acceptedAnswers": ["10"]
+  },
+  "hints": {
+    "conceptClue": "for문의 초기식, 조건식, 증감식을 순서대로 확인해 보세요.",
+    "structureHint": "i가 1부터 4까지 변할 때마다 sum에 현재 i가 더해집니다.",
+    "specificHint": "1 + 2 + 3 + 4를 계산해 보세요."
+  },
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "author": "doo-study",
+  "reviewStatus": "reviewed",
+  "review": {
+    "reviewer": "codex-c1-review",
+    "reviewedAt": "2026-09-04T20:18:00+09:00",
+    "reviewedVersion": 1,
+    "checklist": {
+      "answer": true,
+      "explanation": true,
+      "scope": true,
+      "acceptedAnswers": true,
+      "difficulty": true
+    }
+  },
+  "rights": {
+    "source": "2026 Q-Net 정보처리기사 출제기준의 프로그래밍 언어 활용 범위",
+    "license": "original",
+    "notes": "공식 범위를 근거로 직접 작성한 독자 문항"
+  },
+  "changeReason": "C1 조건문·반복문 개념의 반복 추적 콘텐츠 확장",
+  "memoryInheritance": "reset"
+}

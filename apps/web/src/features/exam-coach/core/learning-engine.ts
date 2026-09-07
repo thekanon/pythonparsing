@@ -93,6 +93,16 @@ export function validateConceptGraph(nodes: readonly ConceptNode[]): string[] {
 }
 
 export const FSRS_RATINGS = ["Again", "Hard", "Good", "Easy"] as const;
+export const SQL_ERROR_KINDS = [
+  "syntax",
+  "scope",
+  "condition",
+  "join",
+  "aggregate",
+  "forbidden",
+] as const;
+export type SqlErrorKind = (typeof SQL_ERROR_KINDS)[number];
+
 export type FsrsRating = (typeof FSRS_RATINGS)[number];
 
 export interface LearningEvent {
@@ -109,6 +119,7 @@ export interface LearningEvent {
   mode: "understanding" | "recall" | "application" | "assessment";
   firstSubmission: boolean;
   fsrsVersion: string;
+  errorKinds?: readonly SqlErrorKind[];
 }
 
 export const DEFAULT_DESIRED_RETENTION = 0.9;
@@ -157,6 +168,19 @@ export function validateLearningEvent(event: LearningEvent): string[] {
   }
   if (event.responseTimeMs < 0) {
     errors.push("responseTimeMs must be non-negative");
+  }
+  if (event.errorKinds !== undefined) {
+    if (
+      !Array.isArray(event.errorKinds) ||
+      event.errorKinds.some(
+        (errorKind) =>
+          !SQL_ERROR_KINDS.some((allowed) => allowed === errorKind),
+      )
+    ) {
+      errors.push("errorKinds must contain known SQL error kind strings");
+    } else if (new Set(event.errorKinds).size !== event.errorKinds.length) {
+      errors.push("errorKinds must be unique");
+    }
   }
   return errors;
 }

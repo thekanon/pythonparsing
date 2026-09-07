@@ -10,6 +10,7 @@
   "scripts": {
     "build": "pnpm --filter @newsorder/web build",
     "dev": "pnpm --filter @newsorder/web dev",
+    "dev:web": "pnpm --filter @newsorder/web exec next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "pnpm -r lint",
