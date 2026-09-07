@@ -1,0 +1,35 @@
+/* SEED token adapter for NewsOrder's existing Tailwind and CSS variables. */
+:root {
+  --seed-fg: #1a1c20;
+  --seed-surface: #ffffff;
+  --seed-canvas: #f6f6f4;
+  --seed-muted: #666a73;
+  --seed-line: #d9dbe0;
+  --seed-action: #c2410c;
+  --seed-action-strong: #9a3412;
+  --seed-success: #26734d;
+  --seed-danger: #b63a38;
+  --seed-radius-control: 8px;
+  --seed-radius-card: 12px;
+  --seed-space-1: 4px;
+  --seed-space-2: 8px;
+  --seed-space-3: 12px;
+  --seed-space-4: 16px;
+  --seed-space-6: 24px;
+  --seed-space-8: 32px;
+  --seed-duration: 150ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --seed-fg: #f3f4f5;
+    --seed-surface: #16171b;
+    --seed-canvas: #101115;
+    --seed-muted: #b5b8c0;
+    --seed-line: #34363d;
+    --seed-action: #ff8a42;
+    --seed-action-strong: #ffad73;
+    --seed-success: #77c69e;
+    --seed-danger: #ff9b99;
+  }
+}
