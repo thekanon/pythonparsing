@@ -562,3 +562,32 @@ F3/E1이 있는 기존 작업 트리를 보존한 채 기준선·종료·주간 
   재검증·복구하지 않았고 새 WebGPT 제출도 하지 않았다.
 - 운영 C Sandbox 성공 smoke, 실제 4주·8주 개인 검증, O1~~O5와 M1~~M6는
   기존 잔여 작업으로 유지한다.
+
+## 9. 2026-09-07 최신 master 통합과 전체 게이트 복구
+
+이전 8절의 검증은 당시 작업 브랜치의 코드에 대한 결과다. 후속 확인에서
+해당 브랜치가 문서의 기준인 `origin/master@73e7d5b`보다 뒤에 있음을 확인했다.
+기존 작업을 `b7bc1b8`로 보존하고 `c202e5e`에서 최신 master를 통합했다.
+주간 평가와 취약점 메뉴를 모두 유지하고, 문서 충돌은 더 최신인 작업 기록과
+기존 체크박스 의미를 보존해 해결했다.
+
+- 기본 Playwright 서버를 `next dev`에서 `next start`로 바꿨다.
+  Next.js의 설치된 Playwright 가이드가 권장하는 production 코드 검사이며,
+  assertion과 5초 기대 제한은 그대로 유지했다. README에 build 선행 조건을
+  명시했다. CI는 기존부터 build 이후 E2E를 실행하므로 workflow 변경은 없다.
+- 확장 catalog에서 SQL 영역의 첫 카드가 바뀌어 F3 테스트가 다른 문항에
+  SELECT를 제출하는 통합 오류를 발견했다. 검증 대상 카드인
+  `/exam-coach/learn?content=sql.select.001`을 직접 열도록 수정했다.
+- frozen lockfile install, format, workspace lint, TypeScript, Drizzle
+  metadata, production dependency audit, fixture production build 통과.
+- 최신 통합 코드의 전체 web Vitest: 54 files / 274 tests 통과.
+- 별도 임시 PostgreSQL 17에서 실제 DB 통합 테스트 5개 통과.
+  기존 서비스 DB나 볼륨은 사용하지 않았다.
+- 기본 `pnpm test:e2e`: desktop/mobile 28개 모두 통과, axe serious/critical
+  위반 0건. 이제 별도 production 임시 설정 없이 재현된다.
+- Vercel OIDC 환경변수의 존재와 만료 여부만 확인했으며 토큰 값은 출력하지
+  않았다. 토큰이 만료돼 운영 C Sandbox 성공 검증에는 서버 인증 갱신이 필요하다.
+- 기존 Oracle 실행은 이 작업이 생성한 실행이 아니므로 인수하거나 재제출하지
+  않는다. 실제 4주·8주 학습 효과 검증과 O/M 후속 기능도 이 게이트 통과로
+  완료 처리하지 않는다.
+- 원격 CI와 PR 병합 결과는 후속 GitHub 기록을 따른다.

@@ -32,6 +32,8 @@ pnpm build
 pnpm test:e2e
 ```
 
+E2E는 개발 서버의 초기 컴파일 지연을 제외하고 실제 배포 코드를 검사하도록 `next start`를 사용합니다. 소스를 변경한 뒤에는 `NEWSORDER_RUNTIME_MODE=fixture pnpm build`를 먼저 실행하고, 같은 fixture 환경에서 `pnpm test:e2e`를 실행하세요. Playwright가 3107 포트의 서버를 시작하고 종료합니다.
+
 Production migration은 앱 시작이나 `drizzle-kit push`로 실행하지 않습니다. 승인된 환경에서 `DATABASE_URL`을 지정한 뒤 `pnpm db:migrate`를 한 번만 실행합니다.
 
 ## 구조

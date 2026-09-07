@@ -58,6 +58,16 @@ live recovery dry-run도 `BROWSER_IDENTITY_RECEIPT_REQUIRED`로 거부됐다. �
 여부 결정이다. 실제 4주·8주 개인 검증, 운영 C Sandbox 성공 smoke, O1~~O5,
 M1~~M6는 여전히 미완료다.
 
+### 후속 통합 검증: 2026-09-07
+
+앞의 미커밋 메모는 당시 기록이다. 후속 작업에서 F3/E1과 평가 세션 리팩토링을
+커밋으로 보존하고 최신 master를 통합했다. 전체 web 테스트 274개, 별도
+PostgreSQL 통합 테스트 5개, 기본 Playwright 28개와 axe 검사, format/lint/
+typecheck/Drizzle/audit/build가 통과했다. E2E는 build 후 production 서버를
+검사하며 콘텐츠 확장에 영향을 받지 않도록 F3 대상 카드를 명시한다.
+기존 체크박스는 위에 명시한 master 기준을 유지한다. 상세 근거와 외부 인증
+블로커는 [구현 기록 9절](./information-processing-practical-coach-implementation-status.md#9-2026-09-07-최신-master-통합과-전체-게이트-복구)을 따른다.
+
 ## 1. 한눈에 보는 현재 상태
 
 개인 MVP의 기반 코어와 진단·커리큘럼·준비도 화면에 더해 실제 `ts-fsrs` 어댑터, 이벤트 기반 memory state 재생, 검수 콘텐츠 catalog, 정규 학습 세션, 오늘 계획, 시험일까지 계획·놓친 날 복구, 취약점 화면, SQL 결과 채점, C 제한 실행 경계까지 `origin/master`에 병합됐다. 현재 게스트 흐름은 **정규 문제 풀이 → 불변 이벤트 저장 → FSRS 기억 일정 재계산 → 취약점·오늘 계획 갱신**까지 연결됐다. 다만 C 실행의 실제 운영 성공 경로와 8주 학습 효과 검증은 아직 남아 있다.

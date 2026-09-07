@@ -139,7 +139,7 @@ test("exam coach rebuilds the same due review from local events after reload", a
     page.getByText("현재 설정: 2026-12-20까지 하루 60분"),
   ).toBeVisible();
 
-  await page.goto("/exam-coach/learn?unit=sql");
+  await page.goto("/exam-coach/learn?content=sql.select.001");
   await expect(
     page.getByRole("heading", { name: "검수된 SQL·C 학습 세션" }),
   ).toBeVisible();
