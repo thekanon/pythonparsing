@@ -32,3 +32,6 @@ restore-output/
 **/*firebase-adminsdk*.json
 **/key.json
 **/secrets.json
+.vercel
+.env*
+!.env.example
