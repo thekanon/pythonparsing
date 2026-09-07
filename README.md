@@ -41,6 +41,7 @@ Production migration은 앱 시작이나 `drizzle-kit push`로 실행하지 않�
 - `docs/architecture`: 시스템 및 데이터 경계
 - `docs/operations`: 보안, 배포, 수집, 백업·복원 runbook
 - `docs/privacy`: 저장 데이터 목록
+- 정보처리기사 코치의 최신 완료·잔여 작업은 [현재 현황과 남은 작업](docs/product/information-processing-practical-coach-current-status.md)에서 확인할 수 있습니다.
 
 구현 기준은 [Next.js 리팩터링 실행 계획](docs/nextjs-refactor-plan.md)입니다.
 

@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 test("public home and today pages have no serious or critical axe violations", async ({
   page,
@@ -11,6 +11,7 @@ test("public home and today pages have no serious or critical axe violations", a
     "/books",
     "/exam-coach/curriculum",
     "/exam-coach/report",
+    "/exam-coach/weekly",
   ]) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).analyze();
@@ -119,6 +120,163 @@ test("an exam coach guest completes baseline and followup diagnostics", async ({
   expect(followupPersisted).not.toContain(
     "SELECT name FROM members WHERE team = 'QA';",
   );
+});
+
+test("exam coach rebuilds the same due review from local events after reload", async ({
+  page,
+}) => {
+  const reviewedAt = new Date("2026-09-06T00:00:00.000Z");
+  await page.clock.setFixedTime(reviewedAt);
+
+  await page.goto("/exam-coach");
+  await expect(
+    page.getByRole("heading", { name: "정보처리기사 실기 합격 코치" }),
+  ).toBeVisible();
+  await page.getByLabel("시험 예정일").fill("2026-12-20");
+  await page.getByLabel("하루 학습 가능 시간(분)").fill("60");
+  await page.getByRole("button", { name: "설정 저장" }).click();
+  await expect(
+    page.getByText("현재 설정: 2026-12-20까지 하루 60분"),
+  ).toBeVisible();
+
+  await page.goto("/exam-coach/learn?unit=sql");
+  await expect(
+    page.getByRole("heading", { name: "검수된 SQL·C 학습 세션" }),
+  ).toBeVisible();
+  await page.getByLabel("답안").fill("SELECT");
+  const firstSubmit = page.getByRole("button", { name: "첫 답안 제출" });
+  await expect(firstSubmit).toBeEnabled();
+  await firstSubmit.click();
+  await expect(page.getByRole("button", { name: "Hard" })).toBeVisible();
+  await page.getByRole("button", { name: "Hard" }).click();
+  await expect(
+    page.getByText(
+      /Hard 등급으로 학습 이벤트를 저장하고 FSRS 기억 일정을 갱신/u,
+    ),
+  ).toBeVisible();
+
+  const persistedBeforeReload = await readExamCoachEventProjection(page);
+  expect(persistedBeforeReload).toMatchObject({
+    eventCount: 1,
+    event: {
+      cardId: "sql.select.001",
+      contentId: "sql.select.001",
+      firstSubmission: true,
+      mode: "recall",
+      rating: "Hard",
+    },
+  });
+  expect(persistedBeforeReload.guestId).toBe(
+    persistedBeforeReload.envelopeLearnerId,
+  );
+
+  await page.clock.setFixedTime(new Date(reviewedAt.getTime() + 7 * 60 * 1000));
+  await page.getByRole("link", { name: "코치 홈으로" }).click();
+  await expect(
+    page.getByRole("heading", { name: "정보처리기사 실기 합격 코치" }),
+  ).toBeVisible();
+
+  const dueMetric = page.getByText("만기 복습", { exact: true }).locator("..");
+  const dueReview = page
+    .getByRole("list", { name: "오늘 학습 큐" })
+    .getByRole("listitem")
+    .filter({ hasText: "sql.select.001" });
+  await expect(dueMetric).toContainText("1건");
+  await expect(dueReview).toContainText("복습");
+  const duePresentationBeforeReload = {
+    dueMetric: await dueMetric.innerText(),
+    reviewItem: await dueReview.innerText(),
+  };
+
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "정보처리기사 실기 합격 코치" }),
+  ).toBeVisible();
+
+  const dueMetricAfterReload = page
+    .getByText("만기 복습", { exact: true })
+    .locator("..");
+  const dueReviewAfterReload = page
+    .getByRole("list", { name: "오늘 학습 큐" })
+    .getByRole("listitem")
+    .filter({ hasText: "sql.select.001" });
+  await expect(dueMetricAfterReload).toContainText("1건");
+  await expect(dueReviewAfterReload).toContainText("복습");
+  expect({
+    dueMetric: await dueMetricAfterReload.innerText(),
+    reviewItem: await dueReviewAfterReload.innerText(),
+  }).toEqual(duePresentationBeforeReload);
+
+  expect(await readExamCoachEventProjection(page)).toEqual(
+    persistedBeforeReload,
+  );
+});
+
+test("an exam coach guest completes a private weekly SQL/C assessment", async ({
+  page,
+}) => {
+  await page.goto("/exam-coach");
+  await page.getByRole("link", { name: "주간 미니 테스트" }).click();
+  await expect(
+    page.getByRole("heading", { name: "SQL·C 주간 미니 테스트" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "주간 미니 테스트 시작" }).click();
+
+  for (const answer of [
+    "열",
+    "SELECT name FROM employees;",
+    "SELECT name FROM employees WHERE active = 1;",
+    "SELECT dept, COUNT(*) AS cnt FROM employees GROUP BY dept;",
+    "SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.user_id;",
+    "5",
+    "1",
+    "6",
+    "7",
+    "9",
+  ]) {
+    await expect(
+      page.getByRole("heading", { name: "최근 주간 결과" }),
+    ).toHaveCount(0);
+    await page.getByLabel("답안").fill(answer);
+    await page
+      .getByRole("button", { name: /답안 제출 후 다음|주간 테스트 완료/u })
+      .click();
+  }
+
+  await expect(
+    page.getByRole("heading", { name: "최근 주간 결과" }),
+  ).toBeVisible();
+  await expect(page.getByRole("list", { name: "개념별 결과" })).toBeVisible();
+
+  const stored = await page.evaluate(() => ({
+    events: localStorage.getItem("exam-coach:v1:learning-events"),
+    runs: localStorage.getItem("exam-coach:v1:diagnostic-runs"),
+  }));
+  const events = JSON.parse(stored.events ?? "{}").events as Array<{
+    mode: string;
+  }>;
+  const runs = JSON.parse(stored.runs ?? "{}").runs as Array<{
+    summary: { form: string; conceptResults: unknown[] };
+  }>;
+  expect(events).toHaveLength(10);
+  expect(events.every((event) => event.mode === "assessment")).toBe(true);
+  expect(runs).toHaveLength(1);
+  expect(runs[0]?.summary.form).toBe("weekly");
+  expect(runs[0]?.summary.conceptResults).toHaveLength(10);
+
+  const persisted = `${stored.events}\n${stored.runs}`;
+  expect(persisted).not.toMatch(
+    /"(answer|response|submittedResponse|explanation|prompt)"/u,
+  );
+  expect(persisted).not.toContain("SELECT name FROM employees;");
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(
+    accessibility.violations.filter(
+      (violation) =>
+        violation.impact === "serious" || violation.impact === "critical",
+    ),
+  ).toEqual([]);
 });
 
 test("a public-domain book card opens a word-order lesson", async ({
@@ -498,3 +656,48 @@ test("admin routes reject a fixture visitor without a development-admin session"
     page.getByRole("heading", { name: "관리자 권한이 필요합니다" }),
   ).toBeVisible();
 });
+
+async function readExamCoachEventProjection(page: Page) {
+  return page.evaluate(() => {
+    const guestId = localStorage.getItem("exam-coach:v1:guest-id");
+    const rawEvents = localStorage.getItem("exam-coach:v1:learning-events");
+    if (!guestId || !rawEvents) {
+      throw new Error(
+        "Expected persisted exam coach guest and learning events.",
+      );
+    }
+
+    const envelope = JSON.parse(rawEvents) as {
+      learnerId?: unknown;
+      events?: unknown;
+    };
+    if (
+      typeof envelope.learnerId !== "string" ||
+      !Array.isArray(envelope.events)
+    ) {
+      throw new Error("Unexpected exam coach learning event envelope.");
+    }
+
+    const event = envelope.events[0] as Record<string, unknown> | undefined;
+    return {
+      guestId,
+      envelopeLearnerId: envelope.learnerId,
+      eventCount: envelope.events.length,
+      event: event
+        ? {
+            eventId: event.eventId,
+            occurredAt: event.occurredAt,
+            cardId: event.cardId,
+            contentId: event.contentId,
+            contentVersion: event.contentVersion,
+            correct: event.correct,
+            rating: event.rating,
+            helpLevel: event.helpLevel,
+            mode: event.mode,
+            firstSubmission: event.firstSubmission,
+            fsrsVersion: event.fsrsVersion,
+          }
+        : null,
+    };
+  });
+}

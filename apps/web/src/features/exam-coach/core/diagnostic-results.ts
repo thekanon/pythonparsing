@@ -1,4 +1,4 @@
-import { contentItemSchema } from "./content-schema";
+import { contentItemSchema, type OfficialDomainId } from "./content-schema";
 // prettier-ignore
 import { diagnosticAssessmentSetSchema, type DiagnosticAssessmentSet } from "./diagnostics";
 import { gradeContentResponse } from "./grading";
@@ -19,7 +19,7 @@ export interface DiagnosticAttemptContext {
 export interface DiagnosticAttemptRecord {
   setId: string;
   pairId: string;
-  form: "baseline" | "followup";
+  form: "baseline" | "followup" | "weekly";
   itemId: string;
   contentVersion: number;
   correct: boolean;
@@ -33,9 +33,15 @@ export interface DiagnosticPairResult {
   correct: boolean;
 }
 
-export interface DiagnosticRunSummary {
+export interface DiagnosticConceptResult {
+  conceptId: string;
+  domainId: Extract<OfficialDomainId, "sql" | "programming-language">;
+  attemptedItemCount: number;
+  correctCount: number;
+}
+
+interface DiagnosticRunSummaryBase {
   setId: string;
-  form: "baseline" | "followup";
   expectedItemCount: number;
   attemptedItemCount: number;
   correctCount: number;
@@ -44,6 +50,18 @@ export interface DiagnosticRunSummary {
   completed: boolean;
   pairResults: readonly DiagnosticPairResult[];
 }
+
+export interface BaselineFollowupRunSummary extends DiagnosticRunSummaryBase {
+  form: "baseline" | "followup";
+}
+
+export interface WeeklyAssessmentRunSummary extends DiagnosticRunSummaryBase {
+  form: "weekly";
+  conceptResults: readonly DiagnosticConceptResult[];
+}
+
+export type DiagnosticRunSummary =
+  BaselineFollowupRunSummary | WeeklyAssessmentRunSummary;
 
 export interface DiagnosticComparison {
   setId: string;
@@ -145,9 +163,8 @@ export function summarizeDiagnosticRun(
     .filter((attempt): attempt is DiagnosticAttemptRecord => Boolean(attempt));
   const correctCount = orderedAttempts.filter((attempt) => attempt.correct).length;
 
-  return {
+  const base = {
     setId: assessmentSetId(set),
-    form: set.form,
     expectedItemCount: set.items.length,
     attemptedItemCount: orderedAttempts.length,
     correctCount,
@@ -163,6 +180,16 @@ export function summarizeDiagnosticRun(
       correct: attempt.correct,
     })),
   };
+
+  if (set.form === "weekly") {
+    return {
+      ...base,
+      form: "weekly",
+      conceptResults: summarizeConceptResults(set, byPair),
+    };
+  }
+
+  return { ...base, form: set.form };
 }
 
 // prettier-ignore
@@ -215,6 +242,37 @@ function assessmentSetId(set: DiagnosticAssessmentSet): string {
   const setId = set.items[0]?.assessment?.setId;
   if (!setId) throw new Error("diagnostic set requires assessment setId");
   return setId;
+}
+
+function summarizeConceptResults(
+  set: DiagnosticAssessmentSet,
+  attemptsByPair: ReadonlyMap<string, DiagnosticAttemptRecord>,
+): readonly DiagnosticConceptResult[] {
+  const byConcept = new Map<string, DiagnosticConceptResult>();
+
+  for (const item of set.items) {
+    const pairId = item.assessment?.pairId;
+    const attempt = pairId ? attemptsByPair.get(pairId) : undefined;
+    if (!attempt) continue;
+    if (item.domainId !== "sql" && item.domainId !== "programming-language") {
+      throw new Error("weekly assessment concepts must belong to SQL or C");
+    }
+
+    for (const conceptId of item.conceptIds) {
+      const current = byConcept.get(conceptId);
+      if (current && current.domainId !== item.domainId) {
+        throw new Error(`weekly concept has conflicting domains: ${conceptId}`);
+      }
+      byConcept.set(conceptId, {
+        conceptId,
+        domainId: item.domainId,
+        attemptedItemCount: (current?.attemptedItemCount ?? 0) + 1,
+        correctCount: (current?.correctCount ?? 0) + (attempt.correct ? 1 : 0),
+      });
+    }
+  }
+
+  return [...byConcept.values()];
 }
 
 function assertContext(context: DiagnosticAttemptContext): void {

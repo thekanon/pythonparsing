@@ -27,6 +27,9 @@ export default function ExamCoachPage() {
         <Link href="/exam-coach/report" className="button button-secondary">
           준비도 리포트
         </Link>
+        <Link href="/exam-coach/weekly" className="button button-secondary">
+          주간 미니 테스트
+        </Link>
         <Link href="/exam-coach/followup" className="button button-secondary">
           종료 동형 진단과 비교 보기
         </Link>

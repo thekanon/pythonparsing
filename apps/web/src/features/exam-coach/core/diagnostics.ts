@@ -6,7 +6,7 @@ export const diagnosticAssessmentSetSchema = z
   .object({
     schemaVersion: z.literal(1),
     id: z.string().trim().min(1),
-    form: z.enum(["baseline", "followup"]),
+    form: z.enum(["baseline", "followup", "weekly"]),
     estimatedMinutes: z.number().int().positive(),
     items: z.array(contentItemSchema).min(1),
   })

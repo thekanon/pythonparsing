@@ -79,7 +79,7 @@ export const assessmentMetadataSchema = z
   .object({
     setId: nonEmptyString,
     pairId: nonEmptyString,
-    form: z.enum(["baseline", "followup"]),
+    form: z.enum(["baseline", "followup", "weekly"]),
   })
   .strict();
 

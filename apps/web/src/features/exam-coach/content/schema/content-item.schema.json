@@ -103,7 +103,7 @@
       "properties": {
         "setId": { "$ref": "#/$defs/nonEmptyString" },
         "pairId": { "$ref": "#/$defs/nonEmptyString" },
-        "form": { "enum": ["baseline", "followup"] }
+        "form": { "enum": ["baseline", "followup", "weekly"] }
       },
       "required": ["setId", "pairId", "form"]
     }

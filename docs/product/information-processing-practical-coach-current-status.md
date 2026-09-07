@@ -1,18 +1,65 @@
 # 정보처리기사 실기 합격 코치 현재 현황과 남은 작업
 
-- 기준 시각: 2026-09-04 17:36 KST
-- 기준 브랜치: `master`
-- 기준 코드: `a7d401b` (`Add information processing practical coach learning flow (#30)`)
-- 목적: `master`에 병합된 코드와 테스트로 확인된 완료 범위와 앞으로 남은 구현을 한 문서에서 확인한다.
+- 기준 시각: 2026-09-06 09:41 KST
+- 기준 브랜치: `origin/master`
+- 기준 코드: `73e7d5b` (`Harden exam coach WebGPT workflow guardrails (#35)`)
+- 목적: 최신 `origin/master`에 병합된 코드와 테스트로 확인된 완료 범위와 앞으로 남은 구현을 한 문서에서 확인한다.
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 세부 체크리스트: [작업 분할표](./information-processing-practical-coach-work-breakdown.md)
-- 다음 구현 가이드: [D0·W1-W2·S1-S2·C1-C2 구현 가이드](./information-processing-practical-coach-next-implementation-guide.md)
+- 구현 가이드·완료 검증 기록: [D0·W1-W2·S1-S2·C1-C2](./information-processing-practical-coach-next-implementation-guide.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 전체 구축 순서: [실행 로드맵](./roadmap.md)
 
+## 0. 2026-09-07 작업 트리 진행 메모 (미병합)
+
+이 절은 `origin/master` 병합 완료 범위와 별개인 현재 작업 트리 기록이다. 아래
+변경은 구현과 집중 검증까지 끝났지만 아직 커밋·push·PR·병합되지 않았으므로,
+이 문서의 기존 병합 완료 체크를 바꾸지 않는다.
+
+| 작업                          | 작업 트리 상태        | 확인 결과                                                                                                                                                       |
+| ----------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F3 브라우저 memory state 재생 | 검증 완료·미병합      | 정규 학습 이벤트 저장 뒤 due review가 생기는 시각으로 이동하고, 새로고침 전후 오늘 큐 표시와 저장 이벤트 projection이 동일함을 Chromium desktop/mobile에서 확인 |
+| E1 주간 SQL/C 미니 테스트     | 구현·검증 완료·미병합 | `/exam-coach/weekly`, 25분·10문항 고정 v1 세트, 점수·응시 수·총 응답시간·10개 개념별 결과 저장                                                                  |
+| 평가 개인정보 경계            | 검증 완료·미병합      | 제출 답안·문항·정답·해설을 localStorage에 저장하지 않고 완료 요약과 불변 assessment 이벤트만 저장                                                               |
+| assessment/FSRS 격리          | 검증 완료·미병합      | 주간 평가 이벤트가 모두 `mode: "assessment"`이며 regular FSRS adapter를 호출하거나 memory state를 만들지 않음                                                   |
+
+E1 작업 트리 구현의 세부 범위:
+
+- `weekly.sql-c.2026.v1` 세트가 SQL 5개와 C 5개 개념을 각각 한 번씩 다룬다.
+- Zod 콘텐츠 계약과 committed JSON Schema에 `weekly` assessment form을 함께
+  반영했다.
+- 기존 완료 진단 이력 저장소를 확장해 완료된 주간 실행만 저장하고, 동일
+  `runId` 재시도는 멱등 처리하며 충돌 payload와 다른 learner 데이터는 거부한다.
+- 평가 중에는 정답·힌트·문항별 결과를 공개하지 않고, 모든 문항 완료 후에만
+  최근 주간 결과와 개념별 결과를 표시한다.
+- 홈 메뉴에서 `/exam-coach/weekly`로 이동할 수 있고 해당 페이지는 `noindex`다.
+
+검증 기록:
+
+- 집중 Vitest: 5 files, 21 tests 통과
+- 전체 web Vitest: 49 files, 214 tests 통과
+- ESLint, TypeScript `tsc --noEmit`, Next.js production build 통과
+- F3 + E1 집중 Playwright: Chromium desktop/mobile 합계 4 tests 통과
+- E1 완료 화면 axe serious/critical 위반 0건
+- 실행 환경의 Node `24.20.0`은 저장소 요구 `24.19.0`과 달라 engine warning이
+  있었지만 위 검증은 모두 통과했다.
+- Playwright web server에서 기존 `/exam-coach/learn`의 blocking prerender 경고가
+  출력됐지만 이번 집중 smoke와 production build는 통과했다.
+
+WebGPT 실행은 새 제출 없이 기존 동일 작업의 Oracle run
+`20260906T031015Z-56150294babf` (`oracle-pythonpars-56150294ba`)만 복구하려 했다.
+해당 run은 `post-submit-provider-incomplete`, `safe_for_fresh_run: false`였고 exact
+live recovery dry-run도 `BROWSER_IDENTITY_RECEIPT_REQUIRED`로 거부됐다. 중복 제출을
+피하기 위해 새 WebGPT prompt는 보내지 않았으며, 이후 구현·검증은 로컬에서
+진행했다.
+
+아직 남은 마감 작업은 전체 Playwright gate, 전체 diff 검토, 커밋·push·PR·병합
+여부 결정이다. 실제 4주·8주 개인 검증, 운영 C Sandbox 성공 smoke, O1~~O5,
+M1~~M6는 여전히 미완료다.
+
 ## 1. 한눈에 보는 현재 상태
 
-개인 MVP의 기반 코어와 진단·커리큘럼·준비도 화면에 더해 실제 `ts-fsrs` 어댑터, 이벤트 기반 memory state 재생, L1 검수 콘텐츠 catalog, `L2~L3` 정규 학습 세션, `Q1~Q3` 저장 이벤트 기반 오늘 계획 UI, `P1~P2` 시험일까지 계획·놓친 날 복구 요약까지 코드와 테스트로 확인했다. 현재 게스트 흐름은 **정규 문제 풀이 → 불변 이벤트 저장 → FSRS 기억 일정 재계산 → `/exam-coach` 복귀/포커스 시 오늘 계획·시험일까지 계획 재계산**까지 연결됐다.
+개인 MVP의 기반 코어와 진단·커리큘럼·준비도 화면에 더해 실제 `ts-fsrs` 어댑터, 이벤트 기반 memory state 재생, 검수 콘텐츠 catalog, 정규 학습 세션, 오늘 계획, 시험일까지 계획·놓친 날 복구, 취약점 화면, SQL 결과 채점, C 제한 실행 경계까지 `origin/master`에 병합됐다. 현재 게스트 흐름은 **정규 문제 풀이 → 불변 이벤트 저장 → FSRS 기억 일정 재계산 → 취약점·오늘 계획 갱신**까지 연결됐다. 다만 C 실행의 실제 운영 성공 경로와 8주 학습 효과 검증은 아직 남아 있다.
 
 <!-- prettier-ignore -->
 | 영역 | 상태 | 현재 결과 |
@@ -34,6 +81,10 @@
 | 정규 학습 세션 UI | 완료 | `/exam-coach/learn`, 첫 제출·교정·도움·회상 등급·불변 이벤트 저장·FSRS 재계산을 컴포넌트 테스트로 확인 |
 | 실제 오늘 계획 UI | 완료 | 저장 이벤트에서 memory state를 재생하고 due review → reviewed new 순으로 시간 예산 큐를 표시, focus/visibility 재계산 확인 |
 | 시험일까지 계획·복구 요약 | 완료 | 시험일까지 남은 일수·총 가용 시간·reviewed 커버리지·due 부채·복습/신규 예산과 7일 미리보기, 로컬 이벤트 근거 미수행 추정·부채 이월을 일일 상한 안에서 계산 |
+| 취약점 집계·행동 연결 | 완료 | 개념별 반복 실패·도움 의존·적용 실패·review debt 집계, 취약점 보드, 카드별 학습 이동, 동형·선수 개념 빈 상태 |
+| SQL 수직 범위·결과 채점 | 완료 | SQL 5개 개념, 검수 콘텐츠 10개, 고정 dataset, 결과 행·열 동등성·금지문·오류 유형 판정 |
+| C 수직 범위 | 완료 | C 5개 개념, 검수 콘텐츠 10개, 실행 결과 예측·상태 추적·코드 완성·짧은 작성 |
+| 제한 C 실행 경계 | 구현 완료·운영 검증 대기 | Accepted ADR, 일회성 Vercel Sandbox, deny-all 네트워크·자원 상한·실패 fallback; 운영 Sandbox 성공 smoke 필요 |
 
 ## 2. 지금까지 완료한 주요 작업
 
@@ -127,9 +178,9 @@
 
 ### 2.12 L1 실제 학습 콘텐츠 확정
 
-- SQL `sql.select.001`과 C `c.control-flow.001`를 코드 catalog로 등록해 소비자가 JSON 경로를 직접 읽지 않게 했다.
+- SQL 10개와 C 10개의 검수 콘텐츠를 코드 catalog로 등록해 소비자가 JSON 경로를 직접 읽지 않게 했다. 각 영역의 5개 개념마다 이해·회상 중심의 동형 콘텐츠를 2개씩 확보했다.
 - catalog 로딩 시 2026 공식 영역, concept ID, concept domain, 선수지식 그래프, grading, 힌트, 해설 계약을 함께 검증한다.
-- 두 샘플은 작성자와 다른 `codex-l1-review` 검수자, 검수 시각, `reviewedVersion === version`, 전체 검수 체크리스트를 명시했다.
+- 모든 공개 후보는 작성자와 다른 검수자, 검수 시각, `reviewedVersion === version`, 전체 검수 체크리스트를 명시한다.
 - `draft`는 review metadata 없이도 유효한 콘텐츠로 유지된다.
 - 정규 신규 후보 생성기는 `reviewStatus: "reviewed"`만 통과시키며, draft가 오늘 큐 후보에 들어가지 않는 테스트를 추가했다.
 
@@ -144,29 +195,52 @@
 - 별도 검수 application 콘텐츠가 없으므로 시험 임박 정책은 복습 비중 강화로만 표현하고 application 항목이나 합격 확률·예상 점수를 만들지 않는다.
 - P1/P2 코어 및 게스트 컴포넌트 테스트를 추가했고, 지정 Vitest 명령은 프로젝트 설정상 전체 47개 테스트 파일/210개 테스트로 확장 실행되어 모두 통과했다.
 
+### 2.14 취약점 집계와 행동 연결
+
+- `weakness.ts`가 정규 학습·진단 evidence를 개념별로 합치고 반복 회상 실패, 도움 의존, 적용 실패, review debt를 별도 signal로 집계한다.
+- 취약점 보드는 근거 없는 개념을 `측정 없음`으로 표시하고, 단일 취약도 점수나 합격 확률을 만들지 않는다.
+- 만기 복습은 카드별 학습 화면으로, 동형 문제는 `variantGroupId` 기반 검수 콘텐츠로, 선수지식 결손은 선행 개념 또는 커리큘럼으로 연결한다.
+- 동형·적용 콘텐츠가 없을 때는 임의의 대체 활동을 만들지 않고 명시적 빈 상태를 표시한다.
+
+### 2.15 SQL 수직 범위와 결과 채점
+
+- SQL 5개 개념에 대해 테이블·행·열, `SELECT / FROM`, `WHERE`, `GROUP BY / HAVING`, `JOIN` 콘텐츠를 확보했다.
+- `employees-v1` 고정 읽기 전용 dataset과 `datasetId` 검증을 추가했다. 기존 dataset을 수정하지 않고 변경 시 새 버전을 만든다.
+- 결과 행·열 동등성, `NULL`, 중복 행, `ORDER BY` 순서, 금지 변경문을 판정하며 `syntax`·`scope`·`condition`·`join`·`aggregate`·`forbidden` 오류 유형을 분류한다.
+- 오류 유형은 답안 원문 대신 분류 코드로만 이벤트에 남기고, 기존 localStorage envelope와의 호환성 테스트를 유지한다.
+
+### 2.16 C 수직 범위와 제한 실행 경계
+
+- C 5개 개념에 대해 값·타입, 연산자·식, 제어 흐름, 배열, 포인터의 실행 결과 예측·상태 추적·코드 완성·짧은 작성 콘텐츠를 확보했다.
+- `docs/adr/0004-restricted-code-execution-boundary.md`를 Accepted로 확정하고, C 실행은 일회성 격리 Sandbox·deny-all 네트워크·CPU/메모리/출력/프로세스 상한 안에서만 허용한다.
+- 첫 제출 전 실행 결과를 숨기고, 실행기 장애·미가용·상한 초과는 오답으로 기록하지 않으며 설명·회상 fallback을 유지한다.
+- 로컬 smoke에서는 Vercel Sandbox 인증과 C toolchain 부재로 `sandbox-unavailable` 경로만 확인됐다. 실제 운영 Sandbox 성공 실행은 별도 외부 환경 검증이 필요하다.
+
 ## 3. 현재 핵심 차단점
 
-이 작업 브랜치 기준으로 기존 **FSRS dependency 차단점은 해소됐다.** 실제 `dueAt`, stability, difficulty와 다음 복습 상태를 코어에서 계산할 수 있고, L1 콘텐츠 catalog도 `reviewed` 콘텐츠만 정규 신규 후보로 내보낸다.
+최신 `origin/master` 기준으로 기존 **FSRS dependency 차단점과 W1~~W2·S1~~S2·C1~C2 구현 차단점은 해소됐다.** 실제 `dueAt`, stability, difficulty와 다음 복습 상태를 계산할 수 있고, 취약점 보드와 SQL/C 수직 콘텐츠도 병합됐다.
 
-정규 학습 세션, 실제 오늘 계획, `P1~P2` 시험일까지 계획과 놓친 날 복구 요약까지 연결됐다. 현재 다음 제품 작업은 **`W1~W2` 취약점 화면과 행동 연결**이며, 이후 SQL/C 수직 범위를 확대한다. 별도 application 검수 콘텐츠는 아직 없으므로 unsupported placeholder를 만들지 않고 오늘 계획과 시험일까지 계획 모두에서 application 항목을 임의 생성하지 않는다.
+PR #33의 최종 `secret-scan`과 `verify`는 통과했다. 이전 `a7d401b` 기준에 기록했던 전체 Playwright 실패는 과거 검증 기록이므로 현재 차단점으로 취급하지 않는다. 이후 코드 변경에서는 동일 게이트를 다시 실행해 증거를 갱신한다.
 
-검증 차단점은 전체 Playwright/axe gate다. L1에 직접 닿는 exam-coach diagnostic E2E는 통과했지만, 전체 `pnpm test:e2e`는 기존 public-learning/book/reddit/admin 흐름에서 실패한다. 첫 구체 실패는 `e2e/public-learning.spec.ts:293`의 word-order flow에서 `정확한 순서입니다.` 피드백이 보이지 않는 문제였고, 이후 여러 실패는 dev server `ERR_CONNECTION_REFUSED`로 이어졌다. 이 실패는 이번 L1 catalog 코드 경로 밖이지만, 전체 CI/merge 완료 증거로는 아직 사용할 수 없다.
+현재 남은 핵심은 제품을 실제 개인 검증과 공개 운영에 견딜 수 있게 만드는 일이다. C 제한 실행은 안전한 미가용 fallback까지 구현됐지만, 실제 Vercel Sandbox와 C toolchain을 사용한 성공 실행 smoke는 아직 확인하지 않았다. 별도 검수 application 콘텐츠가 없으므로 unsupported placeholder를 만들지 않고 오늘 계획과 시험일까지 계획 모두에서 application 항목을 임의 생성하지 않는다.
 
 현재 남은 제품 연결 작업:
 
-- W1~W2 취약점 화면과 행동 연결
-- S1~S2 SQL 수직 범위 확대
-- C1~C2 C 언어 수직 범위 확대
-- 전체 Playwright/axe gate의 기존 unrelated 실패는 별도 해결 필요
+- 실제 브라우저 새로고침 전후 동일한 memory state 통합 확인
+- E1~E3 주간·중간·종료 평가와 8주 개인 검증
+- O1~O5 오프라인·동기화·백업/복구 기반
+- M1~M6 콘텐츠 운영·접근성·오류 계측
+- C 실행의 운영 Sandbox 성공 smoke와 무료 한도·관찰성 확인
+- [공개 베타 출시 체크리스트](../operations/release-checklist.md)의 외부 서비스·권리·보안·성능 검증
 
 ## 4. 남은 작업과 실행 순서
 
 ### 4.1 F1 마무리 — package/lockfile 반영
 
-- [ ] `ts-fsrs@5.4.1` 공급망 정책 통과가 별도 PR/CI 기록으로 확인됐는지 검증
+- [x] `ts-fsrs@5.4.1` 공급망 정책 통과가 PR #33 최종 `secret-scan`/`verify` 기록으로 확인됨
 - [x] `apps/web/package.json`과 `pnpm-lock.yaml`에 `ts-fsrs@5.4.1`을 함께 반영
 - [x] `pnpm install --frozen-lockfile` 후 lockfile 추가 변경이 없는지 확인
-- [x] 전체 CI 통과와 `master` 병합 여부 확인 — PR #30이 `a7d401b`로 squash merge
+- [x] 전체 CI 통과와 `master` 병합 여부 확인 — PR #33이 `6bcee08`로, 후속 guardrail이 `73e7d5b`로 반영
 
 ### 4.2 F2 — 실제 FSRS 어댑터
 
@@ -240,32 +314,73 @@
 
 ### 4.8 W1~W2 — 취약점 화면
 
-- [ ] 독립 회상 반복 실패 집계
-- [ ] 도움 의존 반복 집계
-- [ ] 적용·평가 반복 실패 집계
-- [ ] FSRS review debt 집계
-- [ ] 취약 개념을 우선 복습 후보로 연결
-- [ ] 같은 문제 반복 대신 동형·유사 문제 제공
-- [ ] 선수지식 결손이면 선행 개념으로 이동
+- [x] 독립 회상 반복 실패 집계
+- [x] 도움 의존 반복 집계
+- [x] 적용·평가 반복 실패 집계
+- [x] FSRS review debt 집계
+- [x] 취약 개념을 우선 복습 후보로 연결
+- [x] 같은 문제 반복 대신 동형·유사 문제 제공
+- [x] 선수지식 결손이면 선행 개념으로 이동
+- [x] 적용 콘텐츠가 없을 때 명시적 빈 상태 유지
 
 ### 4.9 S1~S2 — SQL 수직 범위 확대
 
-- [ ] 테이블·행·열
-- [ ] `SELECT / FROM`
-- [ ] `WHERE`
-- [ ] `GROUP BY / HAVING`
-- [ ] `JOIN`
-- [ ] 이해 → 회상 → 적용 콘텐츠 확보
-- [ ] 고정 읽기 전용 데이터셋과 실행형 SQL 문제
-- [ ] 결과 행·열 동등성 판정과 오류 유형 분류
+- [x] 테이블·행·열
+- [x] `SELECT / FROM`
+- [x] `WHERE`
+- [x] `GROUP BY / HAVING`
+- [x] `JOIN`
+- [x] 이해 → 회상 → 적용 콘텐츠 확보
+- [x] 고정 읽기 전용 데이터셋과 결과 예측형 SQL 문제
+- [x] 결과 행·열 동등성 판정과 오류 유형 분류
+- [x] `NULL`, 중복 행, `ORDER BY`, 금지 변경문 판정
+- [ ] 실제 브라우저/서버 SQL 실행 엔진 도입 — 결과 예측형 판정과 별도 결정
 - [ ] 주간 SQL 미니 테스트
 
 ### 4.10 C1~C2 — C 수직 범위 확대
 
-- [ ] 값과 타입
-- [ ] 연산자와 식
-- [ ] 제어 흐름
-- [ ] 배열
-- [ ] 포인터
-- [ ] 이해 → 회상 → 적용 콘텐츠 확보
-- [ ] 실행 결과 예측·상태 추적·코드 완성·짧은 작성
+- [x] 값과 타입
+- [x] 연산자와 식
+- [x] 제어 흐름
+- [x] 배열
+- [x] 포인터
+- [x] 이해 → 회상 → 적용 콘텐츠 확보
+- [x] 실행 결과 예측·상태 추적·코드 완성·짧은 작성
+
+- [x] 첫 제출과 실행 후 수정 답 구분
+- [x] 제한된 컴파일/테스트 실행 경계와 자원 상한
+- [x] 네트워크·호스트 파일·위험 기능 차단
+- [x] 실행기 장애·미가용 시 설명·회상 fallback
+- [ ] 운영 Vercel Sandbox와 C toolchain을 사용한 성공 실행 smoke
+
+### 4.11 E1~E3 — 평가와 8주 개인 검증
+
+- [ ] 20~30분 주간 SQL/C 미니 테스트
+- [ ] 점수·총 응답시간·개념별 결과 저장
+- [ ] 4주차 중간 동형 평가와 콘텐츠·채점 규칙 검토
+- [ ] 8주차 `/exam-coach/followup` 실행 및 기준선 대비 변화 분석
+- [ ] 7일 이상 지연 회상, 실제 회상률·목표 90%, review debt 분석
+
+### 4.12 O1~O5 — 오프라인·동기화·백업
+
+- [ ] Service Worker, IndexedDB, offline due review/event queue
+- [ ] 재연결 멱등 업로드·부분 실패 재시도·시계 오차 처리
+- [ ] 여러 기기 이벤트 병합과 memory state 덮어쓰기 방지
+- [ ] 게스트→계정 연결, 삭제·내보내기, 이벤트·설정·진단 백업/복구
+
+### 4.13 M1~M6 — 운영·안전·접근성
+
+- [ ] 콘텐츠 오류 신고·출제 중지·개정 버전 처리
+- [ ] keyboard-only, focus, 스크린리더, 모바일 320px/200% 확대
+- [ ] 취약점·정규 학습 흐름의 axe serious/critical 0 유지
+- [ ] 저장/비저장 데이터와 외부 AI 전송 고지 확인
+- [ ] 채점·FSRS·저장·동기화 오류 계측
+- [ ] 개인정보 없는 로그 계약
+
+### 4.14 공개 베타 외부 검증
+
+- [ ] 자격증명 폐기·Git 이력 정리·fresh clone
+- [ ] 실제 Google 로그인·계정 삭제·관리자 권한 흐름
+- [ ] 권리·비제휴·원문 링크·보존 정책 표본 검사
+- [ ] Private Blob 백업의 빈 Neon branch 복원과 deletion event 재적용
+- [ ] 무료 한도, Sentry scrub, 수집/백업 실패 알림, rollback deployment 확인

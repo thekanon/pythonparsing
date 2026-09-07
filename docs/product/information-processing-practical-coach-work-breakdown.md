@@ -1,19 +1,25 @@
 # 정보처리기사 실기 합격 코치 현재 진행상황과 남은 작업 분할표
 
-- 기준 시각: 2026-09-02 22:29 KST
-- 기준 브랜치: `master`
-- 기준 커밋: `2b007a2c5b81980df60bab13175dad0eb715cbc0`
-- 목적: 현재 상태와 남은 작업을 작은 실행 단위로 나눠 다음 작업을 한 단계씩 구현·검증·병합할 수 있게 한다.
+- 기준 시각: 2026-09-06 09:41 KST
+- 기준 브랜치: `origin/master`
+- 기준 커밋: `73e7d5b` (`Harden exam coach WebGPT workflow guardrails (#35)`)
+- 목적: 최신 `origin/master` 기준 완료 작업과 남은 작업을 작은 실행 단위로 나눠 다음 작업을 한 단계씩 구현·검증·병합할 수 있게 한다.
 - 현재 요약: [현재 현황과 남은 작업](./information-processing-practical-coach-current-status.md)
 - 상세 구현 이력: [구현 진행 기록](./information-processing-practical-coach-implementation-status.md)
 - 제품 기준: [제품 기획서](./information-processing-practical-coach.md)
 - 구축 순서: [실행 로드맵](./roadmap.md)
-- 다음 구현 가이드: [D0·W1-W2·S1-S2·C1-C2 구현 가이드](./information-processing-practical-coach-next-implementation-guide.md)
+- 구현 가이드·완료 검증 기록: [D0·W1-W2·S1-S2·C1-C2](./information-processing-practical-coach-next-implementation-guide.md)
 - 완료 여부의 단일 기준은 [현재 현황 문서](./information-processing-practical-coach-current-status.md)다. 아래 체크박스와 어긋나면 현재 현황 문서를 따른다.
+
+> 2026-09-07 작업 트리 메모: F3 브라우저 새로고침 smoke와 E1 25분 주간
+> SQL/C 미니 테스트가 구현·집중 검증됐다. 아직 미커밋·미병합이므로 아래
+> `origin/master` 기준 체크박스는 변경하지 않는다. 구현 파일·검증·WebGPT 복구
+> 차단 기록은 [현재 현황 문서](./information-processing-practical-coach-current-status.md#0-2026-09-07-작업-트리-진행-메모-미병합)와
+> [구현 진행 기록](./information-processing-practical-coach-implementation-status.md#7-2026-09-07-f3-브라우저-확인과-e1-주간-평가-작업-트리)을 따른다.
 
 ## 1. 현재 상태
 
-### 1.1 `master` 병합 완료
+### 1.1 `origin/master` 병합 완료
 
 <!-- prettier-ignore -->
 | 영역 | 상태 | 현재 결과 |
@@ -24,8 +30,11 @@
 | 공식 커리큘럼 지도 | 완료 | `/exam-coach/curriculum`, 공식 12개 영역과 현재 SQL·C 범위 구분, PR #25 |
 | 준비도 리포트 | 완료 | `/exam-coach/report`, 진단 근거 기반 SQL·C 준비도와 데이터 부재 구분, PR #27 |
 | 준비도 코어 | 완료 | `MasteryEvidence`, 영역별 커버리지·회상·적용·평가·복습 부채 집계 계약 |
-| 정규 학습 세션 UI | 미구현 | 채점·도움·이벤트 코어는 있으나 실제 학습 화면과 오늘 큐 연결이 남음 |
-| 실제 FSRS | 차단 | 어댑터 경계는 있으나 유지보수되는 외부 FSRS 구현체가 package/lockfile에 아직 없음 |
+| 정규 학습 세션 UI | 완료 | `/exam-coach/learn`, 첫 제출·교정·도움·이벤트 저장·FSRS 재계산, PR #30 |
+| 실제 FSRS | 완료 | `ts-fsrs@5.4.1`, 실제 상태 계산·이벤트 재생, PR #30 |
+| 취약점 화면·행동 연결 | 완료 | 개념별 signal 집계, 복습·동형·선수 개념 링크, PR #33 |
+| SQL 수직 범위·결과 채점 | 완료 | 5개 개념·10개 콘텐츠, 고정 dataset, 결과 동등성·오류 유형, PR #33 |
+| C 수직 범위·제한 실행 | 구현 완료·운영 검증 대기 | 5개 개념·10개 콘텐츠, Accepted ADR, 격리 Sandbox·fallback, PR #33 |
 
 이미 저장소에 있는 주요 기반:
 
@@ -44,9 +53,11 @@
 - 오늘 큐의 시간 예산·선수지식·복습 우선 계약
 - 개념별 `MasteryEvidence`와 준비도 리포트 코어
 
-### 1.2 재기동 전 진행 중이던 준비도 리포트
+### 1.2 과거 문서에 남아 있던 준비도 리포트 기록
 
-재기동 전 `/exam-coach/report` 준비도 리포트 구현을 진행했지만 원격 브랜치와 PR에는 게시되지 않았다. 현재 원격 저장소에 `origin/chatgpt/exam-coach-readiness-report`가 없으므로 **초안 설계는 남아 있으나 코드 변경은 `master`에 없는 상태**로 본다.
+이 절은 2026-09-02 재기동 전의 작업 메모다. 준비도 리포트는 이후 PR #27로 완료됐으므로 현재 상태 판단에는 사용하지 않는다.
+
+재기동 전 `/exam-coach/report` 준비도 리포트 구현을 진행했지만, **당시 기록 기준으로** 원격 브랜치와 PR에는 게시되지 않았다. 당시 원격 저장소에서 `origin/chatgpt/exam-coach-readiness-report`를 찾지 못해 **초안 설계는 남아 있으나 코드 변경은 `master`에 없는 상태**로 판단했다. 이후 준비도 리포트는 PR #27로 병합됐으므로 현재 상태 판단에는 이 과거 결론을 사용하지 않는다.
 
 복원 범위:
 
@@ -66,22 +77,17 @@
 
 ## 2. 우선순위와 의존 관계
 
-> R0는 PR #27로 완료됐다. 위 1.2의 재기동 전 기록보다 아래 완료 체크와 현재 F1 상태를 우선한다.
+> R0부터 C2까지의 구현 상태는 최신 `origin/master`와 [현재 현황 문서](./information-processing-practical-coach-current-status.md)를 기준으로 판단한다. 위 1.2의 재기동 전 기록은 과거 메모다.
 
-1. **R0 준비도 리포트 복원** — FSRS 없이 완료 가능
-2. **F1 FSRS 의존성 정책 해결** — 실제 기억 일정의 핵심 차단점
-3. **F2~F3 실제 FSRS + 이벤트 재생**
-4. **L1~L3 정규 학습 세션**
-5. **Q1~Q3 실제 오늘 큐 UI**
-6. **P1~P2 시험일까지 계획·복구 계획** — 완료
-7. **W1~W2 취약점 화면** — 다음 작업
-8. **S1~S2 SQL 수직 범위 확장**
-9. **C1~C2 C 수직 범위 확장**
-10. **E1~E3 주간·중간·종료 평가와 8주 검증**
-11. **O1~O5 오프라인·동기화 기반**
-12. **M1~M6 운영·안전·백업·접근성 안정화**
+1. **브라우저 memory state 통합 확인** — 새로고침 전후 동일 상태 smoke
+2. **E1~E3 주간·중간·종료 평가와 8주 검증**
+3. **O1~O5 오프라인·동기화·백업/복구**
+4. **M1~M6 운영·안전·접근성·계측**
+5. **C 실행 운영 Sandbox 성공 smoke** — Vercel 인증과 C toolchain 필요
+6. **공개 베타 외부 검증** — [출시 체크리스트](../operations/release-checklist.md)
+7. **SQL 실행 엔진 도입 여부 결정과 주간 평가 연결**
 
-FSRS가 계속 차단돼도 R0, 콘텐츠 검수, SQL/C 콘텐츠 작성, 평가 세트 작성, 접근성 개선은 병렬 진행할 수 있다. 실제 `dueAt`, 기억 위험도, 복습 부채가 필요한 Q/P/W 일부 단계만 FSRS 완료를 기다린다.
+W1~~W2, S1~~S2, C1~C2는 `origin/master`에 구현됐지만, 개인 검증 데이터와 운영 외부 증거가 쌓이기 전에는 제품 검증 완료로 간주하지 않는다.
 
 ## 3. R0 — 준비도 리포트 복원
 
@@ -115,18 +121,18 @@ FSRS가 계속 차단돼도 R0, 콘텐츠 검수, SQL/C 콘텐츠 작성, 평가
 - [x] format/lint/unit/typecheck/Drizzle/build/Playwright 전체 통과
 - [x] 최신 `master` 기준 PR 생성 및 squash merge — PR #27
 
-## 4. F1 — FSRS 의존성 정책 해결
+## 4. F1 — FSRS 의존성 정책 해결 (완료)
 
 - [x] `apps/web` 외부 의존성 추가 시 package/lockfile 변경 경로 확인
 - [x] Git writer의 `pnpm-lock.yaml` 변경 허용 여부 재확인
 - [x] 불가능하면 저장소 관리자용 dependency 변경 절차 지정
 - [x] 유지보수되는 FSRS 구현체와 고정 버전 선정 — `ts-fsrs@5.4.1`
-- [ ] 공급망 정책 통과 확인
+- [x] 공급망 정책 통과 확인 — PR #33 최종 `secret-scan`/`verify`
 - [x] 목표 기억률 `0.9` 지원 확인 — `request_retention: 0.9`
-- [ ] package와 lockfile을 같은 변경으로 반영
-- [ ] clean install 뒤 lockfile 무변경 확인
+- [x] package와 lockfile을 같은 변경으로 반영
+- [x] clean install 뒤 lockfile 무변경 확인
 
-### F1 dependency 변경 절차
+### F1 dependency 변경 절차 (완료된 절차 기록)
 
 FSRS 라이브러리 버전이 확정되면 Web Git writer가 아닌 저장소 관리자 또는 `pnpm-lock.yaml` 수정이 허용된 일반 Git 작업 경로에서 package와 lockfile을 하나의 변경으로 처리한다.
 
@@ -143,40 +149,40 @@ package만 먼저 바꾸고 lockfile을 나중에 갱신하는 분할 변경은 
 - 임시 자체 수식으로 FSRS를 흉내 내지 않는다.
 - 제품 문서의 FSRS 계약을 만족하지 않는 간이 알고리즘으로 우회하지 않는다.
 
-## 5. F2 — 실제 FSRS 어댑터
+## 5. F2 — 실제 FSRS 어댑터 (완료)
 
-- [ ] 기존 `FsrsAdapter` 계약에 실제 라이브러리 연결
-- [ ] 목표 기억률 `0.9` 고정
-- [ ] 최대 interval 정책 확정
-- [ ] `Again / Hard / Good / Easy`를 FSRS Rating으로 매핑
-- [ ] 신규 카드 첫 review 계산
-- [ ] 기존 카드 다음 review 계산
-- [ ] 구현 버전을 `fsrsVersion`으로 기록
-- [ ] 버전/카드 ID/상태 불일치 거부
+- [x] 기존 `FsrsAdapter` 계약에 실제 라이브러리 연결
+- [x] 목표 기억률 `0.9` 고정
+- [x] 최대 interval 정책 확정
+- [x] `Again / Hard / Good / Easy`를 FSRS Rating으로 매핑
+- [x] 신규 카드 첫 review 계산
+- [x] 기존 카드 다음 review 계산
+- [x] 구현 버전을 `fsrsVersion`으로 기록
+- [x] 버전/카드 ID/상태 불일치 거부
 
 완료 조건: 정규 첫 제출 이벤트 하나를 실제 FSRS 상태와 `dueAt`으로 계산할 수 있다.
 
-## 6. F3 — 이벤트 재생으로 기억 상태 복원
+## 6. F3 — 이벤트 재생으로 기억 상태 복원 (브라우저 통합 확인만 남음)
 
-- [ ] 동일 `eventId` 재전송은 한 번만 반영
-- [ ] 동일 ID의 다른 payload는 충돌로 거부
-- [ ] `occurredAt` 순으로 재생
-- [ ] `assessment`와 첫 제출이 아닌 이벤트 제외
-- [ ] 이벤트별 `fsrsVersion` resolver 사용
-- [ ] 여러 FSRS 버전 이력 재생 테스트
-- [ ] 이벤트가 없으면 memory state를 `null`로 유지
+- [x] 동일 `eventId` 재전송은 한 번만 반영
+- [x] 동일 ID의 다른 payload는 충돌로 거부
+- [x] `occurredAt` 순으로 재생
+- [x] `assessment`와 첫 제출이 아닌 이벤트 제외
+- [x] 이벤트별 `fsrsVersion` resolver 사용
+- [x] 여러 FSRS 버전 이력 재생 테스트
+- [x] 이벤트가 없으면 memory state를 `null`로 유지
 - [ ] 새로고침 전후 동일한 memory state 확인
 
 완료 조건: 최종 카드 상태를 source of truth로 저장하지 않고 이벤트 로그만으로 동일 상태를 복원한다.
 
-## 7. L1 — 실제 학습 콘텐츠 확정
+## 7. L1 — 실제 학습 콘텐츠 확정 (완료)
 
-- [ ] SQL/C 샘플 콘텐츠 목록화
-- [ ] 공식 영역·concept ID·선수지식 확인
-- [ ] grading·힌트·해설·정답 확인
-- [ ] 작성자와 다른 검수자 승인
-- [ ] `reviewed`만 정규 큐에 허용
-- [ ] `draft`가 오늘 큐에 들어가지 않는 테스트
+- [x] SQL/C 샘플 콘텐츠 목록화
+- [x] 공식 영역·concept ID·선수지식 확인
+- [x] grading·힌트·해설·정답 확인
+- [x] 작성자와 다른 검수자 승인
+- [x] `reviewed`만 정규 큐에 허용
+- [x] `draft`가 오늘 큐에 들어가지 않는 테스트
 
 ## 8. L2 — 정규 학습 화면
 
@@ -257,55 +263,56 @@ package만 먼저 바꾸고 lockfile을 나중에 갱신하는 분할 변경은 
 - [x] 시험 임박 시 검수된 application이 없는 현재 범위에서는 application을 만들지 않고 복습 비중만 확대
 - [x] 여러 날 미수행·큰 due 부채에서도 7일 미리보기와 일일 상한으로 유한한 계획 유지
 
-## 15. W1/W2 — 취약점 화면과 행동
+## 15. W1/W2 — 취약점 화면과 행동 (완료)
 
-- [ ] 독립 회상 반복 실패 집계
-- [ ] 도움 의존 반복 집계
-- [ ] 적용·평가 반복 실패 집계
-- [ ] FSRS 연결 후 review debt 집계
-- [ ] 최신 근거 시각·횟수 표시
-- [ ] 근거가 없으면 `측정 없음`
-- [ ] 취약 개념을 복습 후보로 연결
-- [ ] 같은 문제 대신 동형·유사 문항 제공
-- [ ] 선수지식 결손이면 선행 개념으로 이동
-- [ ] 적용 실패면 적용 활동으로 재연결
+- [x] 독립 회상 반복 실패 집계
+- [x] 도움 의존 반복 집계
+- [x] 적용·평가 반복 실패 집계
+- [x] FSRS 연결 후 review debt 집계
+- [x] 최신 근거 시각·횟수 표시
+- [x] 근거가 없으면 `측정 없음`
+- [x] 취약 개념을 복습 후보로 연결
+- [x] 같은 문제 대신 동형·유사 문항 제공
+- [x] 선수지식 결손이면 선행 개념으로 이동
+- [x] 적용 실패 시 검수 콘텐츠 부재를 명시
 
-## 16. S1/S2 — SQL 수직 범위
+## 16. S1/S2 — SQL 수직 범위 (핵심 구현 완료, 평가만 남음)
 
-- [ ] 테이블·행·열
-- [ ] `SELECT / FROM`
-- [ ] `WHERE`
-- [ ] `GROUP BY / HAVING`
-- [ ] `JOIN`
-- [ ] 각 개념 이해 → 회상 → 적용 콘텐츠
-- [ ] 고정 읽기 전용 데이터셋
-- [ ] 결과 예측·절 완성·전체 쿼리 작성
-- [ ] 결과 행·열 동등성 판정
-- [ ] 금지 변경 SQL 차단
-- [ ] 구문/조건/조인/집계 오류 분류
-- [ ] 첫 제출 전 실행 결과 비공개
+- [x] 테이블·행·열
+- [x] `SELECT / FROM`
+- [x] `WHERE`
+- [x] `GROUP BY / HAVING`
+- [x] `JOIN`
+- [x] 각 개념 이해 → 회상 → 적용 콘텐츠
+- [x] 고정 읽기 전용 데이터셋
+- [x] 결과 예측·절 완성·전체 쿼리 작성
+- [x] 결과 행·열 동등성 판정
+- [x] 금지 변경 SQL 차단
+- [x] 구문/조건/조인/집계 오류 분류
+- [x] 첫 제출 전 실행 결과 비공개
 - [ ] 주간 SQL 미니 테스트
 
-## 17. C1/C2 — C 언어 수직 범위
+## 17. C1/C2 — C 언어 수직 범위 (핵심 구현 완료, 운영 smoke만 남음)
 
-- [ ] 값과 타입
-- [ ] 연산자와 식
-- [ ] 제어 흐름
-- [ ] 배열
-- [ ] 포인터
-- [ ] 각 개념 이해 → 회상 → 적용 콘텐츠
-- [ ] 실행 결과 예측·상태 추적표·빈 코드·짧은 작성
-- [ ] 첫 제출과 실행 후 수정 답 구분
-- [ ] 제한된 컴파일/테스트 실행 경계
-- [ ] CPU·메모리·출력 상한
-- [ ] 네트워크·호스트 파일·위험 기능 차단
-- [ ] 실행기 장애 시 설명·회상 fallback
+- [x] 값과 타입
+- [x] 연산자와 식
+- [x] 제어 흐름
+- [x] 배열
+- [x] 포인터
+- [x] 각 개념 이해 → 회상 → 적용 콘텐츠
+- [x] 실행 결과 예측·상태 추적표·빈 코드·짧은 작성
+- [x] 첫 제출과 실행 후 수정 답 구분
+- [x] 제한된 컴파일/테스트 실행 경계
+- [x] CPU·메모리·출력 상한
+- [x] 네트워크·호스트 파일·위험 기능 차단
+- [x] 실행기 장애 시 설명·회상 fallback
+- [ ] 운영 Vercel Sandbox와 C toolchain 성공 실행 smoke
 - [ ] 주간 C 미니 테스트
 
 ## 18. E1~E3 — 평가와 8주 검증
 
 - [ ] 20~30분 주간 SQL/C 미니 테스트
-- [ ] assessment와 정규 FSRS 격리
+- [x] assessment와 정규 FSRS 격리
 - [ ] 점수·총 응답시간·개념별 결과 저장
 - [ ] 4주차 중간 동형 평가 정책 확정
 - [ ] 복습량·카드 분할·채점 규칙 검토
@@ -346,10 +353,12 @@ package만 먼저 바꾸고 lockfile을 나중에 갱신하는 분할 변경은 
 
 ## 21. 개인 MVP 최종 게이트
 
-- [ ] SQL 이해 → 회상 → 적용 → 평가 연결
-- [ ] C 이해 → 회상 → 적용 → 평가 연결
-- [ ] 목표 기억률 90% 실제 FSRS 동작
-- [ ] 이벤트 재생으로 memory state 복원
-- [ ] 오늘 큐 15/45/60분 안정 동작
+- [ ] SQL 이해 → 회상 → 적용 → 주간 평가 연결
+- [ ] C 이해 → 회상 → 적용 → 주간 평가 연결
+- [x] 목표 기억률 90% 실제 FSRS 동작
+- [x] 이벤트 재생으로 memory state 복원 코어
+- [ ] 브라우저 새로고침 전후 memory state 동일성
+- [x] 오늘 큐 15/45/60분 안정 동작
 - [x] 놓친 날 복구 계획이 시간 상한 유지
-- [ ] 기준선·주간·종료 평가가 FSRS와 격리
+- [ ] 기준선·주간·종료 평가가 FSRS와 격리되고 8주 검증 완료
+- [ ] C 운영 Sandbox 성공 smoke
