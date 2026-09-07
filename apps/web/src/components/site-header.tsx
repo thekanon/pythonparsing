@@ -1,5 +1,8 @@
+"use client";
+
 import { List, X } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { SiteAccountLink } from "@/components/auth/site-account-link";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
@@ -14,6 +17,10 @@ const navigation = [
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const isActive = (href: string) =>
+    href === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <header className="hairline sticky top-0 z-30 border-b bg-[color:color-mix(in_srgb,var(--canvas)_92%,transparent)] backdrop-blur-xl">
       <div className="site-shell flex h-16 items-center justify-between gap-6">
@@ -44,7 +51,8 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex min-h-11 items-center rounded-xl px-3.5 text-sm font-semibold text-[var(--ink-soft)] no-underline hover:bg-[var(--surface-muted)] hover:text-[var(--ink)]"
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`flex min-h-11 items-center rounded-xl px-3.5 text-sm font-semibold text-[var(--ink-soft)] no-underline hover:bg-[var(--surface-muted)] hover:text-[var(--ink)] ${isActive(item.href) ? "nav-link-active" : ""}`}
             >
               {item.label}
             </Link>
@@ -76,7 +84,8 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex min-h-11 items-center rounded-xl px-3.5 font-semibold no-underline hover:bg-[var(--surface-muted)]"
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={`flex min-h-11 items-center rounded-xl px-3.5 font-semibold no-underline hover:bg-[var(--surface-muted)] ${isActive(item.href) ? "nav-link-active" : ""}`}
               >
                 {item.label}
               </Link>
