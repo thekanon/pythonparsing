@@ -68,6 +68,31 @@ typecheck/Drizzle/audit/build가 통과했다. E2E는 build 후 production 서�
 기존 체크박스는 위에 명시한 master 기준을 유지한다. 상세 근거와 외부 인증
 블로커는 [구현 기록 9절](./information-processing-practical-coach-implementation-status.md#9-2026-09-07-최신-master-통합과-전체-게이트-복구)을 따른다.
 
+### P0 전체 검증 및 병합 완료: 2026-09-07
+
+P0 마감 조건을 다시 실행하고 원격 병합 결과를 확인했다.
+
+- `pnpm install --frozen-lockfile`, format, workspace lint, TypeScript, Drizzle
+  check가 통과했다.
+- 전체 workspace 테스트는 54 files / 274 tests 통과했다. DB 통합 테스트는
+  별도 테스트 DB가 필요한 5개가 설정 없이 skip되는 기존 계약을 유지한다.
+- `NEWSORDER_RUNTIME_MODE=fixture pnpm build`가 통과했다.
+- production server 기반 Playwright는 Chromium desktop/mobile 28개가 모두
+  통과했고, axe serious/critical 위반은 0건이었다. 이 결과에는 F3 새로고침,
+  기준선·종료·주간 평가 흐름이 포함된다.
+- PR #37의 원격 `verify`와 `secret-scan`이 성공했고, PR은
+  `8f39dea56314b08b2e1598756810174c9462d821`로 `master`에 병합됐다.
+- E1 주간 SQL/C 미니 테스트는 PR #37에 포함되어 `master`에 병합됐다. 고정
+  `weekly.sql-c.2026.v1` 세트의 SQL 5개·C 5개 문항, 완료 후 결과 공개,
+  점수·응답 문항·총 응답시간·개념별 결과, 답안 원문 비저장,
+  assessment/정규 FSRS 격리와 runId 멱등 저장을 검증했다. production
+  Playwright 주간 평가 desktop/mobile 2개와 완료 화면 axe 검사가 통과했다.
+- F3 브라우저 memory state 재생도 production Playwright Chromium
+  desktop/mobile에서 통과했다. 정규 학습 이벤트 저장 후 due review를 만들고,
+  새로고침 전후 오늘 큐 표시와 localStorage 이벤트 projection이 동일했다.
+- 실행 Node는 `24.20.0`으로 저장소 요구 `24.19.0`과 달라 engine warning이
+  있었지만 검증 결과에는 영향을 주지 않았다.
+
 ## 1. 한눈에 보는 현재 상태
 
 개인 MVP의 기반 코어와 진단·커리큘럼·준비도 화면에 더해 실제 `ts-fsrs` 어댑터, 이벤트 기반 memory state 재생, 검수 콘텐츠 catalog, 정규 학습 세션, 오늘 계획, 시험일까지 계획·놓친 날 복구, 취약점 화면, SQL 결과 채점, C 제한 실행 경계까지 `origin/master`에 병합됐다. 현재 게스트 흐름은 **정규 문제 풀이 → 불변 이벤트 저장 → FSRS 기억 일정 재계산 → 취약점·오늘 계획 갱신**까지 연결됐다. 다만 C 실행의 실제 운영 성공 경로와 8주 학습 효과 검증은 아직 남아 있다.
@@ -244,6 +269,12 @@ PR #33의 최종 `secret-scan`과 `verify`는 통과했다. 이전 `a7d401b` 기
 - C 실행의 운영 Sandbox 성공 smoke와 무료 한도·관찰성 확인
 - [공개 베타 출시 체크리스트](../operations/release-checklist.md)의 외부 서비스·권리·보안·성능 검증
 
+Application 콘텐츠는 현재 검수본이 없으므로 오늘 계획과 시험일까지 계획에서
+빈 큐로 유지한다. 새 application 문항의 범위·dataset·채점 규칙·힌트·권리
+metadata를 작성하고 독립 검수자가 `reviewed` 승인하기 전에는 placeholder,
+예상 점수, 임의 적용 활동을 만들지 않는다. 재개 조건은 검수 콘텐츠 추가 후
+catalog·queue·개인정보 경계·desktop/mobile E2E·axe 검증을 완료하는 것이다.
+
 ## 4. 남은 작업과 실행 순서
 
 ### 4.1 F1 마무리 — package/lockfile 반영
@@ -274,7 +305,7 @@ PR #33의 최종 `secret-scan`과 `verify`는 통과했다. 이전 `a7d401b` 기
 - [x] assessment·첫 제출이 아닌 이벤트 제외
 - [x] 이벤트별 `fsrsVersion` resolver 적용
 - [x] 여러 FSRS 버전 이력 재생 테스트
-- [ ] 실제 브라우저 새로고침 전후 동일한 memory state 통합 확인
+- [x] 실제 브라우저 새로고침 전후 동일한 memory state 통합 확인
 
 ### 4.4 L1 — 실제 학습 콘텐츠 확정
 
@@ -345,7 +376,7 @@ PR #33의 최종 `secret-scan`과 `verify`는 통과했다. 이전 `a7d401b` 기
 - [x] 고정 읽기 전용 데이터셋과 결과 예측형 SQL 문제
 - [x] 결과 행·열 동등성 판정과 오류 유형 분류
 - [x] `NULL`, 중복 행, `ORDER BY`, 금지 변경문 판정
-- [ ] 실제 브라우저/서버 SQL 실행 엔진 도입 — 결과 예측형 판정과 별도 결정
+- [x] 실제 브라우저/서버 SQL 실행 엔진 도입 여부 결정 — 현재 MVP에서는 도입하지 않고 결과 예측형 판정을 유지 ([ADR 0005](../adr/0005-defer-sql-execution-engine.md))
 - [ ] 주간 SQL 미니 테스트
 
 ### 4.10 C1~C2 — C 수직 범위 확대
@@ -366,8 +397,8 @@ PR #33의 최종 `secret-scan`과 `verify`는 통과했다. 이전 `a7d401b` 기
 
 ### 4.11 E1~E3 — 평가와 8주 개인 검증
 
-- [ ] 20~30분 주간 SQL/C 미니 테스트
-- [ ] 점수·총 응답시간·개념별 결과 저장
+- [x] 20~30분 주간 SQL/C 미니 테스트
+- [x] 점수·총 응답시간·개념별 결과 저장
 - [ ] 4주차 중간 동형 평가와 콘텐츠·채점 규칙 검토
 - [ ] 8주차 `/exam-coach/followup` 실행 및 기준선 대비 변화 분석
 - [ ] 7일 이상 지연 회상, 실제 회상률·목표 90%, review debt 분석
