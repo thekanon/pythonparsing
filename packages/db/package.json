@@ -26,9 +26,9 @@
   },
   "devDependencies": {
     "@types/node": "24.13.3",
-    "drizzle-kit": "0.31.10",
+    "drizzle-kit": "0.31.11",
     "eslint": "9.39.5",
-    "tsx": "4.23.12",
+    "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "4.1.11"
   }
